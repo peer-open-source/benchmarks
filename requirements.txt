@@ -1,0 +1,8 @@
+Django>=4.2
+pyyaml
+django-filter
+django-tables2
+django-taggit
+habanero
+markdown
+

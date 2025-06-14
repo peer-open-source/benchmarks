@@ -1,0 +1,120 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load django_tables2 %}
+{% load querystring %}
+
+{% block title %}Benchmarks{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mb-4">Test Groups</h1>
+
+<form method="get" class="mb-4">
+  {% for category, taglist in all_tags.items %}
+    <div class="mb-3">
+      <strong class="d-block mb-1 text-muted">{{ category|capfirst }}</strong>
+      {% with request.GET|getlist:category as active_tags %}
+        {% for tag in taglist %}
+          {% if tag.name in active_tags %}
+            <a href="?{% for k, v in request.GET.lists %}{% if k != category %}{{ k }}={{ v|join:',' }}&{% endif %}{% endfor %}" class="btn btn-sm btn-primary me-1 mb-1">{{ tag.name }} ✕</a>
+          {% else %}
+            <a href="?{% for k, v in request.GET.lists %}{{ k }}={{ v|join:',' }}&{% endfor %}{{ category }}={{ tag.name }}" class="btn btn-sm btn-outline-primary me-1 mb-1">{{ tag.name }}</a>
+          {% endif %}
+        {% endfor %}
+      {% endwith %}
+    </div>
+  {% endfor %}
+</form>
+
+
+<!-- Analyze button form -->
+  {% if bundles %}
+  <form method="post" action="{% url 'bundle_analyze' %}" class="mb-4">
+    {% csrf_token %}
+    {% for bundle in bundles %}
+      <input type="hidden" name="bundle_ids" value="{{ bundle.id }}">
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Analyze</button>
+  </form>
+  {% endif %}
+    
+  <form method="get" class="mb-4">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="id_title" class="form-label">Title</label>
+        <input type="text" name="title" id="id_title" value="{{ request.GET.title }}" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <label for="id_tags" class="form-label">Tags</label>
+        <select multiple name="tags" id="id_tags" class="form-select">
+          {% for tag in filter.form.fields.tags.queryset %}
+          <option value="{{ tag.name }}" >{{ tag.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="?" class="btn btn-secondary">Clear</a>
+    </div>
+  </form>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for bundle in bundles %}
+    <div class="col">
+      <div class="card h-100 position-relative">
+        {% if bundle.thumbnail_url %}
+          {% get_media_prefix as media_url %}
+          <img src="{{ media_url }}{{ bundle.thumbnail_url }}" class="card-img-top" alt="Thumbnail for {{ bundle.key }}">
+        {% endif %}
+        <a href="{% url 'bundle_detail' bundle.key %}" class="stretched-link text-decoration-none">
+          <div class="card-body">
+            <h5 class="card-title">{{ bundle.title|default:bundle.key }}</h5>
+            <p class="card-text text-muted">{{ bundle.description|truncatewords:25 }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% if page_obj.has_other_pages %}
+  <nav class="mt-4" aria-label="Bundle pagination">
+    <ul class="pagination justify-content-center">
+
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?{% querystring request page=page_obj.previous_page_number %}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&laquo;</span>
+        </li>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+          <a class="page-link" href="?{% querystring request page=num %}">{{ num }}</a>
+        </li>
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?{% querystring request page=page_obj.next_page_number %}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&raquo;</span>
+        </li>
+      {% endif %}
+
+    </ul>
+  </nav>
+{% endif %}
+
+{% endblock %}
