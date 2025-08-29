@@ -1,7 +1,8 @@
 ---
-title: "0100 - Plastic hinging"
+title: "Plastic hinging"
 thumbnail: img/benchmarks/frame-0030.png
 description: Plastic hinging in a fix-fix girder under a point load is simulated using J2 plasticity.
+tags: ["Inelastic", "Infinitesimal"]
 draft: false
 ---
 
@@ -15,7 +16,7 @@ $$
 
 ![](img/e0030.png)
 
-{{< fold e0030.py python >}}
+
 
 # References
 

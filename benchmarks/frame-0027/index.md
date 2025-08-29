@@ -21,25 +21,21 @@ for verifying the implementation of joint offsets in 3D frame elements.
 
 A vertical unit load is applied at the free end, and a single analysis step is performed:
 
-{{< tabs tabTotal="2" >}}
-{{% tab name="Python" %}}
 ```python
-    m.pattern("Plain", 1, "Linear", loads={2: (0, 1, 0, 0, 0, 0)})
+m.pattern("Plain", 1, "Linear", loads={2: (0, 1, 0, 0, 0, 0)})
 
-    P = -4 * L**2 / (E * I)
-    m.integrator("LoadControl", P)
-    m.analysis("Static")
-    m.test("NormDispIncr", 1e-8, 2)
-    m.analyze(1)
+P = -4 * L**2 / (E * I)
+m.integrator("LoadControl", P)
+m.analysis("Static")
+m.test("NormDispIncr", 1e-8, 2)
+m.analyze(1)
 
-    print(P / diamond_solution(E*I, E*A, L, off=off) / L)
-    print(m.nodeDisp(1))
-    print(m.nodeDisp(2))
-    print(m.nodeDisp(2, 2) / L)
-    return m
+print(P / diamond_solution(E*I, E*A, L, off=off) / L)
+print(m.nodeDisp(1))
+print(m.nodeDisp(2))
+print(m.nodeDisp(2, 2) / L)
+return m
 ```
-{{% /tab %}}
-{{< /tabs >}}
 
 ## Validation
 

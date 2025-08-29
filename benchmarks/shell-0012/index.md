@@ -1,12 +1,12 @@
 ---
 title: Pinched Shell Cylindrical Problem
-thumbnail: img/benchmarks/shell-0002.png
+thumbnail: img/shell-0012.png
 ---
 
 
 For $\nu = 0.3$, $R/t = 100$, $L/R = 2$ displacement under load is  $164.24 \, P / (E  t)$.
 
-![Pinched Shell Cylindrical Problem](img/shell-0002.png)
+![Pinched Shell Cylindrical Problem](img/shell-0012.png)
 
 # References
 

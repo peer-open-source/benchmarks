@@ -1,0 +1,9 @@
+key: solve-0002
+title: Eigen analysis of three springs
+description: ''
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/solve-0002/test-eigen.tcl
+  description: ''
+references: []

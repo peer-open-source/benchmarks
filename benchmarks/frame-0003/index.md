@@ -5,6 +5,7 @@ Downloads:
   - test-legacy-2d.tcl
   3D:
   - test-legacy-3d.tcl
+thumbnail: img/simple-span.png
 description: Simply supported beam with distributed loads
 ---
 
@@ -73,3 +74,9 @@ $$
 \qquad
 [nodeDisp\; 2\; 5]
 $$
+
+
+
+## Nonlinear
+
+- *Case 1* involves a simply supported column with a constant uniformly distributed transverse load, and a monotonically increasing axial force. This case only involves $P-\delta$ effects.

@@ -4,6 +4,20 @@ description: Nonlinear geometry in frames.
 ---
 
 
+
+![alt text](frame-0004/img/case5.png)
+
+$$
+u = \frac{w L^4}{192 E I}\left\{\frac{6}{\lambda^4}\left[(2 \sec \lambda - 2\lambda - 2) - \frac{(\tan \lambda - \lambda)(\sec \lambda - 1)}{\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]\right\}
+$$
+
+$$
+M = \frac{w L^2}{8}\left[\frac{2(\tan \lambda - \lambda)}{\lambda^2\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]
+$$
+
+
+---
+
 $$
 P_{e L} = \frac{\pi^2 E I}{L^2}
 \qquad\text{ and }\qquad
@@ -11,6 +25,8 @@ P_{e L} = \frac{\pi^2 E I}{L^2}
 $$
 
 ---
+
+**2) Cantilever**
 
 ![alt text](img/case1.png)
 
@@ -28,16 +44,7 @@ $$
 
 ---
 
-![alt text](img/case2.png)
-
-$$
-u = \frac{H L^3}{12 E I}\left[\frac{3(\tan \lambda - \lambda)}{\lambda^3}\right]
-$$
-$$
-M = \frac{H L}{2}\left[\frac{\tan \lambda}{\lambda}\right]
-$$
-
----
+**3) Simple**
 
 ![alt text](img/case3.png)
 
@@ -51,6 +58,8 @@ $$
 
 ---
 
+**4) Encastre**
+
 ![alt text](img/case4.png)
 
 $$
@@ -63,6 +72,8 @@ $$
 
 ---
 
+**5) Propped**
+
 ![alt text](img/case5.png)
 
 $$
@@ -73,6 +84,18 @@ $$
 M = \frac{w L^2}{8}\left[\frac{2(\tan \lambda - \lambda)}{\lambda^2\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]
 $$
 
+---
+
+**6) Guided**
+
+![alt text](img/case2.png)
+
+$$
+u = \frac{H L^3}{12 E I}\left[\frac{3(\tan \lambda - \lambda)}{\lambda^3}\right]
+$$
+$$
+M = \frac{H L}{2}\left[\frac{\tan \lambda}{\lambda}\right]
+$$
 
 -----
 

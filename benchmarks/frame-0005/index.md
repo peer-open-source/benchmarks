@@ -9,17 +9,15 @@ downloads:
 ---
 
 
-![A column with a distributed load.](img/ai.png)
 
 This example implements the benchmarks presented in Chapter C2 of the AISC steel manual commentary. 
 The benchmarks consist of two cases:
 
-- *Case 1* involves a simply supported column with a constant uniformly distributed transverse load, and a monotonically increasing axial force. This case only involves $P-\delta$ effects. It adds shear effects to Case 3 of [0007](../frame-0007/).
-- *Case 2* involves a cantilever column with a constant transverse load at the tip and an increasing axial force. This problem involves both $P-\Delta$ and $P-\delta$ effects, and adds to Case 1 of [0007](../frame-0007/) the effect of shear.
 
 ## Section
 
 In both cases the cross section is a *W14x48* wide flange shape. Note the approximation of the shear areas $A_y$ and $A_z$:
+
 ```python
 d  = 13.75*inch
 b  = 8.030*inch

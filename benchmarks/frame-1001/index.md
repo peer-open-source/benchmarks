@@ -4,8 +4,6 @@ description: This problem highlights the exceptional accuracy of the ExactFrame 
 thumbnail: img/examples/FrameCircle.png
 bibliography: references.json
 render: spiral.glb
-downloads:
-  Tcl: ["test-e1.tcl"]
 ---
 
 

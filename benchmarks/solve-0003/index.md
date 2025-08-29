@@ -1,4 +1,4 @@
 ---
-title: Determinants
+title: Using determinants in solvers
 ---
 
