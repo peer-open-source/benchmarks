@@ -9,15 +9,15 @@ foreach element {ForceFrame} {
   wipe
   model Basic -ndm 3 -ndf 6
 
-  node 1 0.0 0 0 
-  node 2 8.4 0 0 
-  node 3 16.8 0 0 
-  node 4 25.2 0 0 
-  node 5 33.6 0 0 
-  node 6 42.0 0 0 
-  node 7 50.4 0 0 
-  node 8 58.8 0 0 
-  node 9 67.2 0 0 
+  node  1 0.0 0 0 
+  node  2 8.4 0 0 
+  node  3 16.8 0 0 
+  node  4 25.2 0 0 
+  node  5 33.6 0 0 
+  node  6 42.0 0 0 
+  node  7 50.4 0 0 
+  node  8 58.8 0 0 
+  node  9 67.2 0 0 
   node 10 75.6 0 0 
   node 11 84.0 0 0 
   node 12 92.4 0 0 
@@ -56,15 +56,15 @@ foreach element {ForceFrame} {
   section ElasticFrame 1 -Iy 484.0 -Iz 51.4 -A 14.1 -Az 4.692 -Ay 4.777849999999999 -J 1.45 -Cw 2240.0 -E 29000.0 -G 11200000000.0
 
   geomTransf Corotational02 1 0 0 1 
-  element $element 1 {1 2} -section 1 -shear 0 -transform 1
-  element $element 2 {2 3} -section 1 -shear 0 -transform 1
-  element $element 3 {3 4} -section 1 -shear 0 -transform 1
-  element $element 4 {4 5} -section 1 -shear 0 -transform 1
-  element $element 5 {5 6} -section 1 -shear 0 -transform 1
-  element $element 6 {6 7} -section 1 -shear 0 -transform 1
-  element $element 7 {7 8} -section 1 -shear 0 -transform 1
-  element $element 8 {8 9} -section 1 -shear 0 -transform 1
-  element $element 9 {9 10} -section 1 -shear 0 -transform 1
+  element $element  1 { 1  2} -section 1 -shear 0 -transform 1
+  element $element  2 { 2  3} -section 1 -shear 0 -transform 1
+  element $element  3 { 3  4} -section 1 -shear 0 -transform 1
+  element $element  4 { 4  5} -section 1 -shear 0 -transform 1
+  element $element  5 { 5  6} -section 1 -shear 0 -transform 1
+  element $element  6 { 6  7} -section 1 -shear 0 -transform 1
+  element $element  7 { 7  8} -section 1 -shear 0 -transform 1
+  element $element  8 { 8  9} -section 1 -shear 0 -transform 1
+  element $element  9 { 9 10} -section 1 -shear 0 -transform 1
   element $element 10 {10 11} -section 1 -shear 0 -transform 1
   element $element 11 {11 12} -section 1 -shear 0 -transform 1
   element $element 12 {12 13} -section 1 -shear 0 -transform 1
@@ -117,6 +117,7 @@ foreach element {ForceFrame} {
   }
   integrator LoadControl 150.0 
 
+  # P = 150
   analyze 1 
   verify value [nodeDisp 21 3] 0.224 1e-2
 
@@ -128,3 +129,4 @@ foreach element {ForceFrame} {
   analyze 1 
   verify value [nodeDisp 21 3] 0.311 1e-2
 }
+

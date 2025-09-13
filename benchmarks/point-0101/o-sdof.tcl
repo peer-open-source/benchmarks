@@ -41,7 +41,7 @@ timeSeries Path  1  -dt  $dt  -values {*}{
    0.0000
    0.0000
 }
-# pattern Plain 1 1 { load 2 1.0 };
+
 pattern UniformExcitation 1 1 -accel 1 -factor [expr -1/$m];
 
 #
