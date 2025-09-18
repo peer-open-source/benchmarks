@@ -11,25 +11,25 @@ I = h**3*b/12
 w = 0.001
 m = (h/2)*w
 
-ops.model('basic', ndm=3, ndf=6)
+ops.model("basic", ndm=3, ndf=6)
 
 ops.node(1, (0,0,0))
 ops.node(2, (L/2,0,0))
 ops.node(3, (L,0,0))
 ops.fix(1, (1,1,1, 1,1,1))
 
-ops.geomTransf('Linear',1, (0,0,1))
+ops.geomTransf("Linear",1, (0,0,1))
 
-ops.section('ElasticFrame',1,
+ops.section("ElasticFrame",1,
             E=E,A=A,Iy=I,Iz=I,G=12000,J=2*I, 
             Ay=A*500,Az=A*500)
 
-ops.element('ExactFrame',1, [1,2,3], section=1, transform=1)
+ops.element("ExactFrame",1, [1,2,3], section=1, transform=1)
 
-ops.timeSeries('Constant',1)
-ops.pattern('Plain',1,"Constant")
+
+ops.pattern("Plain",1,"Constant")
 ops.eleLoad("Frame",
-            "Heaviside",
+            "Heaviside", # Uniformly distributed load
             basis = "local",
             offset=[0,h/2,0],
             force =[w, 0, 0],
@@ -37,7 +37,7 @@ ops.eleLoad("Frame",
             elements=1
 )
 
-ops.analysis('Static')
+ops.analysis("Static")
 ops.analyze(1)
 ops.reactions()
 

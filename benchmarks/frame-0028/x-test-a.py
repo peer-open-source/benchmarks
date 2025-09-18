@@ -1,5 +1,5 @@
 import xara
-import math 
+import math
 isclose = lambda a,b,rel_tol=1e-9: math.isclose(a,b,rel_tol=rel_tol)
 
 L = 48

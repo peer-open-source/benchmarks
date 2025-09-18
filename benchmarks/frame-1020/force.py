@@ -113,7 +113,6 @@ def analyze(element):
         ax.plot(P, v, label="$v$")
         ax.plot(P, w, label="$w$")
         ax.legend()
-    #   fig.savefig("img/e0020-force.png")
         plt.show()
 
     motion.add_to(artist.canvas)

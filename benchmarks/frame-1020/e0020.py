@@ -31,7 +31,6 @@ def create_cantilever(ne, element):
                     J =I
     )
 
-#   model.geomTransf("Corotational", 1, (0,1,0))
     model.geomTransf("Corotational02", 1, (0,0,1))
 
     for i,x in enumerate(np.linspace(0, L, nmn)):
@@ -40,13 +39,14 @@ def create_cantilever(ne, element):
     for i in range(ne):
         start = i * (nen - 1)
         nodes = list(range(start, start + nen))
-        model.element(element, i+1, nodes, section=sec, transform=1)
+        model.element(element, i+1, nodes, section=sec, transform=1, shear=1)
 
     model.fix(0,  (1,1,1,  1,1,1))
     for i in range(nmn):
         model.nodeRotation(i)
 
     return model
+
 
 def analyze(element):
     ne = 10
@@ -60,7 +60,7 @@ def analyze(element):
     #
     # Apply vertical load
     #
-    speed  = 1/1000 # animation frames
+    speed  = 1/3000 # animation frames
     Pmax   = 150e3 # N
     model.pattern("Plain", 1, "Linear")
 
@@ -106,7 +106,6 @@ def analyze(element):
     ax.plot(P, v, label="$v$")
     ax.plot(P, w, label="$w$")
     ax.legend()
-    fig.savefig("img/e0020.png")
     plt.show()
 
     motion.add_to(artist.canvas)
