@@ -1,0 +1,9 @@
+key: model-0010
+title: Linear Elastic Planar Shear Walls
+description: Verification of Linear Elastic Planar Shear Wall
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/model-0010/test.tcl
+  description: ''
+references: []

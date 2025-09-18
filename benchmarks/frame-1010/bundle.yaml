@@ -1,0 +1,11 @@
+key: frame-1010
+title: Hockling of a cable
+description: ''
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/frame-1010/test-legacy.tcl
+  description: ''
+- path: benchmarks/frame-1010/test-exact.tcl
+  description: ''
+references: []

@@ -1,0 +1,12 @@
+key: shell-1001
+title: Shell undergoing finite rotations
+description: Geometrically nonlinear analysis of a cantilever rolling up under the
+  action of a point moment, performed with shell finite elements.
+thumbnail_url: shell-1001/img/ShellCircle.png
+benchmarks: []
+scripts:
+- path: benchmarks/shell-1001/test-q4.tcl
+  description: ''
+- path: benchmarks/shell-1001/test-p3.tcl
+  description: ''
+references: []

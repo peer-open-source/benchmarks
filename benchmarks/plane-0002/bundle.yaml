@@ -1,0 +1,11 @@
+key: plane-0002
+title: Plane bending
+description: A plane cantilever is subjected to a transverse load at the tip.
+thumbnail_url: null
+benchmarks:
+- 'TMTE-0095: Transverse loading of a narrow beam'
+scripts:
+- path: benchmarks/plane-0002/test-q9.tcl
+  description: ''
+references:
+- A Treatise on the Mathematical Theory of Elasticity

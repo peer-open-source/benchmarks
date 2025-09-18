@@ -1,0 +1,12 @@
+key: frame-0010
+title: 0010 - Column Buckling
+description: This example performs a nonlinear buckling analysis of a column under
+  axial load, using various element formulations and end conditions.
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/frame-0010/test_buckle.tcl
+  description: ''
+- path: benchmarks/frame-0010/test-2d.tcl
+  description: ''
+references: []

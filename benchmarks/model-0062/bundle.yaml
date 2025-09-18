@@ -1,0 +1,11 @@
+key: model-0062
+title: 'm0061 - 7-Story Frame: Eigenvalue & Static Loads'
+description: ''
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/model-0062/test.tcl
+  description: ''
+- path: benchmarks/model-0062/test-prism.tcl
+  description: ''
+references: []

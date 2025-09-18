@@ -1,0 +1,9 @@
+key: shell-0012
+title: Pinched Shell Cylindrical Problem
+description: ''
+thumbnail_url: shell-0012/img/shell-0012.png
+benchmarks: []
+scripts:
+- path: benchmarks/shell-0012/test.tcl
+  description: ''
+references: []

@@ -1,0 +1,9 @@
+key: model-0060
+title: m0060 - Elastic Frame
+description: ''
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/model-0060/test.tcl
+  description: ''
+references: []

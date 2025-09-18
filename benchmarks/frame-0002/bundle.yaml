@@ -1,0 +1,27 @@
+key: frame-0002
+title: Cantilever with transverse loading
+description: A cantilever is subjected to a transverse force
+thumbnail_url: frame-0002/img/cantilever.png
+benchmarks: []
+scripts:
+- path: benchmarks/frame-0002/test-DispBeamCol-euler-const.tcl
+  description: ''
+- path: benchmarks/frame-0002/test_BeamsAndSections3D.tcl
+  description: ''
+- path: benchmarks/frame-0002/test-ForceFrame-shear-fiber.tcl
+  description: ''
+- path: benchmarks/frame-0002/test-shear-const.tcl
+  description: ''
+- path: benchmarks/frame-0002/test_ShearBeam2D.tcl
+  description: ''
+- path: benchmarks/frame-0002/test-euler-const.tcl
+  description: ''
+- path: benchmarks/frame-0002/test-ForceFrame-euler-fiber.tcl
+  description: ''
+- path: benchmarks/frame-0002/test_ShearBeam3D.tcl
+  description: ''
+- path: benchmarks/frame-0002/test-CubicFrame-shear.tcl
+  description: ''
+- path: benchmarks/frame-0002/test-euler-fiber.tcl
+  description: ''
+references: []

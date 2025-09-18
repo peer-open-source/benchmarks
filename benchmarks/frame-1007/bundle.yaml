@@ -1,0 +1,17 @@
+key: frame-1007
+title: Curved Cantilever
+description: Geometrically nonlinear analysis of Bathe's curved cantilever.
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/frame-1007/test-shear-exact.tcl
+  description: ''
+- path: benchmarks/frame-1007/test-legacy.tcl
+  description: ''
+- path: benchmarks/frame-1007/test-no-load.tcl
+  description: ''
+- path: benchmarks/frame-1007/test-shear-euclid.tcl
+  description: ''
+- path: benchmarks/frame-1007/test-euler-euclid.tcl
+  description: ''
+references: []

@@ -1,0 +1,9 @@
+key: solid-0203
+title: Concrete
+description: This example demonstrates how to construct and test the ASDConcrete3D
+  material model under cyclic uniaxial compression. The simulation captures strain
+  localization and damage evolution using an automatically regularized fracture energy.
+thumbnail_url: solid-0203/img/concrete-surface.png
+benchmarks: []
+scripts: []
+references: []

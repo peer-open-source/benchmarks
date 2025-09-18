@@ -1,0 +1,9 @@
+key: solid-0101
+title: 3D Plasticity
+description: Test of J2 plasticity using a mixed brick element.
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/solid-0101/test.tcl
+  description: ''
+references: []

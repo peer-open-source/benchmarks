@@ -1,0 +1,9 @@
+key: point-0002
+title: 3-DOF eigenvalues
+description: checking eigen results of smallest and largest values
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/point-0002/test.tcl
+  description: ''
+references: []

@@ -63,14 +63,16 @@ def analyze(element):
     #
     # Apply vertical load
     #
-    speed  = 1/1000 # animation frames
+    speed  = 1/3000 # animation frames
     Pmax   = 150e3 # N
     model.pattern("Plain", 1, "Linear")
 
     print("Pattern = element")
+
+
     model.eleLoad("Frame", "Dirac",
                   force = [0, 1, 0],
-                  basis = "director",
+                  basis = "director", 
                   offset=[1.0,0,0],
                   pattern=1,
                   elements=[ne]

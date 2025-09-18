@@ -1,0 +1,9 @@
+key: solid-0010
+title: Initial strain material
+description: ''
+thumbnail_url: ''
+benchmarks: []
+scripts:
+- path: benchmarks/solid-0010/test-initial-shear.tcl
+  description: ''
+references: []

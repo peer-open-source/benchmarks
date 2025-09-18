@@ -1,0 +1,13 @@
+key: frame-0015
+title: Nonlinear torsion
+description: Test of the Wagner strain term with standard 6-DOF frame elements.
+thumbnail_url: frame-0015/img/e0010.png
+benchmarks: []
+scripts:
+- path: benchmarks/frame-0015/test-fiber.tcl
+  description: ''
+- path: benchmarks/.DS_Store
+  description: ''
+- path: benchmarks/.DS_Store
+  description: ''
+references: []
