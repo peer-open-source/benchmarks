@@ -1,4 +1,6 @@
+#
 # The axial force N is applied to the shear center of the free end.
+#
 import os
 import veux
 import xara
@@ -89,7 +91,7 @@ if __name__ == "__main__":
 
     prism = Prism(shape=shape,
             length=L,
-            boundary=((1,1,1,  1,1,1), 
+            boundary=((1,1,1,  1,1,1),
                       (0,0,0,  0,0,0)),
             material=material,
             element="ExactFrame",
@@ -109,4 +111,5 @@ if __name__ == "__main__":
     ax.plot(*zip(*v), label="$u_y$")
     ax.plot(*zip(*w), label="$u_z$")
     plt.legend()
+    fig.savefig("img/1030-soln.png")
     plt.show()
