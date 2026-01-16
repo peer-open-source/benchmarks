@@ -267,4 +267,4 @@ if __name__ == "__main__":
             warp_base=os.environ.get("Warping", "p") # "f", "r", "n"
             )
 
-    plt.show()
+    # plt.show()

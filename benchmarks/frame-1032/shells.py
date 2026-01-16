@@ -82,7 +82,7 @@ if __name__ == "__main__":
     dPmx = Pult/100
     dPmn = Pult/800
     siter = 300
-    for case in [2]:
+    for case in [3,4,2]:
         print(f"Case {case}")
         model = create_model(L=900, b=10, d=30, tw=1, tf=1.6, linear=linear)
         artist = veux.create_artist(model, vertical=3)
@@ -93,10 +93,10 @@ if __name__ == "__main__":
             for node in find_nodes(model, x=0):
                 model.fix(node, (1,1,1, 1,1,1))
         elif case == 2:
-            dP = Pult/200
-            dPmx = Pult/20
-            dPmn = Pult/800
-            siter = 50
+            dP = Pult/100
+            dPmx = Pult/50
+            dPmn = Pult/400
+            siter = 100
             for node in find_nodes(model, x=0, y=0):
                 model.fix(node, (1,1,1, 1,1,1))
         elif case == 3:
