@@ -1,5 +1,5 @@
 
-#  PDelta Effects 
+#  PDelta Effects
 
 # REFERENCES:
 # R.C.Kaehler, D.W.White, Y.D.Kim, "Frame Design Using Web-Tapered Members", AISC 2011

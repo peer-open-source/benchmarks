@@ -7,9 +7,11 @@ set w 0.001
 set m [expr {($h/2)*$w}]
 
 model basic -ndm 3 -ndf 6
+
 node 1 0 0 0 
 node 2 [expr {$L/2}] 0 0 
-node 3 $L 0 0 
+node 3 $L 0 0
+
 fix 1 1 1 1 1 1 1 
 
 geomTransf Linear 1 0 0 1 
