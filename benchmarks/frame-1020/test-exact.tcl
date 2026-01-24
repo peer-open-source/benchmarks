@@ -1,6 +1,6 @@
 verify about "Frame follower loading"
 
-set element ForceFrame
+set element ExactFrame
 
 model  -ndm 3 -ndf 6
 
