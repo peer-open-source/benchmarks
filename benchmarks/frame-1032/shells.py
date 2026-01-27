@@ -1,6 +1,7 @@
 # OpenSees -- Open System for Earthquake Engineering Simulation
 #         Pacific Earthquake Engineering Research Center
 #
+import os
 import veux
 import xara
 from xara.helpers import find_nodes, find_node
@@ -76,13 +77,18 @@ def create_model(L, d, b, tw, tf, linear=True):
 if __name__ == "__main__":
     linear=False
     fig, ax = plt.subplots()
-    
+    if "Case" in os.environ:
+        Cases = [int(os.environ["Case"])]
+    else:
+        Cases = [1,2,5]
+
+
     Pult = 20.0
-    dP   = Pult/400
+    dP   = Pult/200
     dPmx = Pult/100
     dPmn = Pult/800
     siter = 300
-    for case in [3,4,2]:
+    for case in Cases:
         print(f"Case {case}")
         model = create_model(L=900, b=10, d=30, tw=1, tf=1.6, linear=linear)
         artist = veux.create_artist(model, vertical=3)
@@ -111,6 +117,9 @@ if __name__ == "__main__":
             siter = 50
             model.fix(find_node(model, x=0,y=0.,z= 15), (1,1,1, 1,1,1))
             model.fix(find_node(model, x=0,y=0.,z=-15), (1,1,1, 1,1,1))
+        # elif case == 5:
+        #     for node in find_nodes(model, x=0, y=0):
+        #         model.fix(node, (1,1,1, 1,1,1))
 
 
         tip = find_node(model, x=900,y=0,z=15)
@@ -122,6 +131,8 @@ if __name__ == "__main__":
         # Perform the analysis
         #
         u = []
+        ux = []
+        uy = []
         P = []
         model.numberer("AMD")
         model.system('mumps')
@@ -132,6 +143,7 @@ if __name__ == "__main__":
                             max_step=dPmx, # 10
                             iter=siter # 50
         )
+        # model.algorithm("Broyden") #"NewtonLineSearch", 0.7)
         model.analysis("Static")
 
         pbar = Progress(total=Pult)
@@ -142,6 +154,8 @@ if __name__ == "__main__":
                 if pbar is not None:
                     pbar.update(model.getTime() - time)
                     pbar.set_postfix(iter=model.numIter())
+                ux.append(model.nodeDisp(tip, 1))
+                uy.append(model.nodeDisp(tip, 2))
                 u.append(-model.nodeDisp(tip, 3))
                 P.append( model.getTime())
         except KeyboardInterrupt:
@@ -149,10 +163,10 @@ if __name__ == "__main__":
 
         ax.plot(u, P, label=f"Case {case}")
 
-        np.savetxt(f"out/shell-1032-case{case}.txt",
-                    np.column_stack((u, P)),
-                    header="u3 P"
-        )
+        # np.savetxt(f"out/shell-1032-case{case}-pu.txt",
+        #             np.column_stack((P, u, ux, uy)),
+        #             header="P u3 ux uy"
+        # )
     ax.grid(True)
     ax.legend()
 
