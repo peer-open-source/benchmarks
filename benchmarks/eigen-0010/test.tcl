@@ -1,3 +1,4 @@
+#
 # 3-story frame
 #
 model Basic -ndm 3 -ndf 6
