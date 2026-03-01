@@ -36,3 +36,4 @@ reactions
 verify value [nodeReaction 1 6] [expr {$m*$L}] 1e-4
 verify value [nodeDisp 3 6] [expr {-($m*$L*$L/(2*$E*$I))}] 1e-4
 verify value [nodeDisp 3 2] [expr {-($m*$L*$L*$L/(3*$E*$I))}] 1e-4
+wipe
