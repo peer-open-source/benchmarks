@@ -1,5 +1,5 @@
 from math import cos,sin,sqrt,pi
-import opensees.openseespy as ops
+import xara
 
 # Effective length factors
 FACTORS = {
@@ -27,7 +27,7 @@ def create_column(boundary="pin-pin"):
     kL = FACTORS[boundary]*L
     EulerLoad = (pi**2)*E*I/kL**2
 
-    model = ops.Model(ndm=2,  ndf=3)
+    model = xara.Model(ndm=2,  ndf=3)
 
     # Define nodes with unit mass so that the
     # dynamic eigenvalue problem becomes equivalent
