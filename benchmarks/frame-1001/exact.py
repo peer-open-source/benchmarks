@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import xara
 try:
     pass # plt.style.use("typewriter")
 except:
@@ -59,7 +60,6 @@ def create_prism(length:    float,
                  divisions: int = 1,
                  rotation = None,
                  ndm=3):
-    import opensees.openseespy as ops
 
     L  = length
 
@@ -71,7 +71,7 @@ def create_prism(length:    float,
 
     nn = ne + 1
 
-    model = ops.Model(ndm=ndm)
+    model = xara.Model(ndm=ndm)
 
     for i in range(1, nn+1):
         x = (i-1)/float(ne)*L
