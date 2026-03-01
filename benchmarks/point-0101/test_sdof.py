@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 import numpy as np
 from numpy import cos,sin,sqrt,pi,exp, loadtxt
-import opensees.openseespy
+import xara
 
 # Linear Elastic SINGLE DOF Model Transient Analysis
 
@@ -135,7 +135,7 @@ def elastic_sdof(K, period, dampRatio):
     wn = 2.0 * pi / period
     m  = K/(wn**2)
 
-    model = opensees.openseespy.Model(ndm=1,  ndf=1)
+    model = xara.Model(ndm=1,  ndf=1)
 
     model.node( 1,  0.)
     model.node( 2,  0., mass=m)
