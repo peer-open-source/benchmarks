@@ -6,7 +6,7 @@
 #
 import numpy as np
 import opensees.openseespy as ops
-from opensees.units.iks import ft, ksi
+from xara.units.iks import ft, ksi
 
 def check_column(model, Mbench, Dbench):
     ne    = len(model.getEleTags())
