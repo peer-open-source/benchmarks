@@ -1,4 +1,7 @@
-
+#
+# An example demonstrating spurious straining/displacement in the
+# corotational formulation of OpenSees.
+#
 model Basic -ndm 3 -ndf 6
 
 node 1  0.0               0.0  0.0 
