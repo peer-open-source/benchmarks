@@ -22,7 +22,7 @@ propped:    fix-roll
 from math import cos,sin,sqrt,pi
 import numpy as np
 import scipy.optimize
-import opensees.openseespy as ops
+import xara
 
 # Effective length factors
 FACTORS = {
@@ -125,7 +125,7 @@ def create_column(boundary="pin-pin", elem_data=None, ndm=2):
     nIP = 5 # number of integration points along each element
     nn = ne + 1
 
-    model = ops.Model(ndm=ndm)
+    model = xara.Model(ndm=ndm)
 
     # Define nodes with unit mass so that the
     # dynamic eigenvalue problem becomes equivalent
