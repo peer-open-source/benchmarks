@@ -1,4 +1,9 @@
-pragma openseespy
+# 
+# Tip-loaded Timoshenko cantilever
+#
+# Shear area is taken equal to the cross sectional area, ie, no shear correction
+#
+
 model  -ndm 3 -ndf 6
 nDMaterial ElasticIsotropic 1 29000.0 0.2946428571428572 
 section ShearFiber 1 -GJ 0
@@ -6370,8 +6375,9 @@ node 0 0.0 0 0
 node 1 55.2 0 0 
 element CubicFrame 1 0 1 -section 1 -transform 1 -shear 1
 fix 0 1 1 1 1 1 1 
-getNodeTags  
-pattern Plain 1 Linear {load 1 0 0 1 0 0 0 ;
+
+pattern Plain 1 Linear {
+  load 1 0 0 1 0 0 0 ;
 }
 integrator LoadControl 10 
 analysis Static 
