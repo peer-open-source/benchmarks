@@ -1,4 +1,4 @@
-import opensees.openseespy as ops
+import xara as ops
 
 if __name__ == "__main__":
     # Input [N, m, kg, sec]
