@@ -1,3 +1,4 @@
+
 foreach element {ExactFrame ForceFrame} {
   model Basic -ndm 3 -ndf 6
   node 1 0.0 0 0 
@@ -23,8 +24,13 @@ foreach element {ExactFrame ForceFrame} {
   node 21 0.5 0 0 
   fix 1 1 1 1 1 0 0 
   fix 21 0 1 1 1 0 0 
-  section ElasticFrame 1 -E 220000000000.0 -G 86614173228.34645 -A 0.005 -Iy 4.166666666666666e-08 -Iz 0.00010416666666666665 -J 4.4163560812272547e-07 -Cw 8.637324011818135e-10 -Ry -1.1651800045506732e-15 -Rz -1.9949319973733282e-17 -Sy 0.0 -Sz 0.0
+
+  section ElasticFrame 1 -E 220000000000.0 -G 86614173228.34645 \
+    -A 0.005 -Iy 4.166666666666666e-08 -Iz 0.00010416666666666665 -J 4.4163560812272547e-07 \
+    -Cw 8.637324011818135e-10 -Ry -1.1651800045506732e-15 -Rz -1.9949319973733282e-17 -Sy 0.0 -Sz 0.0
+
   geomTransf Corotational02 1 0 0 1 
+
   element $element 1 {1 2} -section 1 -shear 1 -transform 1
   element $element 2 {2 3} -section 1 -shear 1 -transform 1
   element $element 3 {3 4} -section 1 -shear 1 -transform 1
@@ -45,19 +51,20 @@ foreach element {ExactFrame ForceFrame} {
   element $element 18 {18 19} -section 1 -shear 1 -transform 1
   element $element 19 {19 20} -section 1 -shear 1 -transform 1
   element $element 20 {20 21} -section 1 -shear 1 -transform 1
+
   pattern Plain 1 Linear 
   eleLoad Frame Uniform \
     -basis reference \
-    -force {0 0 4000000.0} -pattern 1 -elements {1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20}
+    -force {0 0 4000000.0} -pattern 1 \
+    -elements {1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20}
 
-  system Umfpack 
+  system BandGeneral 
   integrator LoadControl 0.025 
-  test Energy 1e-16 20 1
+  test Energy 1e-16 15 1
   algorithm Newton 
   analysis Static 
   analyze 40
-  verify error [nodeDisp 11 3] 0.1605 1e-2
-  puts [numIter]
+  verify error [nodeDisp 11 3] 0.1605 1e-2 uz
   wipe
 }
 
