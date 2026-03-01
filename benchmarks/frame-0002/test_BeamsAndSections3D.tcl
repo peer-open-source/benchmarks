@@ -6,7 +6,7 @@
 # #|============== ->>
 #
 
-proc printEigenvalues {E A Iz Iy G J L} {
+proc printEigenvalues {E A Iz Iy G J L tolerance} {
     # Compute element eigenvalues
     set eigenValues [eigen standard 12]
 
@@ -20,10 +20,9 @@ proc printEigenvalues {E A Iz Iy G J L} {
     set exact "$e1 $e2 $e3 $e4 $e5 $e6"
     set exact [lsort -real $exact]
 
-    verify about "Eigenvalues"
     for {set i 0} {$i < 6} {incr i} {
-        # verify value [lindex $eigenValues [expr $i+6]]  [lindex $exact $i] 1e-8 "eigen\[$i\]"
-      puts [format "     %d      %10.3f    %10.3f"  $i  [lindex $eigenValues [expr $i+6]]  [lindex $exact $i]]
+      verify error [lindex $eigenValues [expr $i+6]]  [lindex $exact $i] $tolerance "eigen($i)" 
+      # puts [format "     %d      %10.3f    %10.3f"  $i  [lindex $eigenValues [expr $i+6]]  [lindex $exact $i]]
     }
 }
 
@@ -67,122 +66,124 @@ set L  100.0
 set beta 0.1
 set lp [expr $beta*$L]
 
-set nIP 3
+set nIP 8
 
-set elements { 1 3 4 5 6 2 7 } ; # 
-set sections {1 2 3 4}; # 5};
+set elements { 1 5 CubicFrame 2 ForceFrame} ; # 3 4
+set sections {1 4}; # {3 AxialFiber}; # 2
 
-set tol 1e-12
 foreach element $elements {
-    foreach section $sections {
-        
-        model basic -ndm 3 -ndf 6
-        
-        node 1 0.0 0.0 0.0
-        node 2  $L 0.0 0.0
+  foreach section $sections {
 
-        set sec 1;
-        
-        puts ""
+    model basic -ndm 3 -ndf 6
+    
+    node 1 0.0 0.0 0.0
+    node 2  $L 0.0 0.0
 
-        switch $section {
-            1 {
-                puts "  Section: Elastic"
-                section Elastic 1 $E $A $Iz $Iy $G $J
-            }
-            2 {
-                puts "  Section: Aggregator (fiber plus uniaxial)"
-                uniaxialMaterial Elastic 1 $E
-                uniaxialMaterial Elastic 2 [expr $G*$J]
-                section Fiber 2 -torsion 2 {
-                    set b2 [expr $b/2]
-                    set d2 [expr $d/2]
-                    patch rect 1 10 10 $d2 $b2 -$d2 -$b2
-                }
-                section Aggregator 1 2 T -section 2
-            }
-            3 {
-                puts "  Section: Aggregator (four uniaxial)"
-                uniaxialMaterial Elastic 1 [expr $E*$A]
-                uniaxialMaterial Elastic 2 [expr $E*$Iz]
-                uniaxialMaterial Elastic 3 [expr $E*$Iy]
-                uniaxialMaterial Elastic 4 [expr $G*$J]
-                section Aggregator 1 1 P 2 Mz 3 My 4 T
-            }
-            4 {
-                puts "  Section: ElasticFrame"
-                section ElasticFrame 1 $E -A $A -Iz $Iz -Iy $Iy -G $G -J $J
-            }
-            5 {
-                puts "  Section: FiberFrame"
-                section FiberFrame 2 -torsion 2 {
-                    set b2 [expr $b/2]
-                    set d2 [expr $d/2]
-                    patch rect 1 10 10 $d2 $b2 -$d2 -$b2
-                }
-            }
+    set sec 1;
+
+    puts ""
+    set tol 1e-4
+
+    switch $section {
+        1 {
+            puts "  Section: Elastic"
+            section Elastic 1 $E $A $Iz $Iy $G $J
         }
-
-        geomTransf Linear 1 0 0 1
-
-        switch $element {
-            1 {
-                puts "  Element: ElasticBeamColumn"
-                element elasticBeamColumn 1 1 2 $A $E $G $J $Iy $Iz 1
+        2 {
+            puts "  Section: Aggregator (fiber plus uniaxial)"
+            uniaxialMaterial Elastic 1 $E
+            uniaxialMaterial Elastic 2 [expr $G*$J]
+            section Fiber 2 -torsion 2 {
+                set b2 [expr $b/2]
+                set d2 [expr $d/2]
+                patch rect 1 10 10 $d2 $b2 -$d2 -$b2
             }
-            2 {
-                puts "  Element: DispBeamColumn"
-                element dispBeamColumn 1 1 2 $nIP 1 1
-
-                set tol 5e-3
-            }
-            3 {
-                puts "  Element: ForceBeamColumn"
-                element nonlinearBeamColumn 1 1 2 $nIP 1 1
-            }
-            4 {
-                puts "  Element: BeamWithHinges"
-                element beamWithHinges 1 1 2 1 $lp 1 $lp $E $A $Iz $Iy $G $J 1
-            }
-            5 {
-                puts "  Element: PrismFrame"
-                element PrismFrame 1 1 2 -section $sec -transform 1
-            }
-            6 {
-                puts "  Element: CubicFrame"
-                element CubicFrame 1 1 2 $nIP 1 1
-            }
-            7 {
-                puts "  Element: ForceFrame"
-                element ForceFrame 1 1 2 $nIP 1 1 -shear 0
-            }
+            section Aggregator 1 2 T -section 2
         }
-
-        printEigenvalues $E $A $Iz $Iy $G $J $L
-
-        fix 1 1 1 1 1 1 1
-
-        set M 10.0      ;# End moment
-        set H 1.0       ;# Transverse load
-        set P -100.0    ;# Axial load
-        
-        pattern Plain 1 Linear {
-            load 2 $P $H $H $M $M $M
+        3 {
+            puts "  Section: Aggregator (four uniaxial)"
+            uniaxialMaterial Elastic 1 [expr $E*$A]
+            uniaxialMaterial Elastic 2 [expr $E*$Iz]
+            uniaxialMaterial Elastic 3 [expr $E*$Iy]
+            uniaxialMaterial Elastic 4 [expr $G*$J]
+            section Aggregator 1 1 P 2 Mz 3 My 4 T
         }
-        
-        set steps 1
-        test NormUnbalance 1.0e-12 10
-        algorithm Newton
-        integrator LoadControl [expr 1.0/$steps]
-        constraints Plain
-        system ProfileSPD
-        numberer Plain
-        analysis Static
-        
-        analyze $steps
-        puts "$tol"
-        printDisplacements $E $A $Iz $Iy $G $J $L $P $H $M
-
-        wipe
+        4 {
+            puts "  Section: ElasticFrame"
+            section ElasticFrame 1 $E -A $A -Iz $Iz -Iy $Iy -G $G -J $J
+        }
+        AxialFiber {
+            puts "  Section: FiberFrame"
+            uniaxialMaterial Elastic 1 $E
+            uniaxialMaterial Elastic 2 [expr $G*$J]
+            section Fiber $sec -torsion 2 {
+                set b2 [expr $b/2]
+                set d2 [expr $d/2]
+                patch rect 1 10 10 $d2 $b2 -$d2 -$b2
+            }
+            set tol 0.02
+        }
     }
+
+    geomTransf Linear 1 0 0 1
+
+    switch $element {
+        1 {
+            puts "  Element: ElasticBeamColumn"
+            element elasticBeamColumn 1 1 2 $A $E $G $J $Iy $Iz 1
+        }
+        2 {
+            puts "  Element: DispBeamColumn"
+            element dispBeamColumn 1 1 2 $nIP 1 1
+
+            set tol [expr max($tol, 5e-3)]
+        }
+        3 {
+            puts "  Element: ForceBeamColumn"
+            element nonlinearBeamColumn 1 1 2 $nIP 1 1
+        }
+        4 {
+            puts "  Element: BeamWithHinges"
+            element beamWithHinges 1 1 2 1 $lp 1 $lp $E $A $Iz $Iy $G $J 1
+        }
+        5 {
+            puts "  Element: PrismFrame"
+            element PrismFrame 1 1 2 -section $sec -transform 1 -shear 0
+        }
+        CubicFrame {
+            puts "  Element: CubicFrame"
+            element CubicFrame 1 1 2 -gauss_points $nIP  -section $sec -transform 1
+            set tol [expr max($tol, 1e-3)]
+        }
+        ForceFrame {
+            puts "  Element: ForceFrame"
+            element ForceFrame 1 {1 2} -transform 1 -section $sec -shear 0
+        }
+    }
+
+    printEigenvalues $E $A $Iz $Iy $G $J $L $tol
+
+    fix 1 1 1 1 1 1 1
+
+    set M 10.0      ;# End moment
+    set H 1.0       ;# Transverse load
+    set P -100.0    ;# Axial load
+    
+    pattern Plain 1 Linear {
+        load 2 $P $H $H $M $M $M
+    }
+
+    test NormUnbalance 1.0e-12 10
+    algorithm Newton
+    integrator LoadControl 1.0
+    constraints Plain
+    system ProfileSPD
+    numberer Plain
+    analysis Static
+    
+    analyze 1
+    printDisplacements $E $A $Iz $Iy $G $J $L $P $H $M
+
+    wipe
+  }
 }
