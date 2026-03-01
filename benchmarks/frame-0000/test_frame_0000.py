@@ -1,9 +1,9 @@
-
 import xara
 
 def test_transform():
     """
-    Ensure graceful handling of invalid geometric transformation vectors in 3D frame elements.
+    Ensure graceful handling of invalid geometric transformation vectors 
+    in 3D frame elements.
     This segfaults upstream.
     """
     # Set up the model
