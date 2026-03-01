@@ -3,10 +3,9 @@
 #
 import veux
 from shps.shapes import Rectangle
-import opensees.openseespy as ops
+import xara
 import matplotlib.pyplot as plt
 try:
-    pass
     plt.style.use("veux-web")
 except:
     pass
@@ -22,7 +21,7 @@ def create_cantilever(shape, element, section):
     L  = 50
     ne = 20 # 20
 
-    model = ops.Model(ndm=3, ndf=6)
+    model = xara.Model(ndm=3, ndf=6)
 
     mat = 1
     sec = 1
@@ -90,9 +89,9 @@ if __name__ == "__main__":
     EI = 0.33333333333*2*GJ*L**2
     shape = Rectangle(d=d, b=b, mesh_scale=1/500)
     print(shape.summary())
-
+    os.environ["Wagner"] = "1"
     model = create_cantilever(shape,
-                      section = os.environ["Section"],
+                      section = os.environ.get("Section", "ShearFiber"),
                       element = os.environ.get("Element", "ExactFrame")
                    )
     end = len(model.getNodeTags()) - 1
@@ -133,7 +132,7 @@ if __name__ == "__main__":
     ax.axvline(0, color='black', linestyle='-', linewidth=1)
     ax.axhline(0, color='black', linestyle='-', linewidth=1)
     ax.plot(u, P)
-    ax.plot(u, [GJ*ui/L + 0.5*EI*(ui/L)**3 for ui in u])
+    ax.plot(u, [GJ*ui/L + 0.5*EI*(ui/L)**3 for ui in u], ".", label="Theory")
 
     plt.show()
 #   plt.savefig("img/e0010.png")
