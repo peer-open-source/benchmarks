@@ -1,0 +1,154 @@
+# 3D Cantilever with Concentrated Load
+#
+#                ^
+#                ^
+#                |
+# #|============== ->>
+#
+
+proc printEigenvalues {E A Iz Iy G J L tolerance} {
+    # Compute element eigenvalues
+    set eigenValues [eigen standard 12]
+
+    set e1 [expr 2*$E*$A/$L]
+    set e2 [expr 2*$G*$J/$L]
+    set e3 [expr 2*$E*$Iz/$L]
+    set e4 [expr 2*$E*$Iy/$L]
+    set e5 [expr 6*$E*$Iz/$L + 2*12*$E*$Iz/($L*$L*$L)]
+    set e6 [expr 6*$E*$Iy/$L + 2*12*$E*$Iy/($L*$L*$L)]
+
+    set exact "$e1 $e2 $e3 $e4 $e5 $e6"
+    set exact [lsort -real $exact]
+
+    for {set i 0} {$i < 6} {incr i} {
+      verify error [lindex $eigenValues [expr $i+6]]  [lindex $exact $i] $tolerance "eigen($i)" 
+      # puts [format "     %d      %10.3f    %10.3f"  $i  [lindex $eigenValues [expr $i+6]]  [lindex $exact $i]]
+    }
+}
+
+proc printDisplacements {E A Iz Iy G J L P H M} {
+#   foreach  dof_soln  {
+#                        {1 [expr $P*$L/($E*$A)] }
+#                        {2 [expr $H*pow($L,3)/(3*$E*$Iz) + $M*pow($L,2)/(2*$E*$Iz)] }
+#                        {3 [expr $H*pow($L,3)/(3*$E*$Iy) - $M*pow($L,2)/(2*$E*$Iy)] }} {
+#     set dof [lindex $dof_soln 0]
+#     set sol [lindex $dof_soln 1]
+#     set val [nodeDisp 2 $dof]
+#     puts "$val $sol"
+#     puts "[expr ($val-$sol)/$sol]"
+#   }
+
+    set dispX [expr $P*$L/($E*$A)]
+    set dispY [expr $H*pow($L,3)/(3*$E*$Iz) + $M*pow($L,2)/(2*$E*$Iz)]
+    set dispZ [expr $H*pow($L,3)/(3*$E*$Iy) - $M*pow($L,2)/(2*$E*$Iy)]
+
+    puts [format "    dispX   %10.3f    %10.3f " [nodeDisp 2 1] $dispX]
+    puts [format "    dispY   %10.3f    %10.3f " [nodeDisp 2 2] $dispY]
+    puts [format "    dispZ   %10.3f    %10.3f " [nodeDisp 2 3] $dispZ]
+    puts [format "    rotX    %10.3f    %10.3f " [nodeDisp 2 4] [expr $M*$L/($G*$J)]]
+    puts [format "    rotY    %10.3f    %10.3f " [nodeDisp 2 5] [expr -$H*pow($L,2)/(2*$E*$Iy) + $M*$L/($E*$Iy)]]
+    puts [format "    rotZ    %10.3f    %10.3f " [nodeDisp 2 6] [expr  $H*pow($L,2)/(2*$E*$Iz) + $M*$L/($E*$Iz)]]
+    puts ""
+}
+
+set E 1.0
+set G 2.0
+
+set b 2.0
+set d 12.0
+
+set A  [expr $b*$d]
+set Iz [expr 1.0/12*$b*$d*$d*$d]
+set Iy [expr 1.0/12*$d*$b*$b*$b]
+set J  [expr $Iz+$Iy]
+
+set L  100.0
+set beta 0.1
+set lp [expr $beta*$L]
+
+set nIP 8
+
+set elements { ForceFrame ForceFrame} ; # 3 4
+set sections {1 4}; # {3 AxialFiber}; # 2
+
+foreach element $elements {
+  foreach section $sections {
+
+    model basic -ndm 3 -ndf 6
+    
+    node 1 0.0 0.0 0.0
+    node 2  $L 0.0 0.0
+
+    set sec 1;
+
+    puts ""
+    set tol 1e-4
+
+    section ElasticFrame 1 $E -A $A -Iz $Iz -Iy $Iy -G $G -J $J
+
+    geomTransf Linear 1 0 0 1
+
+    switch $element {
+        1 {
+            puts "  Element: ElasticBeamColumn"
+            element elasticBeamColumn 1 1 2 $A $E $G $J $Iy $Iz 1
+        }
+        2 {
+            puts "  Element: DispBeamColumn"
+            element dispBeamColumn 1 1 2 $nIP 1 1
+
+            set tol [expr max($tol, 5e-3)]
+        }
+        3 {
+            puts "  Element: ForceBeamColumn"
+            element nonlinearBeamColumn 1 1 2 $nIP 1 1
+        }
+        4 {
+            puts "  Element: BeamWithHinges"
+            element beamWithHinges 1 1 2 1 $lp 1 $lp $E $A $Iz $Iy $G $J 1
+        }
+        5 {
+            puts "  Element: PrismFrame"
+            element PrismFrame 1 1 2 -section $sec -transform 1
+        }
+        CubicFrame {
+            puts "  Element: CubicFrame"
+            element CubicFrame 1 1 2 $nIP 1 1
+            set tol [expr max($tol, 1e-3)]
+        }
+        ForceFrame {
+            puts "  Element: ForceFrame"
+            element ForceFrame 1 {1 2} -transform 1 -section $sec -shear 0
+        }
+    }
+
+    printEigenvalues $E $A $Iz $Iy $G $J $L $tol
+
+    fix 1 1 1 1 1 1 1
+
+    set M 10.0      ;# End moment
+    set H 1.0       ;# Transverse load
+    set P -100.0    ;# Axial load
+    
+    pattern Plain 1 Linear {
+        eleLoad Frame Point \
+          -element 1 \
+          -offset {1 0 0}\
+          -force "$P $H $H" \
+          -couple "$M $M $M"
+    }
+
+    test NormUnbalance 1.0e-12 10
+    algorithm Newton
+    integrator LoadControl 1.0
+    constraints Plain
+    system ProfileSPD
+    numberer Plain
+    analysis Static
+    
+    analyze 1
+    printDisplacements $E $A $Iz $Iy $G $J $L $P $H $M
+
+    wipe
+  }
+}
