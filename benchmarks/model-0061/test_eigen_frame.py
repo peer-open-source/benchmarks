@@ -7,7 +7,7 @@ Bathe & Wilson, Peterson, SAP2000, and SeismoStruct.
 import pytest
 from math import asin
 
-import xara as ops
+import xara
 
 
 # reference data
@@ -66,16 +66,16 @@ SOLVER_TYPES = [
 
 def _build_model():
     """Create nodes, constraints, materials, sections, and integration rules."""
-    ops.wipe()
-    ops.model("Basic", "-ndm", 2)
+
+    model = xara.Model(ndm=2, ndf=3)
 
     # material & sections
-    ops.uniaxialMaterial("Elastic", 1, E)
-    ops.section("Elastic", 1, E, A, I)
+    model.uniaxialMaterial("Elastic", 1, E)
+    model.section("Elastic", 1, E, A, I)
 
-    ops.section("Fiber", 2)
+    model.section("Fiber", 2)
     half_d, half_b = FIBER_D / 2.0, FIBER_B / 2.0
-    ops.patch(
+    model.patch(
         "quad", 1, NUM_FIBER_Y, NUM_FIBER_Z,
         -half_d, -half_b,  half_d, -half_b,
          half_d,  half_b, -half_d,  half_b,
@@ -85,44 +85,45 @@ def _build_model():
     tag = 1
     for j in range(NUM_FLOOR + 1):
         for i in range(NUM_BAY + 1):
-            ops.node(tag, i * BAY_WIDTH, j * STORY_HEIGHT)
+            model.node(tag, i * BAY_WIDTH, j * STORY_HEIGHT)
             tag += 1
 
     # fix base row
     for i in range(1, NUM_BAY + 2):
-        ops.fix(i, 1, 1, 1)
+        model.fix(i, 1, 1, 1)
 
     # geometric transformation & beam integrations
-    ops.geomTransf(COORD_TRANSF, 1)
-    ops.beamIntegration("Lobatto", 1, 1, N_GAUSS_PTS)  # elastic section
-    ops.beamIntegration("Lobatto", 2, 2, N_GAUSS_PTS)  # fiber  section
+    model.geomTransf(COORD_TRANSF, 1)
+    model.beamIntegration("Lobatto", 1, 1, N_GAUSS_PTS)  # elastic section
+    model.beamIntegration("Lobatto", 2, 2, N_GAUSS_PTS)  # fiber  section
+    return model
 
 
-def _add_element(ele_type, tag, nd1, nd2):
+def _add_element(model, ele_type, tag, nd1, nd2):
     """Add a single beam/column element of the requested type."""
     transf_tag = 1
     if ele_type == "elasticBeam":
-        ops.element(
+        model.element(
             "elasticBeamColumn", tag, nd1, nd2,
             A, E, I, 1, "-mass", M, MASS_TYPE,
         )
     elif ele_type == "forceBeamElasticSection":
-        ops.element(
+        model.element(
             "forceBeamColumn", tag, nd1, nd2,
             transf_tag, 1, "-mass", M,
         )
     elif ele_type == "dispBeamElasticSection":
-        ops.element(
+        model.element(
             "dispBeamColumn", tag, nd1, nd2,
             transf_tag, 1, "-mass", M, MASS_TYPE,
         )
     elif ele_type == "forceBeamFiberSectionElasticMaterial":
-        ops.element(
+        model.element(
             "forceBeamColumn", tag, nd1, nd2,
             transf_tag, 2, "-mass", M,
         )
     elif ele_type == "dispBeamFiberSectionElasticMaterial":
-        ops.element(
+        model.element(
             "dispBeamColumn", tag, nd1, nd2,
             transf_tag, 2, "-mass", M, MASS_TYPE,
         )
@@ -130,7 +131,7 @@ def _add_element(ele_type, tag, nd1, nd2):
         raise ValueError(f"Unknown element type: {ele_type!r}")
 
 
-def _add_frame_elements(ele_type):
+def _add_frame_elements(model, ele_type):
     """Add all column and beam elements for the frame."""
     tag = 1
     nodes_per_floor = NUM_BAY + 1
@@ -140,7 +141,7 @@ def _add_frame_elements(ele_type):
         nd1 = i + 1
         nd2 = nd1 + nodes_per_floor
         for _ in range(NUM_FLOOR):
-            _add_element(ele_type, tag, nd1, nd2)
+            _add_element(model, ele_type, tag, nd1, nd2)
             tag += 1
             nd1 = nd2
             nd2 += nodes_per_floor
@@ -150,7 +151,7 @@ def _add_frame_elements(ele_type):
         nd1 = nodes_per_floor * j + 1
         nd2 = nd1 + 1
         for _ in range(NUM_BAY):
-            _add_element(ele_type, tag, nd1, nd2)
+            _add_element(model, ele_type, tag, nd1, nd2)
             tag += 1
             nd1 = nd2
             nd2 += 1
@@ -182,16 +183,16 @@ def _print_comparison(label, eigenvalues):
         )
         print(row)
 
-
-# ── tests ───────────────────────────────────────────────────────────────────
-
+#
+# Tests
+#
 @pytest.mark.parametrize("element", ELEMENT_TYPES)
 def test_eigenvalues_by_element(element):
     """Eigenvalues must match references for each element formulation."""
-    _build_model()
-    _add_frame_elements(element)
+    model = _build_model()
+    _add_frame_elements(model, element)
 
-    eigenvalues = ops.eigen(NUM_EIGEN)
+    eigenvalues = model.eigen(NUM_EIGEN)
 
     _print_comparison(f"element={element}", eigenvalues)
     _check_eigenvalues(eigenvalues)
@@ -200,10 +201,10 @@ def test_eigenvalues_by_element(element):
 @pytest.mark.parametrize("solver", SOLVER_TYPES)
 def test_eigenvalues_by_solver(solver):
     """Eigenvalues must match references for each eigen-solver backend."""
-    _build_model()
-    _add_frame_elements("elasticBeam")
+    model = _build_model()
+    _add_frame_elements(model, "elasticBeam")
 
-    eigenvalues = ops.eigen(solver, NUM_EIGEN)
+    eigenvalues = model.eigen(solver, NUM_EIGEN)
 
     _print_comparison(f"solver={solver}", eigenvalues)
     _check_eigenvalues(eigenvalues)
