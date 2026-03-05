@@ -54,7 +54,7 @@ def analyze(model, prism, w):
                 basis = "local",
                 force = [0, 0, w],
                 pattern=1,
-                elements=list(range(1, divisions+1))
+                elements=list(range(1, divisions))
     )
 
 
