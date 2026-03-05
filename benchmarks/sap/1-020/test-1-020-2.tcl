@@ -44,21 +44,21 @@ nDMaterial ElasticIsotropic 5 29000 0.3
 section FrameElastic 1 -A 100000 -Ay 0 -Az 0 -Iz 2000 -Iy 1 -J 1 -E 3000 -G 1250
 section FrameElastic 2 -A 100000 -Ay 0 -Az 0 -Iz 1000 -Iy 1 -J 1 -E 3000 -G 1250
 geomTransf Linear 1 0.0 1.0 0.0 
-element PrismFrame 1 1 2 -section 1 -transform 1 -mass 0.0
+element PrismFrame 1 1 2 -section 1 -transform 1 -mass 0.0 -shear 0
 geomTransf Linear 2 0.0 1.0 0.0 
-element PrismFrame 2 2 3 -section 2 -transform 2 -mass 0.0
+element PrismFrame 2 2 3 -section 2 -transform 2 -mass 0.0 -shear 0
 geomTransf Linear 3 0.0 1.0 0.0 
-element PrismFrame 3 4 5 -section 1 -transform 3 -mass 0.0
+element PrismFrame 3 4 5 -section 1 -transform 3 -mass 0.0 -shear 0
 geomTransf Linear 4 0.0 1.0 0.0 
-element PrismFrame 4 5 6 -section 2 -transform 4 -mass 0.0
+element PrismFrame 4 5 6 -section 2 -transform 4 -mass 0.0 -shear 0
 geomTransf Linear 5 0.0 1.0 0.0 
-element PrismFrame 5 2 7 -section 1 -transform 5 -mass 0.0
+element PrismFrame 5 2 7 -section 1 -transform 5 -mass 0.0 -shear 0
 geomTransf Linear 6 0.0 1.0 0.0 
-element PrismFrame 6 7 5 -section 1 -transform 6 -mass 0.0
+element PrismFrame 6 7 5 -section 1 -transform 6 -mass 0.0 -shear 0
 geomTransf Linear 7 0.0 1.0 0.0 
-element PrismFrame 7 3 8 -section 2 -transform 7 -mass 0.0
+element PrismFrame 7 3 8 -section 2 -transform 7 -mass 0.0 -shear 0
 geomTransf Linear 8 0.0 1.0 0.0 
-element PrismFrame 8 8 6 -section 2 -transform 8 -mass 0.0
+element PrismFrame 8 8 6 -section 2 -transform 8 -mass 0.0 -shear 0
 
 
 numberer Plain
