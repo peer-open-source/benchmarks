@@ -114,20 +114,20 @@ if __name__ == "__main__":
                 divisions = n_e
             )
 
-            model = prism.create_model(echo_file=open(f"x-{i}.tcl", "w"))
+            model = prism.create_model()
             cr.reset(label=f"{element}, basis={basis}")
             u, P = analyze(model, prism, w, basis, post=[cr])
 
             cr.draw()
 
-            ax.plot(u, P, next(markers), label=fr"$\texttt{{{element}}}$, {basis} load")
+            ax.plot(u, P, next(markers), markersize=3, label=fr"$\texttt{{{element}}}$, {basis} load")
             print(element, basis,  u[-1], P[-1])
 
     cr.finalize()
     cr.savefig("img/1003-convergence.png", dpi=600)
 
     ax.legend()
-    ax.grid("on")
+    ax.grid(True)
     ax.set_ylabel("$\\lambda$")
     ax.set_xlabel("$u$ [m]")
     ax.set_xlim([0, None])
