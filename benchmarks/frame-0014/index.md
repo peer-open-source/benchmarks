@@ -1,5 +1,5 @@
 ---
-title: "0014 - Axial-torsional buckling"
+title: "Axial-torsional buckling"
 description: Axially loaded simply supported channel, free to warp
 draft: false
 Downloads:
