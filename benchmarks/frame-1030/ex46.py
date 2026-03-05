@@ -10,7 +10,8 @@ from xara.benchmarks import Prism
 from xara.helpers import find_node
 import matplotlib.pyplot as plt
 try:
-    plt.style.use("veux-web")
+    # plt.style.use("veux-web")
+    plt.style.use("typewriter")
 except:
     pass
 
@@ -73,6 +74,12 @@ if __name__ == "__main__":
         # Young’s modulus E = 
         L = 1.4*units.m
         N = -60e3*units.N
+        material = {
+            "name": "ElasticIsotropic", 
+            "E":  193.05e3*units.MPa,
+            # "G":  33.445e3*units.MPa,
+            "nu": 0.3
+        }
         shape = xs.Angle(b=51*units.mm,
                         d=76*units.mm,
                         t=6.4*units.mm,
@@ -82,12 +89,6 @@ if __name__ == "__main__":
         sc = shape.centroid
         shape = shape.translate(-shape.centroid)
     # veux.serve(veux.render(shape.model))
-        material = {
-            "name": "ElasticIsotropic", 
-            "E":  193.05e3*units.MPa,
-            # "G":  33.445e3*units.MPa,
-            "nu": 0.3
-        }
 
     prism = Prism(shape=shape,
             length=L,
@@ -99,7 +100,6 @@ if __name__ == "__main__":
             transform="Corotational02",
             shear=1,
             vertical=3,
-            # shear_warp=0,
             divisions=4,
             order=3
     )
@@ -110,6 +110,12 @@ if __name__ == "__main__":
     ax.plot(*zip(*u), label="$u_x$")
     ax.plot(*zip(*v), label="$u_y$")
     ax.plot(*zip(*w), label="$u_z$")
+    # ax.set_xlim([0, None])
+    ax.grid("on")
+    ax.set_ylabel("Displacement")
+    ax.set_ylim([0, None])
+    ax.axhline(0, color='black', linestyle='-', linewidth=1)
+    ax.axvline(0, color='black', linestyle='-', linewidth=1)
     plt.legend()
     fig.savefig("img/1030-soln.png")
     plt.show()
