@@ -1,6 +1,7 @@
 # OpenSees -- Open System for Earthquake Engineering Simulation
 #         Pacific Earthquake Engineering Research Center
 #
+import os
 import veux
 import xara
 from xara.helpers import find_nodes, find_node
@@ -22,15 +23,19 @@ def create_model(L, d, b, tw, tf, linear=True):
     if linear:
         flags = () 
     else:
-        flags = ("-corotational",)
+        flags = ("-corotational", )#"-drillingNL")
 
     E = 2.1e4
 
+    material = xara.Material(
+        E  = 2.1e4, # MPa, or 210 GPa
+        nu = 0.30,  # 0.5*E/G - 1
+        Fy = 36.0,
+        Hkin = 0.001 * 2.1e4,
+        type="NonlinearJ2"
+    )
     # Define sections
     # ------------------
-    #                            tag E   nu    h    rho
-    model.section("ElasticShell", 1, E, 0.30, tw, 1.27)
-    model.section("ElasticShell", 2, E, 0.30, tf, 1.27)
 
     # Define geometry
     # ---------------
@@ -38,9 +43,26 @@ def create_model(L, d, b, tw, tf, linear=True):
     if linear:
         nx = 50 #240
         ny = 2 #8
+        #                            tag E   nu    h    rho
+        model.section("ElasticShell", 1, E, 0.30, tw, 1.27)
+        model.section("ElasticShell", 2, E, 0.30, tf, 1.27)
     else:
-        nx = 200
-        ny = 4
+        nx = 240 # 200
+        ny = 8 # 4
+        nip = 5
+        model.material(material, 1)
+        model.section("LayeredShell", 1, nip,
+                      1, tw/nip,
+                      1, tw/nip,
+                      1, tw/nip,
+                      1, tw/nip,
+                      1, tw/nip)
+        model.section("LayeredShell", 2, nip,
+                      1, tf/nip,
+                      1, tf/nip,
+                      1, tf/nip,
+                      1, tf/nip,
+                      1, tf/nip)
 
     # Flanges
     model.surface((nx, ny),
@@ -76,10 +98,21 @@ def create_model(L, d, b, tw, tf, linear=True):
 if __name__ == "__main__":
     linear=False
     fig, ax = plt.subplots()
-    
-    for case in [3]:
+    if "Case" in os.environ:
+        Cases = [int(os.environ["Case"])]
+    else:
+        Cases = [3]
+
+
+    Pult = 20.0
+    dP   = Pult/300
+    dPmx = Pult/100
+    dPmn = Pult/900
+    siter = 300
+    for case in Cases:
+        print(f"Case {case}")
         model = create_model(L=900, b=10, d=30, tw=1, tf=1.6, linear=linear)
-        artist = veux.create_artist(model)
+        artist = veux.create_artist(model, vertical=3)
     #   artist.draw_surfaces()
         artist.draw_outlines()
 
@@ -87,15 +120,27 @@ if __name__ == "__main__":
             for node in find_nodes(model, x=0):
                 model.fix(node, (1,1,1, 1,1,1))
         elif case == 2:
-    #       c = find_node(model, x=0,y=0,z=0)
-    #       model.fix(c, (1,1,1,  1,1,1))
+            dP = Pult/100
+            dPmx = Pult/50
+            dPmn = Pult/400
+            siter = 100
             for node in find_nodes(model, x=0, y=0):
                 model.fix(node, (1,1,1, 1,1,1))
-        else:
+        elif case == 3:
             model.fix(find_node(model, x=0,y=0.,z= 15), (1,1,1, 1,1,1))
             model.fix(find_node(model, x=0,y=10,z= 15), (1,1,1, 1,1,1))
             model.fix(find_node(model, x=0,y=0.,z=-15), (1,1,1, 1,1,1))
             model.fix(find_node(model, x=0,y=10,z=-15), (1,1,1, 1,1,1))
+        elif case == 4:
+            dP   = Pult/200
+            dPmx = Pult/100
+            dPmn = Pult/400
+            siter = 50
+            model.fix(find_node(model, x=0,y=0.,z= 15), (1,1,1, 1,1,1))
+            model.fix(find_node(model, x=0,y=0.,z=-15), (1,1,1, 1,1,1))
+        # elif case == 5:
+        #     for node in find_nodes(model, x=0, y=0):
+        #         model.fix(node, (1,1,1, 1,1,1))
 
 
         tip = find_node(model, x=900,y=0,z=15)
@@ -103,43 +148,46 @@ if __name__ == "__main__":
             tip: (0,0,-1, 0,0,0)
         })
 
-        if linear:
-            model.integrator("LoadControl", 10)
-            model.analysis("Static")
-            model.analyze(1)
-        else:
-            Pmax = 20
-            u = []
-            P = []
-            model.system('mumps')
-            model.test("Energy", 1e-16, 600, 2 if Verbose else 0)
-            model.integrator("LoadControl", 
-                             Pmax/400, # 50
-                             min_step=Pmax/800,
-                             max_step=Pmax/100, # 10
-                             iter=300 # 50
-            )
-            model.analysis("Static")
+        #
+        # Perform the analysis
+        #
+        u = []
+        ux = []
+        uy = []
+        P = []
+        model.numberer("AMD")
+        model.system('mumps')
+        model.test("Energy", 1e-16, 600, 2 if Verbose else 0)
+        model.integrator("LoadControl", 
+                            dP, # 50
+                            min_step=dPmn,
+                            max_step=dPmx, # 10
+                            iter=siter # 50
+        )
+        # model.algorithm("Broyden") #"NewtonLineSearch", 0.7)
+        model.analysis("Static")
 
-            pbar = Progress(total=Pmax)
-            try:
-                while (time := model.getTime()) < Pmax:
-                    if model.analyze(1) != 0:
-                        break
-                    if pbar is not None:
-                        pbar.update(model.getTime() - time)
-                        pbar.set_postfix(iter=model.numIter())
-                    u.append(-model.nodeDisp(tip, 3))
-                    P.append( model.getTime())
-            except KeyboardInterrupt:
-                pass
+        pbar = Progress(total=Pult)
+        try:
+            while (time := model.getTime()) < Pult:
+                if model.analyze(1) != 0:
+                    break
+                if pbar is not None:
+                    pbar.update(model.getTime() - time)
+                    pbar.set_postfix(iter=model.numIter())
+                ux.append(model.nodeDisp(tip, 1))
+                uy.append(model.nodeDisp(tip, 2))
+                u.append(-model.nodeDisp(tip, 3))
+                P.append( model.getTime())
+        except KeyboardInterrupt:
+            pass
 
-            ax.plot(u, P, label=f"Case {case}")
+        ax.plot(u, P, label=f"Case {case}")
 
-            np.savetxt(f"out/frame-0032-case{case}.txt",
-                       np.column_stack((u, P)),
-                       header="u3 P"
-            )
+        # np.savetxt(f"out/shell-1032-case{case}-pu.txt",
+        #             np.column_stack((P, u, ux, uy)),
+        #             header="P u3 ux uy"
+        # )
     ax.grid(True)
     ax.legend()
 
