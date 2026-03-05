@@ -1,4 +1,6 @@
 pragma openseespy
+set Element ForceFrame
+
 model  -ndm 3 -ndf 6
 node 1 -120 0 0 
 fix 1 -dof 2
@@ -44,18 +46,18 @@ section FrameElastic 2 -A 100000 -Ay 0 -Az 0 -Iz 1000 -Iy 1 -J 1 -E 3000 -G 1250
 geomTransf Linear 1 0.0 1.0 0.0 
 geomTransf Linear 2 0.0 1.0 0.0 
 geomTransf Linear 3 0.0 1.0 0.0 
-element PrismFrame 1 1 2 -section 1 -transform 1 -mass 0.0 -shear 0
-element PrismFrame 2 2 3 -section 2 -transform 2 -mass 0.0 -shear 0
-element PrismFrame 3 4 5 -section 1 -transform 3 -mass 0.0 -shear 0
-element PrismFrame 4 5 6 -section 2 -transform 1 -mass 0.0 -shear 0
+element $Element 1 1 2 -section 1 -transform 1 -mass 0.0 -shear 0
+element $Element 2 2 3 -section 2 -transform 2 -mass 0.0 -shear 0
+element $Element 3 4 5 -section 1 -transform 3 -mass 0.0 -shear 0
+element $Element 4 5 6 -section 2 -transform 1 -mass 0.0 -shear 0
 
 # Girders
 #geomTransf Linear 4 0.0 1.0 0.0 
 geomTransf Linear 4 0.0 1.0 0.0 
-element PrismFrame 5 2 7 -section 1 -transform 4 -mass 0.0 -shear 0
-element PrismFrame 6 7 5 -section 1 -transform 4 -mass 0.0 -shear 0
-element PrismFrame 7 3 8 -section 2 -transform 4 -mass 0.0 -shear 0
-element PrismFrame 8 8 6 -section 2 -transform 4 -mass 0.0 -shear 0
+element $Element 5 2 7 -section 1 -transform 4 -mass 0.0 -shear 0
+element $Element 6 7 5 -section 1 -transform 4 -mass 0.0 -shear 0
+element $Element 7 3 8 -section 2 -transform 4 -mass 0.0 -shear 0
+element $Element 8 8 6 -section 2 -transform 4 -mass 0.0 -shear 0
 
 
 numberer Plain
