@@ -1,4 +1,5 @@
-
+# Nonlinear distributed load on a simple span; 
+# Maybe duplicate of 1003?
 import xara
 from xara.helpers import find_node
 from xara.units.mks import cm, MPa, N, m
