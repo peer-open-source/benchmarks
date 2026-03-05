@@ -4,7 +4,6 @@ from xara.benchmarks import Prism
 from xara.helpers import find_node
 from xara.units.mks import cm, MPa, N, m
 import matplotlib.pyplot as plt
-import veux, veux.motion
 
 
 class Span1:
