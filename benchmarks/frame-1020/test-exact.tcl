@@ -44,9 +44,17 @@ test EnergyIncr 1e-12 8 0
 algorithm Newton 
 analysis Static 
 
-verify value [analyze 250] 0
-puts [nodeDisp 10]
-verify value [analyze 250] 0
-puts [nodeDisp 10]
+analyze 500
+
+#
+verify value [expr int([numIter] <= 3)] 1 0
+
+verify error [nodeDisp 10 1] -89.13531349065809  1e-6
+verify error [nodeDisp 10 2] -54.69840418552875  1e-6
+verify error [nodeDisp 10 6]   0.45719570852668  1e-6
+
+foreach dof {3 4 5} {
+  verify value [nodeDisp 10 $dof] 0.0 0.0;
+}
 
 
