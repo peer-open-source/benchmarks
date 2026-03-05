@@ -1,5 +1,5 @@
 #
-# 3-story frame
+# 3D 3-story frame
 #
 model Basic -ndm 3 -ndf 6
 node 1 -120.0 120.0 0.0 
