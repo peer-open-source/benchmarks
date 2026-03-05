@@ -71,13 +71,6 @@ def create_beam(splits,          # Number of elements in the x and y directions
         else:
             model.fix(node, (1, 0))
 
-    # for node in find_nodes(model, x=0, y=0):
-    #     model.fix(node, (1, 1))
-    # for node in find_nodes(model, x=0, y=d/2):
-    #     model.fix(node, (1, 0))
-    # for node in find_nodes(model, x=0, y=-d/2):
-    #     model.fix(node, (1, 0))
-
     #
     # Define loads
     #
