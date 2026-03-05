@@ -10,8 +10,6 @@ from xara.helpers import find_node
 from xara.units.iks import cm, MPa, N, m, ft, inch, kip, ksi
 from xara.units import iks as units
 from xsection.library import from_aisc, aisc_data
-import matplotlib.pyplot as plt
-import veux, veux.motion
 
 
 class Span15:
