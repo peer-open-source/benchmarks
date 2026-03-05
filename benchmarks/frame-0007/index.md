@@ -3,6 +3,12 @@ title: Guided Span
 thumbnail: img/case2.png
 ---
 
+$$
+P_{e L} = \frac{\pi^2 E I}{L^2}
+\qquad\text{ and }\qquad
+\lambda = \frac{\pi}{2} \sqrt{\frac{\alpha P_r}{P_{e L}}}
+$$
+
 
 $$
 u = \frac{H L^3}{12 E I}\left[\frac{3(\tan \lambda - \lambda)}{\lambda^3}\right]
