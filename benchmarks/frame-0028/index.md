@@ -1,7 +1,7 @@
 ---
 title: Distributed moments
+thumbnail: img/isometric.png
 ---
-
 
 `FrameLoad` is a simple class offering a clean API that implements generalized body loading  in frame elements.
 This includes:
