@@ -1,14 +1,16 @@
 ---
-title: "0004 - Columns with P-Delta Effects"
+title: "Columns with P-Delta Effects"
 description: Nonlinear geometry in frames.
 ---
 
 
 
-![alt text](frame-0004/img/case5.png)
+![alt text](/media/frame-0004/img/case5.png)
 
 $$
-u = \frac{w L^4}{192 E I}\left\{\frac{6}{\lambda^4}\left[(2 \sec \lambda - 2\lambda - 2) - \frac{(\tan \lambda - \lambda)(\sec \lambda - 1)}{\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]\right\}
+u = \frac{w L^4}{192 E I}
+\left(\frac{6}{\lambda^4}\left[(2 \sec \lambda - 2\lambda - 2) - \frac{(\tan \lambda - \lambda)(\sec \lambda - 1)}{\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]
+\right)
 $$
 
 $$
@@ -77,11 +79,12 @@ $$
 ![alt text](img/case5.png)
 
 $$
-u = \frac{w L^4}{192 E I}\left\{\frac{6}{\lambda^4}\left[(2 \sec \lambda - 2\lambda - 2) - \frac{(\tan \lambda - \lambda)(\sec \lambda - 1)}{\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]\right\}
+u = \frac{w L^4}{192 E I}\left(\frac{6}{\lambda^4}\left[(2 \sec \lambda - 2\lambda - 2) - \frac{(\tan \lambda - \lambda)(\sec \lambda - 1)}{\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}
+\right)}\right]\right)
 $$
 
 $$
-M = \frac{w L^2}{8}\left[\frac{2(\tan \lambda - \lambda)}{\lambda^2\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right]
+M = \frac{w L^2}{8}\left(\frac{2(\tan \lambda - \lambda)}{\lambda^2\left(\frac{1}{2\lambda} - \frac{1}{\tan 2\lambda}\right)}\right)
 $$
 
 ---
