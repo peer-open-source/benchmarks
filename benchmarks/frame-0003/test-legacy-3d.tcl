@@ -53,50 +53,50 @@ foreach element $elements {
     geomTransf Linear 1 0 0 1
     
     switch $element {
-	1 {
-	    puts "   ElasticBeamColumn"
-	    element elasticBeamColumn 1 1 2 $A $E $G $J $Iy $Iz 1
-	}
-	2 {
-	    puts "   DispBeamColumn"
-	    element dispBeamColumn 1 1 2 $nIP 1 1
-	}
-	3 {
-	    puts "   NonlinearBeamColumn"
-	    element nonlinearBeamColumn 1 1 2 $nIP 1 1
-	}
-	4 {
-	    puts "   BeamWithHinges"
-	    element beamWithHinges 1 1 2 1 $lp 1 $lp $E $A $Iz $Iy $G $J 1
-	}
-	5 {
-	    puts "   PrismFrame"
-	    element PrismFrame 1 1 2 $sec 1 ; # -shear 0
-	}
-	6 {
-	    puts "   ForceFrame"
-	    element ForceFrame 1 1 2 $nIP 1 1 ; # -shear 0
-	}
-	7 {
-	    puts "   CubicFrame"
-	    element CubicFrame 1 1 2 $nIP 1 1
-	}
+  1 {
+      puts "   ElasticBeamColumn"
+      element elasticBeamColumn 1 1 2 $A $E $G $J $Iy $Iz 1
+  }
+  2 {
+      puts "   DispBeamColumn"
+      element dispBeamColumn 1 1 2 $nIP 1 1
+  }
+  3 {
+      puts "   NonlinearBeamColumn"
+      element nonlinearBeamColumn 1 1 2 $nIP 1 1
+  }
+  4 {
+      puts "   BeamWithHinges"
+      element beamWithHinges 1 1 2 1 $lp 1 $lp $E $A $Iz $Iy $G $J 1
+  }
+  5 {
+      puts "   PrismFrame"
+      element PrismFrame 1 1 2 $sec 1 ; # -shear 0
+  }
+  6 {
+      puts "   ForceFrame"
+      element ForceFrame 1 1 2 $nIP 1 1 ; # -shear 0
+  }
+  7 {
+      puts "   CubicFrame"
+      element CubicFrame 1 1 2 $nIP 1 1
+  }
     }
     
     pattern Plain 1 "Constant" {
-	set Py2 [expr $Py/2]
-	set Pz2 [expr $Pz/2]
-	set N2  [expr $N/2]
-	
-	eleLoad -ele 1 -type -beamPoint $Py2 $Pz2 $aL $N2
-	eleLoad -ele 1 -type -beamPoint $Py2 $Pz2 $aL $N2
+        set Py2 [expr $Py/2]
+        set Pz2 [expr $Pz/2]
+        set N2  [expr $N/2]
+        
+        eleLoad -ele 1 -type -beamPoint $Py2 $Pz2 $aL $N2
+        eleLoad -ele 1 -type -beamPoint $Py2 $Pz2 $aL $N2
 
-	set wy2 [expr $wy/2]
-	set wz2 [expr $wz/2]
-	set wx2 [expr $wx/2]
-	
-	eleLoad -ele 1 -type -beamUniform $wy2 $wz2 $wx2
-	eleLoad -ele 1 -type -beamUniform $wy2 $wz2 $wx2
+        set wy2 [expr $wy/2]
+        set wz2 [expr $wz/2]
+        set wx2 [expr $wx/2]
+        
+        eleLoad -ele 1 -type -beamUniform $wy2 $wz2 $wx2
+        eleLoad -ele 1 -type -beamUniform $wy2 $wz2 $wx2
     }
 
     set niter 4
@@ -138,7 +138,6 @@ foreach element $elements {
     set d1 [expr -$Vz/(6*$E*$Iy*$L)*($a*$a*$L+$a*$L*$L)]
 
     printRow "theta_yj" [expr (-1*$d1)-($d2)] [nodeDisp 2 5]
-
 
     wipe
 }
