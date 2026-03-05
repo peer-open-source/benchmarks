@@ -22,7 +22,7 @@ from matplotlib.ticker import MultipleLocator
 #     pass
 
 
-def create_cantilever(ne, shape, element, section, material,
+def create_model(ne, shape, element, section, material,
                       nen=2, warp_base="n", center=None):
 
     if warp_base in "mn":
@@ -129,7 +129,7 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
 
     shape = shape.translate(offset)
 
-    model= create_cantilever(ne,
+    model= create_model(ne,
                             shape,
                             center=center,
                             element=element,
@@ -178,6 +178,7 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
 #   model.algorithm("KrylovNewton")
     model.algorithm("Broyden")
     model.analysis("Static")
+
     fg_warp, ax_warp = plt.subplots()
 
     w = []
