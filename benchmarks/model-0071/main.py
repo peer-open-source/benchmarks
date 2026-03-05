@@ -51,7 +51,7 @@ UCref = [
 print('Expected displacement at constrained node is (U1+U2+U3)/3:\n{}\n\n'.format(UCref))
 
 # read results
-UC = model.state.u[4]
+UC = model.state.u(node=4)
 print('Obtained displacement at constrained node is UC:\n{}\n\n'.format(UC))
 
 # check error
