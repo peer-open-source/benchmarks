@@ -8,7 +8,8 @@
 import veux
 from veux.motion import Motion
 from shps.shapes import Channel
-import opensees.openseespy as ops
+import xara
+from xara.post import PlotConvergenceRate
 
 # External libraries
 from pathlib import Path
@@ -21,8 +22,20 @@ except:
     pass
 
 
-def create_cantilever(ne, shape, element, section, nen=2, warp_base="n", center=None):
-    model = ops.Model(ndm=3, ndf=6 if warp_base in "mn" else 7)
+def create_cantilever(ne, 
+                      shape, 
+                      element, 
+                      transform,
+                      section, 
+                      nen=2,
+                      warp_base="n", 
+                      center=None):
+
+    if warp_base in "mn":
+        warp_type = "UT"
+    else:
+        warp_type = "NT"
+    model = xara.Model(ndm=3, ndf=6 if warp_base in "mn" else 7)
 
     E = 2.1e4 # MPa, or 210 GPa
     v = 0.30  # 0.5*E/G - 1
@@ -36,14 +49,10 @@ def create_cantilever(ne, shape, element, section, nen=2, warp_base="n", center=
     model.material('ElasticIsotropic', mat, E, v) #G=G)
 
 
-
-    # _m = shape.mesh
-    # veux.serve(veux.render((_m.nodes, _m.cells())))
-
     if "fiber" in section.lower():
-        model.section("ShearFiber", sec, GJ=0)
+        model.section("ShearFiber", sec)
 
-        for fiber in shape.create_fibers(center=center):
+        for fiber in shape.create_fibers(warp_type=warp_type): #(center=center):
             model.fiber(**fiber, material=mat, section=sec)
 
     else:
@@ -55,28 +64,33 @@ def create_cantilever(ne, shape, element, section, nen=2, warp_base="n", center=
         cww = shape.cww()
         cmv = shape.cmv()
         cmw = shape.cmw()
+        cvv = shape.cvv()
+        # cnw = shape.cnw()
         A = cnn[0,0]
         swch = 0 if warp_base == "m" else 1
         model.section("ElasticFrame", sec,
                         E=E,
                         G=G,
                         A=A,
+                        Ay=A,
+                        Az=A,
                         Qy=cnm[0,1],
                         Qz=cnm[2,0],
                         Iy=cmm[1,1],
                         Iz=cmm[2,2],
-#                       Iyz=-cmm[1,2],
+                        Iyz=-cmm[1,2],
                         J =shape.elastic.J,
                         Cw= cww[0,0]*swch,
-                        Rw= 0, #cnw[0,0], # this is pretty much always 0.0
+                        Rw= 0,#cnw[0,0], # this is pretty much always 0.0
                         Ry= cnv[1,0],
                         Rz= cnv[2,0],
-                        Sa= cmv[0,0]*swch,
+                        # Sy= cvv[1,1],#*swch,
+                        # Sz= cvv[2,2],#*swch
                         Sy= cmw[1,0],#*swch,
                         Sz= cmw[2,0],#*swch
         )
 
-    model.geomTransf("Corotational02", 1, (0,0,1))
+    model.geomTransf(transform, 1, (0,0,1))
 
     for i,x in enumerate(np.linspace(0, L, nmn)):
         model.node(i, (x,0,0))
@@ -88,17 +102,38 @@ def create_cantilever(ne, shape, element, section, nen=2, warp_base="n", center=
     for i in range(ne):
         start = i * (nen - 1)
         nodes = list(range(start, start + nen))
-        model.element(element, i+1, nodes, 
-                      shear = 1 if "Exact" in element else 1,
-                      section=sec, transform=1)
+        if "Exact" in element:
+            model.element(element, i+1, nodes, 
+                          shear = 1,
+                          section=sec, transform=1)
+        else:
+            model.element(element, i+1, nodes, 
+                        gauss_type="Legendre",
+                        gauss_points=8,
+                        shear=1,
+                        section=sec, 
+                        transform=1,
+                        iter=(100,1e-14)
+            )
 
     return model
 
 
-def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, render=False):
-    en = ne*(nen-1)
-    shape = Channel(d=30, b=10, tf=1.6, tw=1.0, mesh_scale=1/10)
+def analyze(element, 
+            section, 
+            transform,
+            pattern="D", 
+            nen=2, 
+            warp_base="n", 
+            cpoint=None, 
+            render=False):
 
+    en = ne*(nen-1)
+    shape = Channel(d=30, b=10, tf=1.6, tw=1.0, 
+                    mesh_scale=1/5,
+                    mesher="gmsh")
+
+    print(shape.summary())
     if pattern in {"D", "node"}:
         # Top
         offset = ( 0,    15)
@@ -131,6 +166,7 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
                             shape,
                             center=center,
                             element=element,
+                            transform=transform,
                             section=section,
                             nen=nen,
                             warp_base=warp_base)
@@ -168,12 +204,23 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
         )
 
 
-    model.system('BandGen')
-    model.integrator("LoadControl", Pmax/50, 5, Pmax/1000, Pmax/10)
-    model.test("NormDispIncr", 1e-11, 50, 2)
+    model.system('Umfpack')
+    model.integrator("LoadControl",
+                     Pmax/50 if "Exact" in element else Pmax/300, # 50 
+                     iter=20, 
+                     min_step=Pmax/1000,
+                     max_step=Pmax/50 if "Exact" in element else Pmax/200
+    )
+    model.test("NormDispIncr", 1e-11, 500, 2)
+    # model.test("Energy", 1e-16, 5000, 2)
 #   model.test('NormUnbalance',1e-6,10,1)
-    model.algorithm("Newton")
+    # model.algorithm("KrylovNewton")
+    # model.algorithm("BFGS")
+    # model.algorithm("AcceleratedNewton", accelerator="Secant")
     model.analysis("Static")
+    # model.initialize()
+
+    plot_cr = PlotConvergenceRate()
     fg_warp, ax_warp = plt.subplots()
 
     u = []
@@ -181,8 +228,45 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
     w = []
     P = []
     i = 0
+    algorithms = iter([
+        ("Newton",),
+        # ("BFGS",), 
+        # ("Broyden",),
+        ("AcceleratedNewton", "-accelerator", "Krylov"),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("AcceleratedNewton", "-accelerator", "Krylov"),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("AcceleratedNewton", "-accelerator", "Krylov"),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("AcceleratedNewton", "-accelerator", "Krylov"),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("AcceleratedNewton", "-accelerator", "Krylov"),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("BFGS",), 
+        # ("Broyden",),
+        # ("KrylovNewton",), 
+        # ("NewtonLineSearch",),
+    ])
+    status = -1
     while model.getTime() <= Pmax:
         i += 1
+        if status != 0:
+            try:
+                alg = next(algorithms)
+                print(f"Switching to algorithm: {alg}")
+                model.algorithm(*alg)
+                # status = 0
+            except StopIteration:
+                print(f"Failed at time = {model.getTime()} with v = {v[-1]}")
+                break
+
         if render:
             motion.advance(time=model.getTime()*speed)
             motion.draw_sections(rotation=model.nodeRotation,
@@ -193,11 +277,15 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
         P.append( model.getTime())
 
         status = model.analyze(1)
+        plot_cr.update(model)
 
+        # import sys
+        # from pandas import DataFrame as df
+        # print(df(model.getTangent()))
+        # sys.exit()
 
-        if status != 0:
-            print(f"Failed at time = {model.getTime()} with v = {v[-1]}")
-            break
+    plot_cr.draw()
+    plot_cr.finalize()
 
 
     if True:
@@ -213,22 +301,29 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
         ax.axvline(0, color='black', linestyle='-', linewidth=1)
         ax.axhline(0, color='black', linestyle='-', linewidth=1)
         slines = iter(["-", "--", "-.", ":"])
-        for file in Path("out").glob("shell-1032-case*.txt"):
+        for file in Path("out").glob("shell-1032-case3-pu.txt"):
             case = file.stem.split("-")[-1]
             try:
-                us, ps = np.loadtxt(file, unpack=True)
+                # us, ps = np.loadtxt(file, unpack=True)
+                ps, us, vs, ws = np.loadtxt(file, unpack=True)
             except:
                 continue
             ax.plot(us, ps, label=f"Shell({case}) $u_z$", 
                     linestyle=next(slines), color="gray")
+            ax.plot(vs, ps, label=f"Shell({case}) $u_y$", 
+                    linestyle=next(slines), color="lightgray")
+            ax.plot(ws, ps, label=f"Shell({case}) $u_x$", 
+                    linestyle=next(slines), color="darkgray")
         ax.plot(u, P, label="$u_x$")
         ax.plot(v, P, label="$u_y$")
         ax.plot(w, P, label="$u_z$")
         ax.grid(True)
         ax.legend()
 
-        name = f"{pattern}-{cpoint}-{warp_base}-{section}-{element[:5].lower()}"
-        fig.savefig(f"img/1032-{name}-displacements.png")
+
+        wagner = int("Wagner" in os.environ)
+        name = f"{pattern}-{cpoint}-{warp_base}-{section}-{element[:5].lower()}-{transform[-2:]}-wagner{wagner}"
+        # fig.savefig(f"img/1032-{name}-displacements.png")
 
 
         x = [model.nodeCoord(node, 1) for node in model.getNodeTags()]
@@ -257,14 +352,18 @@ def analyze(element, section, pattern="D", nen=2, warp_base="n", cpoint=None, re
 
 if __name__ == "__main__":
     import os
-    ne = 30
+    ne = 20
+    # Good:
+    #   1032-D-D-n-fiber-force-02-wagner0-displacements.png
+    
     analyze(pattern = os.environ.get("Pattern", "D"),
             element = os.environ.get("Element", "ExactFrame"),
             section = os.environ.get("Section", "ShearFiber"),
+            transform = os.environ.get("Transform", "Corotational02"),
             nen=2,
             render=False,
             cpoint  = os.environ.get("Center", "D"),
             warp_base=os.environ.get("Warping", "p") # "f", "r", "n"
             )
 
-    # plt.show()
+    plt.show()
