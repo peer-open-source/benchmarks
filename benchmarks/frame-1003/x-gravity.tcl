@@ -60,7 +60,7 @@ foreach element {ExactFrame ForceFrame} {
 
   system BandGeneral 
   integrator LoadControl 0.025 
-  test Energy 1e-16 15 1
+  test Energy 1e-16 15 0
   algorithm Newton 
   analysis Static 
   analyze 40
