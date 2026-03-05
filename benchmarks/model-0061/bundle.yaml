@@ -1,7 +1,7 @@
 key: model-0061
-title: 0026 - Bathe & Wilson eigenvalue problem
+title: Bathe & Wilson eigenvalue problem
 description: 9-story 10-bay Frame
-thumbnail_url: ''
+thumbnail_url: null
 benchmarks: []
 scripts:
 - path: benchmarks/model-0061/test-extra-2d.tcl
