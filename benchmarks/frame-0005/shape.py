@@ -7,6 +7,7 @@ from shps.shapes import from_aisc
 from veux.utility.alpha_shape import alpha_shape
 import matplotlib.pyplot as plt
 
+
 if __name__ == "__main__":
 
     shape = from_aisc("W14x48", units=units)
