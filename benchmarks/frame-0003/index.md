@@ -1,10 +1,5 @@
 ---
-title: "0003 - Simple span with distributed loading"
-Downloads:
-  2D:
-  - test-legacy-2d.tcl
-  3D:
-  - test-legacy-3d.tcl
+title: "Simple span with distributed loading"
 thumbnail: img/simple-span.png
 description: Simply supported beam with distributed loads
 ---
