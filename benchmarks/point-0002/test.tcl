@@ -63,7 +63,6 @@ for {set i 0} {$i<$numEigen} {incr i 1} {
 
 
 wipe
-wipe
 model Basic -ndm 1 -ndf 1
 node 1 0
 node 2 0
