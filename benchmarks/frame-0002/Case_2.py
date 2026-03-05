@@ -7,7 +7,7 @@
 #
 import numpy as np
 from math import cos,sin,sqrt,pi
-import opensees.openseespy as ops
+import xara as ops
 
 # import units (inch-kip-sec)
 from opensees.units.iks import ft, ksi
