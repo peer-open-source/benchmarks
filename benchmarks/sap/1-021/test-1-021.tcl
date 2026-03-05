@@ -1,4 +1,5 @@
 pragma openseespy
+set Element PrismFrame
 model  -ndm 3 -ndf 6
 node 1 -100 0 0 
 fix 1 -dof 2
@@ -440,7 +441,7 @@ node 110 100 0 90
 fix 110 -dof 2
 fix 110 -dof 4
 fix 110 -dof 6
-fix 1 1 0 1 0 1 0 
+fix  1 1 0 1 0 1 0 
 fix 11 1 0 1 0 1 0 
 fix 21 1 0 1 0 1 0 
 fix 31 1 0 1 0 1 0 
@@ -453,395 +454,396 @@ fix 91 1 0 1 0 1 0
 fix 101 1 0 1 0 1 0 
 nDMaterial ElasticIsotropic 1 432000 0.2 
 nDMaterial ElasticIsotropic 2 518400 0.2 
-section FrameElastic 1 -A 3 -Ay 0 -Az 0 -Iz 1 -Iy 0 -J 0 -E 432000 -G 180000
-geomTransf Linear 1 0.0 1.0 0.0 
-element PrismFrame 1 1 2 -section 1 -transform 1 -mass 3 -shear 1
-geomTransf Linear 2 0.0 1.0 0.0 
-element PrismFrame 2 2 3 -section 1 -transform 2 -mass 3 -shear 1
-geomTransf Linear 3 0.0 1.0 0.0 
-element PrismFrame 3 3 4 -section 1 -transform 3 -mass 3 -shear 1
-geomTransf Linear 4 0.0 1.0 0.0 
-element PrismFrame 4 4 5 -section 1 -transform 4 -mass 3 -shear 1
-geomTransf Linear 5 0.0 1.0 0.0 
-element PrismFrame 5 5 6 -section 1 -transform 5 -mass 3 -shear 1
-geomTransf Linear 6 0.0 1.0 0.0 
-element PrismFrame 6 6 7 -section 1 -transform 6 -mass 3 -shear 1
-geomTransf Linear 7 0.0 1.0 0.0 
-element PrismFrame 7 7 8 -section 1 -transform 7 -mass 3 -shear 1
-geomTransf Linear 8 0.0 1.0 0.0 
-element PrismFrame 8 8 9 -section 1 -transform 8 -mass 3 -shear 1
-geomTransf Linear 9 0.0 1.0 0.0 
-element PrismFrame 9 9 10 -section 1 -transform 9 -mass 3 -shear 1
-geomTransf Linear 10 0.0 1.0 0.0 
-element PrismFrame 10 11 12 -section 1 -transform 10 -mass 3 -shear 1
-geomTransf Linear 11 0.0 1.0 0.0 
-element PrismFrame 11 12 13 -section 1 -transform 11 -mass 3 -shear 1
-geomTransf Linear 12 0.0 1.0 0.0 
-element PrismFrame 12 13 14 -section 1 -transform 12 -mass 3 -shear 1
-geomTransf Linear 13 0.0 1.0 0.0 
-element PrismFrame 13 14 15 -section 1 -transform 13 -mass 3 -shear 1
-geomTransf Linear 14 0.0 1.0 0.0 
-element PrismFrame 14 15 16 -section 1 -transform 14 -mass 3 -shear 1
-geomTransf Linear 15 0.0 1.0 0.0 
-element PrismFrame 15 16 17 -section 1 -transform 15 -mass 3 -shear 1
-geomTransf Linear 16 0.0 1.0 0.0 
-element PrismFrame 16 17 18 -section 1 -transform 16 -mass 3 -shear 1
-geomTransf Linear 17 0.0 1.0 0.0 
-element PrismFrame 17 18 19 -section 1 -transform 17 -mass 3 -shear 1
-geomTransf Linear 18 0.0 1.0 0.0 
-element PrismFrame 18 19 20 -section 1 -transform 18 -mass 3 -shear 1
-geomTransf Linear 19 0.0 1.0 0.0 
-element PrismFrame 19 21 22 -section 1 -transform 19 -mass 3 -shear 1
-geomTransf Linear 20 0.0 1.0 0.0 
-element PrismFrame 20 22 23 -section 1 -transform 20 -mass 3 -shear 1
-geomTransf Linear 21 0.0 1.0 0.0 
-element PrismFrame 21 23 24 -section 1 -transform 21 -mass 3 -shear 1
-geomTransf Linear 22 0.0 1.0 0.0 
-element PrismFrame 22 24 25 -section 1 -transform 22 -mass 3 -shear 1
-geomTransf Linear 23 0.0 1.0 0.0 
-element PrismFrame 23 25 26 -section 1 -transform 23 -mass 3 -shear 1
-geomTransf Linear 24 0.0 1.0 0.0 
-element PrismFrame 24 26 27 -section 1 -transform 24 -mass 3 -shear 1
-geomTransf Linear 25 0.0 1.0 0.0 
-element PrismFrame 25 27 28 -section 1 -transform 25 -mass 3 -shear 1
-geomTransf Linear 26 0.0 1.0 0.0 
-element PrismFrame 26 28 29 -section 1 -transform 26 -mass 3 -shear 1
-geomTransf Linear 27 0.0 1.0 0.0 
-element PrismFrame 27 29 30 -section 1 -transform 27 -mass 3 -shear 1
-geomTransf Linear 28 0.0 1.0 0.0 
-element PrismFrame 28 31 32 -section 1 -transform 28 -mass 3 -shear 1
-geomTransf Linear 29 0.0 1.0 0.0 
-element PrismFrame 29 32 33 -section 1 -transform 29 -mass 3 -shear 1
-geomTransf Linear 30 0.0 1.0 0.0 
-element PrismFrame 30 33 34 -section 1 -transform 30 -mass 3 -shear 1
-geomTransf Linear 31 0.0 1.0 0.0 
-element PrismFrame 31 34 35 -section 1 -transform 31 -mass 3 -shear 1
-geomTransf Linear 32 0.0 1.0 0.0 
-element PrismFrame 32 35 36 -section 1 -transform 32 -mass 3 -shear 1
-geomTransf Linear 33 0.0 1.0 0.0 
-element PrismFrame 33 36 37 -section 1 -transform 33 -mass 3 -shear 1
-geomTransf Linear 34 0.0 1.0 0.0 
-element PrismFrame 34 37 38 -section 1 -transform 34 -mass 3 -shear 1
-geomTransf Linear 35 0.0 1.0 0.0 
-element PrismFrame 35 38 39 -section 1 -transform 35 -mass 3 -shear 1
-geomTransf Linear 36 0.0 1.0 0.0 
-element PrismFrame 36 39 40 -section 1 -transform 36 -mass 3 -shear 1
-geomTransf Linear 37 0.0 1.0 0.0 
-element PrismFrame 37 41 42 -section 1 -transform 37 -mass 3 -shear 1
-geomTransf Linear 38 0.0 1.0 0.0 
-element PrismFrame 38 42 43 -section 1 -transform 38 -mass 3 -shear 1
-geomTransf Linear 39 0.0 1.0 0.0 
-element PrismFrame 39 43 44 -section 1 -transform 39 -mass 3 -shear 1
-geomTransf Linear 40 0.0 1.0 0.0 
-element PrismFrame 40 44 45 -section 1 -transform 40 -mass 3 -shear 1
-geomTransf Linear 41 0.0 1.0 0.0 
-element PrismFrame 41 45 46 -section 1 -transform 41 -mass 3 -shear 1
-geomTransf Linear 42 0.0 1.0 0.0 
-element PrismFrame 42 46 47 -section 1 -transform 42 -mass 3 -shear 1
-geomTransf Linear 43 0.0 1.0 0.0 
-element PrismFrame 43 47 48 -section 1 -transform 43 -mass 3 -shear 1
-geomTransf Linear 44 0.0 1.0 0.0 
-element PrismFrame 44 48 49 -section 1 -transform 44 -mass 3 -shear 1
-geomTransf Linear 45 0.0 1.0 0.0 
-element PrismFrame 45 49 50 -section 1 -transform 45 -mass 3 -shear 1
-geomTransf Linear 46 0.0 1.0 0.0 
-element PrismFrame 46 51 52 -section 1 -transform 46 -mass 3 -shear 1
-geomTransf Linear 47 0.0 1.0 0.0 
-element PrismFrame 47 52 53 -section 1 -transform 47 -mass 3 -shear 1
-geomTransf Linear 48 0.0 1.0 0.0 
-element PrismFrame 48 53 54 -section 1 -transform 48 -mass 3 -shear 1
-geomTransf Linear 49 0.0 1.0 0.0 
-element PrismFrame 49 54 55 -section 1 -transform 49 -mass 3 -shear 1
-geomTransf Linear 50 0.0 1.0 0.0 
-element PrismFrame 50 55 56 -section 1 -transform 50 -mass 3 -shear 1
-geomTransf Linear 51 0.0 1.0 0.0 
-element PrismFrame 51 56 57 -section 1 -transform 51 -mass 3 -shear 1
-geomTransf Linear 52 0.0 1.0 0.0 
-element PrismFrame 52 57 58 -section 1 -transform 52 -mass 3 -shear 1
-geomTransf Linear 53 0.0 1.0 0.0 
-element PrismFrame 53 58 59 -section 1 -transform 53 -mass 3 -shear 1
-geomTransf Linear 54 0.0 1.0 0.0 
-element PrismFrame 54 59 60 -section 1 -transform 54 -mass 3 -shear 1
-geomTransf Linear 55 0.0 1.0 0.0 
-element PrismFrame 55 61 62 -section 1 -transform 55 -mass 3 -shear 1
-geomTransf Linear 56 0.0 1.0 0.0 
-element PrismFrame 56 62 63 -section 1 -transform 56 -mass 3 -shear 1
-geomTransf Linear 57 0.0 1.0 0.0 
-element PrismFrame 57 63 64 -section 1 -transform 57 -mass 3 -shear 1
-geomTransf Linear 58 0.0 1.0 0.0 
-element PrismFrame 58 64 65 -section 1 -transform 58 -mass 3 -shear 1
-geomTransf Linear 59 0.0 1.0 0.0 
-element PrismFrame 59 65 66 -section 1 -transform 59 -mass 3 -shear 1
-geomTransf Linear 60 0.0 1.0 0.0 
-element PrismFrame 60 66 67 -section 1 -transform 60 -mass 3 -shear 1
-geomTransf Linear 61 0.0 1.0 0.0 
-element PrismFrame 61 67 68 -section 1 -transform 61 -mass 3 -shear 1
-geomTransf Linear 62 0.0 1.0 0.0 
-element PrismFrame 62 68 69 -section 1 -transform 62 -mass 3 -shear 1
-geomTransf Linear 63 0.0 1.0 0.0 
-element PrismFrame 63 69 70 -section 1 -transform 63 -mass 3 -shear 1
-geomTransf Linear 64 0.0 1.0 0.0 
-element PrismFrame 64 71 72 -section 1 -transform 64 -mass 3 -shear 1
-geomTransf Linear 65 0.0 1.0 0.0 
-element PrismFrame 65 72 73 -section 1 -transform 65 -mass 3 -shear 1
-geomTransf Linear 66 0.0 1.0 0.0 
-element PrismFrame 66 73 74 -section 1 -transform 66 -mass 3 -shear 1
-geomTransf Linear 67 0.0 1.0 0.0 
-element PrismFrame 67 74 75 -section 1 -transform 67 -mass 3 -shear 1
-geomTransf Linear 68 0.0 1.0 0.0 
-element PrismFrame 68 75 76 -section 1 -transform 68 -mass 3 -shear 1
-geomTransf Linear 69 0.0 1.0 0.0 
-element PrismFrame 69 76 77 -section 1 -transform 69 -mass 3 -shear 1
-geomTransf Linear 70 0.0 1.0 0.0 
-element PrismFrame 70 77 78 -section 1 -transform 70 -mass 3 -shear 1
-geomTransf Linear 71 0.0 1.0 0.0 
-element PrismFrame 71 78 79 -section 1 -transform 71 -mass 3 -shear 1
-geomTransf Linear 72 0.0 1.0 0.0 
-element PrismFrame 72 79 80 -section 1 -transform 72 -mass 3 -shear 1
-geomTransf Linear 73 0.0 1.0 0.0 
-element PrismFrame 73 81 82 -section 1 -transform 73 -mass 3 -shear 1
-geomTransf Linear 74 0.0 1.0 0.0 
-element PrismFrame 74 82 83 -section 1 -transform 74 -mass 3 -shear 1
-geomTransf Linear 75 0.0 1.0 0.0 
-element PrismFrame 75 83 84 -section 1 -transform 75 -mass 3 -shear 1
-geomTransf Linear 76 0.0 1.0 0.0 
-element PrismFrame 76 84 85 -section 1 -transform 76 -mass 3 -shear 1
-geomTransf Linear 77 0.0 1.0 0.0 
-element PrismFrame 77 85 86 -section 1 -transform 77 -mass 3 -shear 1
-geomTransf Linear 78 0.0 1.0 0.0 
-element PrismFrame 78 86 87 -section 1 -transform 78 -mass 3 -shear 1
-geomTransf Linear 79 0.0 1.0 0.0 
-element PrismFrame 79 87 88 -section 1 -transform 79 -mass 3 -shear 1
-geomTransf Linear 80 0.0 1.0 0.0 
-element PrismFrame 80 88 89 -section 1 -transform 80 -mass 3 -shear 1
-geomTransf Linear 81 0.0 1.0 0.0 
-element PrismFrame 81 89 90 -section 1 -transform 81 -mass 3 -shear 1
-geomTransf Linear 82 0.0 1.0 0.0 
-element PrismFrame 82 91 92 -section 1 -transform 82 -mass 3 -shear 1
-geomTransf Linear 83 0.0 1.0 0.0 
-element PrismFrame 83 92 93 -section 1 -transform 83 -mass 3 -shear 1
-geomTransf Linear 84 0.0 1.0 0.0 
-element PrismFrame 84 93 94 -section 1 -transform 84 -mass 3 -shear 1
-geomTransf Linear 85 0.0 1.0 0.0 
-element PrismFrame 85 94 95 -section 1 -transform 85 -mass 3 -shear 1
-geomTransf Linear 86 0.0 1.0 0.0 
-element PrismFrame 86 95 96 -section 1 -transform 86 -mass 3 -shear 1
-geomTransf Linear 87 0.0 1.0 0.0 
-element PrismFrame 87 96 97 -section 1 -transform 87 -mass 3 -shear 1
-geomTransf Linear 88 0.0 1.0 0.0 
-element PrismFrame 88 97 98 -section 1 -transform 88 -mass 3 -shear 1
-geomTransf Linear 89 0.0 1.0 0.0 
-element PrismFrame 89 98 99 -section 1 -transform 89 -mass 3 -shear 1
-geomTransf Linear 90 0.0 1.0 0.0 
-element PrismFrame 90 99 100 -section 1 -transform 90 -mass 3 -shear 1
-geomTransf Linear 91 0.0 1.0 0.0 
-element PrismFrame 91 101 102 -section 1 -transform 91 -mass 3 -shear 1
-geomTransf Linear 92 0.0 1.0 0.0 
-element PrismFrame 92 102 103 -section 1 -transform 92 -mass 3 -shear 1
-geomTransf Linear 93 0.0 1.0 0.0 
-element PrismFrame 93 103 104 -section 1 -transform 93 -mass 3 -shear 1
-geomTransf Linear 94 0.0 1.0 0.0 
-element PrismFrame 94 104 105 -section 1 -transform 94 -mass 3 -shear 1
-geomTransf Linear 95 0.0 1.0 0.0 
-element PrismFrame 95 105 106 -section 1 -transform 95 -mass 3 -shear 1
-geomTransf Linear 96 0.0 1.0 0.0 
-element PrismFrame 96 106 107 -section 1 -transform 96 -mass 3 -shear 1
-geomTransf Linear 97 0.0 1.0 0.0 
-element PrismFrame 97 107 108 -section 1 -transform 97 -mass 3 -shear 1
-geomTransf Linear 98 0.0 1.0 0.0 
-element PrismFrame 98 108 109 -section 1 -transform 98 -mass 3 -shear 1
-geomTransf Linear 99 0.0 1.0 0.0 
-element PrismFrame 99 109 110 -section 1 -transform 99 -mass 3 -shear 1
-geomTransf Linear 100 0.0 -1.0 -0.0 
-element PrismFrame 100 2 12 -section 1 -transform 100 -mass 3 -shear 1
-geomTransf Linear 101 0.0 -1.0 -0.0 
-element PrismFrame 101 3 13 -section 1 -transform 101 -mass 3 -shear 1
-geomTransf Linear 102 0.0 -1.0 -0.0 
-element PrismFrame 102 4 14 -section 1 -transform 102 -mass 3 -shear 1
-geomTransf Linear 103 0.0 -1.0 -0.0 
-element PrismFrame 103 5 15 -section 1 -transform 103 -mass 3 -shear 1
-geomTransf Linear 104 0.0 -1.0 -0.0 
-element PrismFrame 104 6 16 -section 1 -transform 104 -mass 3 -shear 1
-geomTransf Linear 105 0.0 -1.0 -0.0 
-element PrismFrame 105 7 17 -section 1 -transform 105 -mass 3 -shear 1
-geomTransf Linear 106 0.0 -1.0 -0.0 
-element PrismFrame 106 8 18 -section 1 -transform 106 -mass 3 -shear 1
-geomTransf Linear 107 0.0 -1.0 -0.0 
-element PrismFrame 107 9 19 -section 1 -transform 107 -mass 3 -shear 1
-geomTransf Linear 108 0.0 -1.0 -0.0 
-element PrismFrame 108 10 20 -section 1 -transform 108 -mass 3 -shear 1
-geomTransf Linear 109 0.0 -1.0 -0.0 
-element PrismFrame 109 12 22 -section 1 -transform 109 -mass 3 -shear 1
-geomTransf Linear 110 0.0 -1.0 -0.0 
-element PrismFrame 110 13 23 -section 1 -transform 110 -mass 3 -shear 1
-geomTransf Linear 111 0.0 -1.0 -0.0 
-element PrismFrame 111 14 24 -section 1 -transform 111 -mass 3 -shear 1
-geomTransf Linear 112 0.0 -1.0 -0.0 
-element PrismFrame 112 15 25 -section 1 -transform 112 -mass 3 -shear 1
-geomTransf Linear 113 0.0 -1.0 -0.0 
-element PrismFrame 113 16 26 -section 1 -transform 113 -mass 3 -shear 1
-geomTransf Linear 114 0.0 -1.0 -0.0 
-element PrismFrame 114 17 27 -section 1 -transform 114 -mass 3 -shear 1
-geomTransf Linear 115 0.0 -1.0 -0.0 
-element PrismFrame 115 18 28 -section 1 -transform 115 -mass 3 -shear 1
-geomTransf Linear 116 0.0 -1.0 -0.0 
-element PrismFrame 116 19 29 -section 1 -transform 116 -mass 3 -shear 1
-geomTransf Linear 117 0.0 -1.0 -0.0 
-element PrismFrame 117 20 30 -section 1 -transform 117 -mass 3 -shear 1
-geomTransf Linear 118 0.0 -1.0 -0.0 
-element PrismFrame 118 22 32 -section 1 -transform 118 -mass 3 -shear 1
-geomTransf Linear 119 0.0 -1.0 -0.0 
-element PrismFrame 119 23 33 -section 1 -transform 119 -mass 3 -shear 1
-geomTransf Linear 120 0.0 -1.0 -0.0 
-element PrismFrame 120 24 34 -section 1 -transform 120 -mass 3 -shear 1
-geomTransf Linear 121 0.0 -1.0 -0.0 
-element PrismFrame 121 25 35 -section 1 -transform 121 -mass 3 -shear 1
-geomTransf Linear 122 0.0 -1.0 -0.0 
-element PrismFrame 122 26 36 -section 1 -transform 122 -mass 3 -shear 1
-geomTransf Linear 123 0.0 -1.0 -0.0 
-element PrismFrame 123 27 37 -section 1 -transform 123 -mass 3 -shear 1
-geomTransf Linear 124 0.0 -1.0 -0.0 
-element PrismFrame 124 28 38 -section 1 -transform 124 -mass 3 -shear 1
-geomTransf Linear 125 0.0 -1.0 -0.0 
-element PrismFrame 125 29 39 -section 1 -transform 125 -mass 3 -shear 1
-geomTransf Linear 126 0.0 -1.0 -0.0 
-element PrismFrame 126 30 40 -section 1 -transform 126 -mass 3 -shear 1
-geomTransf Linear 127 0.0 -1.0 -0.0 
-element PrismFrame 127 32 42 -section 1 -transform 127 -mass 3 -shear 1
-geomTransf Linear 128 0.0 -1.0 -0.0 
-element PrismFrame 128 33 43 -section 1 -transform 128 -mass 3 -shear 1
-geomTransf Linear 129 0.0 -1.0 -0.0 
-element PrismFrame 129 34 44 -section 1 -transform 129 -mass 3 -shear 1
-geomTransf Linear 130 0.0 -1.0 -0.0 
-element PrismFrame 130 35 45 -section 1 -transform 130 -mass 3 -shear 1
-geomTransf Linear 131 0.0 -1.0 -0.0 
-element PrismFrame 131 36 46 -section 1 -transform 131 -mass 3 -shear 1
-geomTransf Linear 132 0.0 -1.0 -0.0 
-element PrismFrame 132 37 47 -section 1 -transform 132 -mass 3 -shear 1
-geomTransf Linear 133 0.0 -1.0 -0.0 
-element PrismFrame 133 38 48 -section 1 -transform 133 -mass 3 -shear 1
-geomTransf Linear 134 0.0 -1.0 -0.0 
-element PrismFrame 134 39 49 -section 1 -transform 134 -mass 3 -shear 1
-geomTransf Linear 135 0.0 -1.0 -0.0 
-element PrismFrame 135 40 50 -section 1 -transform 135 -mass 3 -shear 1
-geomTransf Linear 136 0.0 -1.0 -0.0 
-element PrismFrame 136 42 52 -section 1 -transform 136 -mass 3 -shear 1
-geomTransf Linear 137 0.0 -1.0 -0.0 
-element PrismFrame 137 43 53 -section 1 -transform 137 -mass 3 -shear 1
-geomTransf Linear 138 0.0 -1.0 -0.0 
-element PrismFrame 138 44 54 -section 1 -transform 138 -mass 3 -shear 1
-geomTransf Linear 139 0.0 -1.0 -0.0 
-element PrismFrame 139 45 55 -section 1 -transform 139 -mass 3 -shear 1
-geomTransf Linear 140 0.0 -1.0 -0.0 
-element PrismFrame 140 46 56 -section 1 -transform 140 -mass 3 -shear 1
-geomTransf Linear 141 0.0 -1.0 -0.0 
-element PrismFrame 141 47 57 -section 1 -transform 141 -mass 3 -shear 1
-geomTransf Linear 142 0.0 -1.0 -0.0 
-element PrismFrame 142 48 58 -section 1 -transform 142 -mass 3 -shear 1
-geomTransf Linear 143 0.0 -1.0 -0.0 
-element PrismFrame 143 49 59 -section 1 -transform 143 -mass 3 -shear 1
-geomTransf Linear 144 0.0 -1.0 -0.0 
-element PrismFrame 144 50 60 -section 1 -transform 144 -mass 3 -shear 1
-geomTransf Linear 145 0.0 -1.0 -0.0 
-element PrismFrame 145 52 62 -section 1 -transform 145 -mass 3 -shear 1
-geomTransf Linear 146 0.0 -1.0 -0.0 
-element PrismFrame 146 53 63 -section 1 -transform 146 -mass 3 -shear 1
-geomTransf Linear 147 0.0 -1.0 -0.0 
-element PrismFrame 147 54 64 -section 1 -transform 147 -mass 3 -shear 1
-geomTransf Linear 148 0.0 -1.0 -0.0 
-element PrismFrame 148 55 65 -section 1 -transform 148 -mass 3 -shear 1
-geomTransf Linear 149 0.0 -1.0 -0.0 
-element PrismFrame 149 56 66 -section 1 -transform 149 -mass 3 -shear 1
-geomTransf Linear 150 0.0 -1.0 -0.0 
-element PrismFrame 150 57 67 -section 1 -transform 150 -mass 3 -shear 1
-geomTransf Linear 151 0.0 -1.0 -0.0 
-element PrismFrame 151 58 68 -section 1 -transform 151 -mass 3 -shear 1
-geomTransf Linear 152 0.0 -1.0 -0.0 
-element PrismFrame 152 59 69 -section 1 -transform 152 -mass 3 -shear 1
-geomTransf Linear 153 0.0 -1.0 -0.0 
-element PrismFrame 153 60 70 -section 1 -transform 153 -mass 3 -shear 1
-geomTransf Linear 154 0.0 -1.0 -0.0 
-element PrismFrame 154 62 72 -section 1 -transform 154 -mass 3 -shear 1
-geomTransf Linear 155 0.0 -1.0 -0.0 
-element PrismFrame 155 63 73 -section 1 -transform 155 -mass 3 -shear 1
-geomTransf Linear 156 0.0 -1.0 -0.0 
-element PrismFrame 156 64 74 -section 1 -transform 156 -mass 3 -shear 1
-geomTransf Linear 157 0.0 -1.0 -0.0 
-element PrismFrame 157 65 75 -section 1 -transform 157 -mass 3 -shear 1
-geomTransf Linear 158 0.0 -1.0 -0.0 
-element PrismFrame 158 66 76 -section 1 -transform 158 -mass 3 -shear 1
-geomTransf Linear 159 0.0 -1.0 -0.0 
-element PrismFrame 159 67 77 -section 1 -transform 159 -mass 3 -shear 1
-geomTransf Linear 160 0.0 -1.0 -0.0 
-element PrismFrame 160 68 78 -section 1 -transform 160 -mass 3 -shear 1
-geomTransf Linear 161 0.0 -1.0 -0.0 
-element PrismFrame 161 69 79 -section 1 -transform 161 -mass 3 -shear 1
-geomTransf Linear 162 0.0 -1.0 -0.0 
-element PrismFrame 162 70 80 -section 1 -transform 162 -mass 3 -shear 1
-geomTransf Linear 163 0.0 -1.0 -0.0 
-element PrismFrame 163 72 82 -section 1 -transform 163 -mass 3 -shear 1
-geomTransf Linear 164 0.0 -1.0 -0.0 
-element PrismFrame 164 73 83 -section 1 -transform 164 -mass 3 -shear 1
-geomTransf Linear 165 0.0 -1.0 -0.0 
-element PrismFrame 165 74 84 -section 1 -transform 165 -mass 3 -shear 1
-geomTransf Linear 166 0.0 -1.0 -0.0 
-element PrismFrame 166 75 85 -section 1 -transform 166 -mass 3 -shear 1
-geomTransf Linear 167 0.0 -1.0 -0.0 
-element PrismFrame 167 76 86 -section 1 -transform 167 -mass 3 -shear 1
-geomTransf Linear 168 0.0 -1.0 -0.0 
-element PrismFrame 168 77 87 -section 1 -transform 168 -mass 3 -shear 1
-geomTransf Linear 169 0.0 -1.0 -0.0 
-element PrismFrame 169 78 88 -section 1 -transform 169 -mass 3 -shear 1
-geomTransf Linear 170 0.0 -1.0 -0.0 
-element PrismFrame 170 79 89 -section 1 -transform 170 -mass 3 -shear 1
-geomTransf Linear 171 0.0 -1.0 -0.0 
-element PrismFrame 171 80 90 -section 1 -transform 171 -mass 3 -shear 1
-geomTransf Linear 172 0.0 -1.0 -0.0 
-element PrismFrame 172 82 92 -section 1 -transform 172 -mass 3 -shear 1
-geomTransf Linear 173 0.0 -1.0 -0.0 
-element PrismFrame 173 83 93 -section 1 -transform 173 -mass 3 -shear 1
-geomTransf Linear 174 0.0 -1.0 -0.0 
-element PrismFrame 174 84 94 -section 1 -transform 174 -mass 3 -shear 1
-geomTransf Linear 175 0.0 -1.0 -0.0 
-element PrismFrame 175 85 95 -section 1 -transform 175 -mass 3 -shear 1
-geomTransf Linear 176 0.0 -1.0 -0.0 
-element PrismFrame 176 86 96 -section 1 -transform 176 -mass 3 -shear 1
-geomTransf Linear 177 0.0 -1.0 -0.0 
-element PrismFrame 177 87 97 -section 1 -transform 177 -mass 3 -shear 1
-geomTransf Linear 178 0.0 -1.0 -0.0 
-element PrismFrame 178 88 98 -section 1 -transform 178 -mass 3 -shear 1
-geomTransf Linear 179 0.0 -1.0 -0.0 
-element PrismFrame 179 89 99 -section 1 -transform 179 -mass 3 -shear 1
-geomTransf Linear 180 0.0 -1.0 -0.0 
-element PrismFrame 180 90 100 -section 1 -transform 180 -mass 3 -shear 1
-geomTransf Linear 181 0.0 -1.0 -0.0 
-element PrismFrame 181 92 102 -section 1 -transform 181 -mass 3 -shear 1
-geomTransf Linear 182 0.0 -1.0 -0.0 
-element PrismFrame 182 93 103 -section 1 -transform 182 -mass 3 -shear 1
-geomTransf Linear 183 0.0 -1.0 -0.0 
-element PrismFrame 183 94 104 -section 1 -transform 183 -mass 3 -shear 1
-geomTransf Linear 184 0.0 -1.0 -0.0 
-element PrismFrame 184 95 105 -section 1 -transform 184 -mass 3 -shear 1
-geomTransf Linear 185 0.0 -1.0 -0.0 
-element PrismFrame 185 96 106 -section 1 -transform 185 -mass 3 -shear 1
-geomTransf Linear 186 0.0 -1.0 -0.0 
-element PrismFrame 186 97 107 -section 1 -transform 186 -mass 3 -shear 1
-geomTransf Linear 187 0.0 -1.0 -0.0 
-element PrismFrame 187 98 108 -section 1 -transform 187 -mass 3 -shear 1
-geomTransf Linear 188 0.0 -1.0 -0.0 
-element PrismFrame 188 99 109 -section 1 -transform 188 -mass 3 -shear 1
-geomTransf Linear 189 0.0 -1.0 -0.0 
-element PrismFrame 189 100 110 -section 1 -transform 189 -mass 3 -shear 1
+section FrameElastic 1 -A 3 -Ay 0 -Az 0 -Iz 1 -Iy 0 -J 1 -E 432000 -G 180000
 
+geomTransf Linear  1 0.0 1.0 0.0 
+geomTransf Linear  2 0.0 1.0 0.0 
+geomTransf Linear  3 0.0 1.0 0.0 
+geomTransf Linear 10 0.0 1.0 0.0 
+geomTransf Linear 11 0.0 1.0 0.0 
+geomTransf Linear 12 0.0 1.0 0.0 
+geomTransf Linear 13 0.0 1.0 0.0 
+geomTransf Linear 100 0.0 -1.0 -0.0 
+geomTransf Linear 101 0.0 -1.0 -0.0 
+geomTransf Linear 102 0.0 -1.0 -0.0 
+geomTransf Linear 103 0.0 -1.0 -0.0 
+geomTransf Linear 104 0.0 -1.0 -0.0 
+geomTransf Linear 105 0.0 -1.0 -0.0 
+geomTransf Linear 106 0.0 -1.0 -0.0 
+geomTransf Linear 107 0.0 -1.0 -0.0 
+geomTransf Linear 108 0.0 -1.0 -0.0 
+geomTransf Linear 109 0.0 -1.0 -0.0 
+geomTransf Linear 110 0.0 -1.0 -0.0 
+geomTransf Linear 111 0.0 -1.0 -0.0 
+geomTransf Linear 112 0.0 -1.0 -0.0 
+geomTransf Linear 113 0.0 -1.0 -0.0 
+geomTransf Linear 114 0.0 -1.0 -0.0 
+geomTransf Linear 115 0.0 -1.0 -0.0 
+geomTransf Linear 116 0.0 -1.0 -0.0 
+geomTransf Linear 117 0.0 -1.0 -0.0 
+geomTransf Linear 118 0.0 -1.0 -0.0 
+geomTransf Linear 119 0.0 -1.0 -0.0 
+geomTransf Linear 120 0.0 -1.0 -0.0 
+geomTransf Linear 121 0.0 -1.0 -0.0 
+geomTransf Linear 122 0.0 -1.0 -0.0 
+geomTransf Linear 123 0.0 -1.0 -0.0 
+geomTransf Linear 124 0.0 -1.0 -0.0 
+geomTransf Linear 125 0.0 -1.0 -0.0 
+geomTransf Linear 126 0.0 -1.0 -0.0 
+geomTransf Linear 127 0.0 -1.0 -0.0 
+geomTransf Linear 128 0.0 -1.0 -0.0 
+geomTransf Linear 129 0.0 -1.0 -0.0 
+geomTransf Linear 130 0.0 -1.0 -0.0 
+geomTransf Linear 131 0.0 -1.0 -0.0 
+geomTransf Linear 132 0.0 -1.0 -0.0 
+geomTransf Linear 133 0.0 -1.0 -0.0 
+geomTransf Linear 134 0.0 -1.0 -0.0 
+geomTransf Linear 135 0.0 -1.0 -0.0 
+geomTransf Linear 136 0.0 -1.0 -0.0 
+geomTransf Linear 137 0.0 -1.0 -0.0 
+geomTransf Linear 138 0.0 -1.0 -0.0 
+geomTransf Linear 139 0.0 -1.0 -0.0 
+geomTransf Linear 14 0.0 1.0 0.0 
+geomTransf Linear 140 0.0 -1.0 -0.0 
+geomTransf Linear 141 0.0 -1.0 -0.0 
+geomTransf Linear 142 0.0 -1.0 -0.0 
+geomTransf Linear 143 0.0 -1.0 -0.0 
+geomTransf Linear 144 0.0 -1.0 -0.0 
+geomTransf Linear 145 0.0 -1.0 -0.0 
+geomTransf Linear 146 0.0 -1.0 -0.0 
+geomTransf Linear 147 0.0 -1.0 -0.0 
+geomTransf Linear 148 0.0 -1.0 -0.0 
+geomTransf Linear 149 0.0 -1.0 -0.0 
+geomTransf Linear 15 0.0 1.0 0.0 
+geomTransf Linear 150 0.0 -1.0 -0.0 
+geomTransf Linear 151 0.0 -1.0 -0.0 
+geomTransf Linear 152 0.0 -1.0 -0.0 
+geomTransf Linear 153 0.0 -1.0 -0.0 
+geomTransf Linear 154 0.0 -1.0 -0.0 
+geomTransf Linear 155 0.0 -1.0 -0.0 
+geomTransf Linear 156 0.0 -1.0 -0.0 
+geomTransf Linear 157 0.0 -1.0 -0.0 
+geomTransf Linear 158 0.0 -1.0 -0.0 
+geomTransf Linear 159 0.0 -1.0 -0.0 
+geomTransf Linear 16 0.0 1.0 0.0 
+geomTransf Linear 160 0.0 -1.0 -0.0 
+geomTransf Linear 161 0.0 -1.0 -0.0 
+geomTransf Linear 162 0.0 -1.0 -0.0 
+geomTransf Linear 163 0.0 -1.0 -0.0 
+geomTransf Linear 164 0.0 -1.0 -0.0 
+geomTransf Linear 165 0.0 -1.0 -0.0 
+geomTransf Linear 166 0.0 -1.0 -0.0 
+geomTransf Linear 167 0.0 -1.0 -0.0 
+geomTransf Linear 168 0.0 -1.0 -0.0 
+geomTransf Linear 169 0.0 -1.0 -0.0 
+geomTransf Linear 17 0.0 1.0 0.0 
+geomTransf Linear 170 0.0 -1.0 -0.0 
+geomTransf Linear 171 0.0 -1.0 -0.0 
+geomTransf Linear 172 0.0 -1.0 -0.0 
+geomTransf Linear 173 0.0 -1.0 -0.0 
+geomTransf Linear 174 0.0 -1.0 -0.0 
+geomTransf Linear 175 0.0 -1.0 -0.0 
+geomTransf Linear 176 0.0 -1.0 -0.0 
+geomTransf Linear 177 0.0 -1.0 -0.0 
+geomTransf Linear 178 0.0 -1.0 -0.0 
+geomTransf Linear 179 0.0 -1.0 -0.0 
+geomTransf Linear 18 0.0 1.0 0.0 
+geomTransf Linear 180 0.0 -1.0 -0.0 
+geomTransf Linear 181 0.0 -1.0 -0.0 
+geomTransf Linear 182 0.0 -1.0 -0.0 
+geomTransf Linear 183 0.0 -1.0 -0.0 
+geomTransf Linear 184 0.0 -1.0 -0.0 
+geomTransf Linear 185 0.0 -1.0 -0.0 
+geomTransf Linear 186 0.0 -1.0 -0.0 
+geomTransf Linear 187 0.0 -1.0 -0.0 
+geomTransf Linear 188 0.0 -1.0 -0.0 
+geomTransf Linear 189 0.0 -1.0 -0.0 
+geomTransf Linear 19 0.0 1.0 0.0 
+geomTransf Linear 20 0.0 1.0 0.0 
+geomTransf Linear 21 0.0 1.0 0.0 
+geomTransf Linear 22 0.0 1.0 0.0 
+geomTransf Linear 23 0.0 1.0 0.0 
+geomTransf Linear 24 0.0 1.0 0.0 
+geomTransf Linear 25 0.0 1.0 0.0 
+geomTransf Linear 26 0.0 1.0 0.0 
+geomTransf Linear 27 0.0 1.0 0.0 
+geomTransf Linear 28 0.0 1.0 0.0 
+geomTransf Linear 29 0.0 1.0 0.0 
+geomTransf Linear 30 0.0 1.0 0.0 
+geomTransf Linear 31 0.0 1.0 0.0 
+geomTransf Linear 32 0.0 1.0 0.0 
+geomTransf Linear 33 0.0 1.0 0.0 
+geomTransf Linear 34 0.0 1.0 0.0 
+geomTransf Linear 35 0.0 1.0 0.0 
+geomTransf Linear 36 0.0 1.0 0.0 
+geomTransf Linear 37 0.0 1.0 0.0 
+geomTransf Linear 38 0.0 1.0 0.0 
+geomTransf Linear 39 0.0 1.0 0.0 
+geomTransf Linear 4 0.0 1.0 0.0 
+geomTransf Linear 40 0.0 1.0 0.0 
+geomTransf Linear 41 0.0 1.0 0.0 
+geomTransf Linear 42 0.0 1.0 0.0 
+geomTransf Linear 43 0.0 1.0 0.0 
+geomTransf Linear 44 0.0 1.0 0.0 
+geomTransf Linear 45 0.0 1.0 0.0 
+geomTransf Linear 46 0.0 1.0 0.0 
+geomTransf Linear 47 0.0 1.0 0.0 
+geomTransf Linear 48 0.0 1.0 0.0 
+geomTransf Linear 49 0.0 1.0 0.0 
+geomTransf Linear 5 0.0 1.0 0.0 
+geomTransf Linear 50 0.0 1.0 0.0 
+geomTransf Linear 51 0.0 1.0 0.0 
+geomTransf Linear 52 0.0 1.0 0.0 
+geomTransf Linear 53 0.0 1.0 0.0 
+geomTransf Linear 54 0.0 1.0 0.0 
+geomTransf Linear 55 0.0 1.0 0.0 
+geomTransf Linear 56 0.0 1.0 0.0 
+geomTransf Linear 57 0.0 1.0 0.0 
+geomTransf Linear 58 0.0 1.0 0.0 
+geomTransf Linear 59 0.0 1.0 0.0 
+geomTransf Linear 6 0.0 1.0 0.0 
+geomTransf Linear 60 0.0 1.0 0.0 
+geomTransf Linear 61 0.0 1.0 0.0 
+geomTransf Linear 62 0.0 1.0 0.0 
+geomTransf Linear 63 0.0 1.0 0.0 
+geomTransf Linear 64 0.0 1.0 0.0 
+geomTransf Linear 65 0.0 1.0 0.0 
+geomTransf Linear 66 0.0 1.0 0.0 
+geomTransf Linear 67 0.0 1.0 0.0 
+geomTransf Linear 68 0.0 1.0 0.0 
+geomTransf Linear 69 0.0 1.0 0.0 
+geomTransf Linear 7 0.0 1.0 0.0 
+geomTransf Linear 70 0.0 1.0 0.0 
+geomTransf Linear 71 0.0 1.0 0.0 
+geomTransf Linear 72 0.0 1.0 0.0 
+geomTransf Linear 73 0.0 1.0 0.0 
+geomTransf Linear 74 0.0 1.0 0.0 
+geomTransf Linear 75 0.0 1.0 0.0 
+geomTransf Linear 76 0.0 1.0 0.0 
+geomTransf Linear 77 0.0 1.0 0.0 
+geomTransf Linear 78 0.0 1.0 0.0 
+geomTransf Linear 79 0.0 1.0 0.0 
+geomTransf Linear 8 0.0 1.0 0.0 
+geomTransf Linear 80 0.0 1.0 0.0 
+geomTransf Linear 81 0.0 1.0 0.0 
+geomTransf Linear 82 0.0 1.0 0.0 
+geomTransf Linear 83 0.0 1.0 0.0 
+geomTransf Linear 84 0.0 1.0 0.0 
+geomTransf Linear 85 0.0 1.0 0.0 
+geomTransf Linear 86 0.0 1.0 0.0 
+geomTransf Linear 87 0.0 1.0 0.0 
+geomTransf Linear 88 0.0 1.0 0.0 
+geomTransf Linear 89 0.0 1.0 0.0 
+geomTransf Linear 9 0.0 1.0 0.0 
+geomTransf Linear 90 0.0 1.0 0.0 
+geomTransf Linear 91 0.0 1.0 0.0 
+geomTransf Linear 92 0.0 1.0 0.0 
+geomTransf Linear 93 0.0 1.0 0.0 
+geomTransf Linear 94 0.0 1.0 0.0 
+geomTransf Linear 95 0.0 1.0 0.0 
+geomTransf Linear 96 0.0 1.0 0.0 
+geomTransf Linear 97 0.0 1.0 0.0 
+geomTransf Linear 98 0.0 1.0 0.0 
+geomTransf Linear 99 0.0 1.0 0.0 
+
+element $Element  1  1  2 -section 1 -transform 1 -mass 3 -shear 0
+element $Element  2  2  3 -section 1 -transform 1 -mass 3 -shear 0
+element $Element  3  3  4 -section 1 -transform 3 -mass 3 -shear 0
+element $Element 10 11 12 -section 1 -transform 10 -mass 3 -shear 0
+element $Element 100 2 12 -section 1 -transform 100 -mass 3 -shear 0
+element $Element 101 3 13 -section 1 -transform 101 -mass 3 -shear 0
+element $Element 102 4 14 -section 1 -transform 102 -mass 3 -shear 0
+element $Element 103 5 15 -section 1 -transform 103 -mass 3 -shear 0
+element $Element 104 6 16 -section 1 -transform 104 -mass 3 -shear 0
+element $Element 105 7 17 -section 1 -transform 105 -mass 3 -shear 0
+element $Element 106 8 18 -section 1 -transform 106 -mass 3 -shear 0
+element $Element 107 9 19 -section 1 -transform 107 -mass 3 -shear 0
+element $Element 108 10 20 -section 1 -transform 108 -mass 3 -shear 0
+element $Element 109 12 22 -section 1 -transform 109 -mass 3 -shear 0
+element $Element 11 12 13 -section 1 -transform 11 -mass 3 -shear 0
+element $Element 110 13 23 -section 1 -transform 110 -mass 3 -shear 0
+element $Element 111 14 24 -section 1 -transform 111 -mass 3 -shear 0
+element $Element 112 15 25 -section 1 -transform 112 -mass 3 -shear 0
+element $Element 113 16 26 -section 1 -transform 113 -mass 3 -shear 0
+element $Element 114 17 27 -section 1 -transform 114 -mass 3 -shear 0
+element $Element 115 18 28 -section 1 -transform 115 -mass 3 -shear 0
+element $Element 116 19 29 -section 1 -transform 116 -mass 3 -shear 0
+element $Element 117 20 30 -section 1 -transform 117 -mass 3 -shear 0
+element $Element 118 22 32 -section 1 -transform 118 -mass 3 -shear 0
+element $Element 119 23 33 -section 1 -transform 119 -mass 3 -shear 0
+element $Element 12 13 14 -section 1 -transform 12 -mass 3 -shear 0
+element $Element 120 24 34 -section 1 -transform 120 -mass 3 -shear 0
+element $Element 121 25 35 -section 1 -transform 121 -mass 3 -shear 0
+element $Element 122 26 36 -section 1 -transform 122 -mass 3 -shear 0
+element $Element 123 27 37 -section 1 -transform 123 -mass 3 -shear 0
+element $Element 124 28 38 -section 1 -transform 124 -mass 3 -shear 0
+element $Element 125 29 39 -section 1 -transform 125 -mass 3 -shear 0
+element $Element 126 30 40 -section 1 -transform 126 -mass 3 -shear 0
+element $Element 127 32 42 -section 1 -transform 127 -mass 3 -shear 0
+element $Element 128 33 43 -section 1 -transform 128 -mass 3 -shear 0
+element $Element 129 34 44 -section 1 -transform 129 -mass 3 -shear 0
+element $Element 13 14 15 -section 1 -transform 13 -mass 3 -shear 0
+element $Element 130 35 45 -section 1 -transform 130 -mass 3 -shear 0
+element $Element 131 36 46 -section 1 -transform 131 -mass 3 -shear 0
+element $Element 132 37 47 -section 1 -transform 132 -mass 3 -shear 0
+element $Element 133 38 48 -section 1 -transform 133 -mass 3 -shear 0
+element $Element 134 39 49 -section 1 -transform 134 -mass 3 -shear 0
+element $Element 135 40 50 -section 1 -transform 135 -mass 3 -shear 0
+element $Element 136 42 52 -section 1 -transform 136 -mass 3 -shear 0
+element $Element 137 43 53 -section 1 -transform 137 -mass 3 -shear 0
+element $Element 138 44 54 -section 1 -transform 138 -mass 3 -shear 0
+element $Element 139 45 55 -section 1 -transform 139 -mass 3 -shear 0
+element $Element 14 15 16 -section 1 -transform 14 -mass 3 -shear 0
+element $Element 140 46 56 -section 1 -transform 140 -mass 3 -shear 0
+element $Element 141 47 57 -section 1 -transform 141 -mass 3 -shear 0
+element $Element 142 48 58 -section 1 -transform 142 -mass 3 -shear 0
+element $Element 143 49 59 -section 1 -transform 143 -mass 3 -shear 0
+element $Element 144 50 60 -section 1 -transform 144 -mass 3 -shear 0
+element $Element 145 52 62 -section 1 -transform 145 -mass 3 -shear 0
+element $Element 146 53 63 -section 1 -transform 146 -mass 3 -shear 0
+element $Element 147 54 64 -section 1 -transform 147 -mass 3 -shear 0
+element $Element 148 55 65 -section 1 -transform 148 -mass 3 -shear 0
+element $Element 149 56 66 -section 1 -transform 149 -mass 3 -shear 0
+element $Element 15 16 17 -section 1 -transform 15 -mass 3 -shear 0
+element $Element 150 57 67 -section 1 -transform 150 -mass 3 -shear 0
+element $Element 151 58 68 -section 1 -transform 151 -mass 3 -shear 0
+element $Element 152 59 69 -section 1 -transform 152 -mass 3 -shear 0
+element $Element 153 60 70 -section 1 -transform 153 -mass 3 -shear 0
+element $Element 154 62 72 -section 1 -transform 154 -mass 3 -shear 0
+element $Element 155 63 73 -section 1 -transform 155 -mass 3 -shear 0
+element $Element 156 64 74 -section 1 -transform 156 -mass 3 -shear 0
+element $Element 157 65 75 -section 1 -transform 157 -mass 3 -shear 0
+element $Element 158 66 76 -section 1 -transform 158 -mass 3 -shear 0
+element $Element 159 67 77 -section 1 -transform 159 -mass 3 -shear 0
+element $Element 16 17 18 -section 1 -transform 16 -mass 3 -shear 0
+element $Element 160 68 78 -section 1 -transform 160 -mass 3 -shear 0
+element $Element 161 69 79 -section 1 -transform 161 -mass 3 -shear 0
+element $Element 162 70 80 -section 1 -transform 162 -mass 3 -shear 0
+element $Element 163 72 82 -section 1 -transform 163 -mass 3 -shear 0
+element $Element 164 73 83 -section 1 -transform 164 -mass 3 -shear 0
+element $Element 165 74 84 -section 1 -transform 165 -mass 3 -shear 0
+element $Element 166 75 85 -section 1 -transform 166 -mass 3 -shear 0
+element $Element 167 76 86 -section 1 -transform 167 -mass 3 -shear 0
+element $Element 168 77 87 -section 1 -transform 168 -mass 3 -shear 0
+element $Element 169 78 88 -section 1 -transform 169 -mass 3 -shear 0
+element $Element 17 18 19 -section 1 -transform 17 -mass 3 -shear 0
+element $Element 170 79 89 -section 1 -transform 170 -mass 3 -shear 0
+element $Element 171 80 90 -section 1 -transform 171 -mass 3 -shear 0
+element $Element 172 82 92 -section 1 -transform 172 -mass 3 -shear 0
+element $Element 173 83 93 -section 1 -transform 173 -mass 3 -shear 0
+element $Element 174 84 94 -section 1 -transform 174 -mass 3 -shear 0
+element $Element 175 85 95 -section 1 -transform 175 -mass 3 -shear 0
+element $Element 176 86 96 -section 1 -transform 176 -mass 3 -shear 0
+element $Element 177 87 97 -section 1 -transform 177 -mass 3 -shear 0
+element $Element 178 88 98 -section 1 -transform 178 -mass 3 -shear 0
+element $Element 179 89 99 -section 1 -transform 179 -mass 3 -shear 0
+element $Element 18 19 20 -section 1 -transform 18 -mass 3 -shear 0
+element $Element 180 90 100 -section 1 -transform 180 -mass 3 -shear 0
+element $Element 181 92 102 -section 1 -transform 181 -mass 3 -shear 0
+element $Element 182 93 103 -section 1 -transform 182 -mass 3 -shear 0
+element $Element 183 94 104 -section 1 -transform 183 -mass 3 -shear 0
+element $Element 184 95 105 -section 1 -transform 184 -mass 3 -shear 0
+element $Element 185 96 106 -section 1 -transform 185 -mass 3 -shear 0
+element $Element 186 97 107 -section 1 -transform 186 -mass 3 -shear 0
+element $Element 187 98 108 -section 1 -transform 187 -mass 3 -shear 0
+element $Element 188 99 109 -section 1 -transform 188 -mass 3 -shear 0
+element $Element 189 100 110 -section 1 -transform 189 -mass 3 -shear 0
+element $Element 19 21 22 -section 1 -transform 19 -mass 3 -shear 0
+element $Element 20 22 23 -section 1 -transform 20 -mass 3 -shear 0
+element $Element 21 23 24 -section 1 -transform 21 -mass 3 -shear 0
+element $Element 22 24 25 -section 1 -transform 22 -mass 3 -shear 0
+element $Element 23 25 26 -section 1 -transform 23 -mass 3 -shear 0
+element $Element 24 26 27 -section 1 -transform 24 -mass 3 -shear 0
+element $Element 25 27 28 -section 1 -transform 25 -mass 3 -shear 0
+element $Element 26 28 29 -section 1 -transform 26 -mass 3 -shear 0
+element $Element 27 29 30 -section 1 -transform 27 -mass 3 -shear 0
+element $Element 28 31 32 -section 1 -transform 28 -mass 3 -shear 0
+element $Element 29 32 33 -section 1 -transform 29 -mass 3 -shear 0
+element $Element 30 33 34 -section 1 -transform 30 -mass 3 -shear 0
+element $Element 31 34 35 -section 1 -transform 31 -mass 3 -shear 0
+element $Element 32 35 36 -section 1 -transform 32 -mass 3 -shear 0
+element $Element 33 36 37 -section 1 -transform 33 -mass 3 -shear 0
+element $Element 34 37 38 -section 1 -transform 34 -mass 3 -shear 0
+element $Element 35 38 39 -section 1 -transform 35 -mass 3 -shear 0
+element $Element 36 39 40 -section 1 -transform 36 -mass 3 -shear 0
+element $Element 37 41 42 -section 1 -transform 37 -mass 3 -shear 0
+element $Element 38 42 43 -section 1 -transform 38 -mass 3 -shear 0
+element $Element 39 43 44 -section 1 -transform 39 -mass 3 -shear 0
+element $Element 4 4 5 -section 1 -transform 4 -mass 3 -shear 0
+element $Element 40 44 45 -section 1 -transform 40 -mass 3 -shear 0
+element $Element 41 45 46 -section 1 -transform 41 -mass 3 -shear 0
+element $Element 42 46 47 -section 1 -transform 42 -mass 3 -shear 0
+element $Element 43 47 48 -section 1 -transform 43 -mass 3 -shear 0
+element $Element 44 48 49 -section 1 -transform 44 -mass 3 -shear 0
+element $Element 45 49 50 -section 1 -transform 45 -mass 3 -shear 0
+element $Element 46 51 52 -section 1 -transform 46 -mass 3 -shear 0
+element $Element 47 52 53 -section 1 -transform 47 -mass 3 -shear 0
+element $Element 48 53 54 -section 1 -transform 48 -mass 3 -shear 0
+element $Element 49 54 55 -section 1 -transform 49 -mass 3 -shear 0
+element $Element 5 5 6 -section 1 -transform 5 -mass 3 -shear 0
+element $Element 50 55 56 -section 1 -transform 50 -mass 3 -shear 0
+element $Element 51 56 57 -section 1 -transform 51 -mass 3 -shear 0
+element $Element 52 57 58 -section 1 -transform 52 -mass 3 -shear 0
+element $Element 53 58 59 -section 1 -transform 53 -mass 3 -shear 0
+element $Element 54 59 60 -section 1 -transform 54 -mass 3 -shear 0
+element $Element 55 61 62 -section 1 -transform 55 -mass 3 -shear 0
+element $Element 56 62 63 -section 1 -transform 56 -mass 3 -shear 0
+element $Element 57 63 64 -section 1 -transform 57 -mass 3 -shear 0
+element $Element 58 64 65 -section 1 -transform 58 -mass 3 -shear 0
+element $Element 59 65 66 -section 1 -transform 59 -mass 3 -shear 0
+element $Element 6 6 7 -section 1 -transform 6 -mass 3 -shear 0
+element $Element 60 66 67 -section 1 -transform 60 -mass 3 -shear 0
+element $Element 61 67 68 -section 1 -transform 61 -mass 3 -shear 0
+element $Element 62 68 69 -section 1 -transform 62 -mass 3 -shear 0
+element $Element 63 69 70 -section 1 -transform 63 -mass 3 -shear 0
+element $Element 64 71 72 -section 1 -transform 64 -mass 3 -shear 0
+element $Element 65 72 73 -section 1 -transform 65 -mass 3 -shear 0
+element $Element 66 73 74 -section 1 -transform 66 -mass 3 -shear 0
+element $Element 67 74 75 -section 1 -transform 67 -mass 3 -shear 0
+element $Element 68 75 76 -section 1 -transform 68 -mass 3 -shear 0
+element $Element 69 76 77 -section 1 -transform 69 -mass 3 -shear 0
+element $Element 7 7 8 -section 1 -transform 7 -mass 3 -shear 0
+element $Element 70 77 78 -section 1 -transform 70 -mass 3 -shear 0
+element $Element 71 78 79 -section 1 -transform 71 -mass 3 -shear 0
+element $Element 72 79 80 -section 1 -transform 72 -mass 3 -shear 0
+element $Element 73 81 82 -section 1 -transform 73 -mass 3 -shear 0
+element $Element 74 82 83 -section 1 -transform 74 -mass 3 -shear 0
+element $Element 75 83 84 -section 1 -transform 75 -mass 3 -shear 0
+element $Element 76 84 85 -section 1 -transform 76 -mass 3 -shear 0
+element $Element 77 85 86 -section 1 -transform 77 -mass 3 -shear 0
+element $Element 78 86 87 -section 1 -transform 78 -mass 3 -shear 0
+element $Element 79 87 88 -section 1 -transform 79 -mass 3 -shear 0
+element $Element 8 8 9 -section 1 -transform 8 -mass 3 -shear 0
+element $Element 80 88 89 -section 1 -transform 80 -mass 3 -shear 0
+element $Element 81 89 90 -section 1 -transform 81 -mass 3 -shear 0
+element $Element 82 91 92 -section 1 -transform 82 -mass 3 -shear 0
+element $Element 83 92 93 -section 1 -transform 83 -mass 3 -shear 0
+element $Element 84 93 94 -section 1 -transform 84 -mass 3 -shear 0
+element $Element 85 94 95 -section 1 -transform 85 -mass 3 -shear 0
+element $Element 86 95 96 -section 1 -transform 86 -mass 3 -shear 0
+element $Element 87 96 97 -section 1 -transform 87 -mass 3 -shear 0
+element $Element 88 97 98 -section 1 -transform 88 -mass 3 -shear 0
+element $Element 89 98 99 -section 1 -transform 89 -mass 3 -shear 0
+element $Element  9  9   10 -section 1 -transform 9 -mass 3 -shear 0
+element $Element 90  99 100 -section 1 -transform 90 -mass 3 -shear 0
+element $Element 91 101 102 -section 1 -transform 91 -mass 3 -shear 0
+element $Element 92 102 103 -section 1 -transform 92 -mass 3 -shear 0
+element $Element 93 103 104 -section 1 -transform 93 -mass 3 -shear 0
+element $Element 94 104 105 -section 1 -transform 94 -mass 3 -shear 0
+element $Element 95 105 106 -section 1 -transform 95 -mass 3 -shear 0
+element $Element 96 106 107 -section 1 -transform 96 -mass 3 -shear 0
+element $Element 97 107 108 -section 1 -transform 97 -mass 3 -shear 0
+element $Element 98 108 109 -section 1 -transform 98 -mass 3 -shear 0
+element $Element 99 109 110 -section 1 -transform 99 -mass 3 -shear 0
 
 #
 # Analysis
 #
-set lambdas [eigen 3]
+constraints Transformation 
+set lambdas [eigen 3 -bandGenArpack]
 
 set references {0.589541 5.52695 16.5878}
 
-set pi [expr acos(-1)]
 foreach lambda $lambdas reference $references {
 
   verify value $lambda $reference 1e-4
