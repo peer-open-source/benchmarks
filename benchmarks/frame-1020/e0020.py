@@ -1,9 +1,13 @@
+#
 # Cantilever beam subjected to follower end load.
+#
 import sys
 import veux
 import numpy as np
 from veux.motion import Motion
-import opensees.openseespy as ops
+import xara
+from xara.post import PlotConvergenceRate
+
 import matplotlib.pyplot as plt
 try:
     plt.style.use("typewriter")
@@ -11,7 +15,7 @@ except:
     pass
 
 def create_cantilever(ne, element):
-    model = ops.Model(ndm=3, ndf=6)
+    model = xara.Model(ndm=3, ndf=6)
 
     L  = 100
 
@@ -39,7 +43,8 @@ def create_cantilever(ne, element):
     for i in range(ne):
         start = i * (nen - 1)
         nodes = list(range(start, start + nen))
-        model.element(element, i+1, nodes, section=sec, transform=1, shear=1)
+        model.element(element, i+1, nodes,
+                      section=sec, transform=1, shear=1)
 
     model.fix(0,  (1,1,1,  1,1,1))
     for i in range(nmn):
@@ -48,7 +53,7 @@ def create_cantilever(ne, element):
     return model
 
 
-def analyze(element):
+def analyze(element, post=None):
     ne = 10
 
     model = create_cantilever(ne, element=element)
@@ -63,6 +68,7 @@ def analyze(element):
     speed  = 1/3000 # animation frames
     Pmax   = 150e3 # N
     model.pattern("Plain", 1, "Linear")
+
 
     model.eleLoad("Frame", "Dirac",
                   force = [0, 1, 0],
@@ -83,9 +89,9 @@ def analyze(element):
     v = []
     w = []
     P = []
-    while model.getTime() < Pmax:
+    while model.state.time < Pmax:
         if model.analyze(1) != 0:
-            print(f"Failed at time = {model.getTime()} with v = {v[-1]}")
+            print(f"Failed at time = {100*model.getTime()/Pmax}% with v = {v[-1]}")
             break
         motion.advance(time=model.getTime()*speed)
         motion.draw_sections(rotation=model.nodeRotation,
@@ -95,18 +101,26 @@ def analyze(element):
         w.append( model.nodeDisp(ne, 3))
         P.append( model.getTime())
 
+        if post is not None:
+            for p in post:
+                p.update(model)
 
 
-    fig, ax = plt.subplots()
-    ax.set_xlabel("Load, $P$")
-    ax.set_ylabel(r"Displacement")
-    ax.axvline(0, color='black', linestyle='-', linewidth=1)
-    ax.axhline(0, color='black', linestyle='-', linewidth=1)
-    ax.plot(P, u, label="$u$")
-    ax.plot(P, v, label="$v$")
-    ax.plot(P, w, label="$w$")
-    ax.legend()
-    plt.show()
+    post[-1].draw()
+    post[-1].finalize()
+    if True:
+        fig, ax = plt.subplots()
+        ax.set_xlabel("Load, $P$")
+        ax.set_ylabel(r"Displacement")
+        ax.axvline(0, color='black', linestyle='-', linewidth=1)
+        ax.axhline(0, color='black', linestyle='-', linewidth=1)
+        ax.plot(P, u, label="$u$")
+        ax.plot(P, v, label="$v$")
+        ax.plot(P, w, label="$w$")
+        ax.set_xlim([0, None])
+        ax.legend()
+        # ax.savefig(f"img/1020-{element[:5]}-displacement.png")
+        plt.show()
 
     motion.add_to(artist.canvas)
     if len(sys.argv) > 1:
@@ -114,8 +128,16 @@ def analyze(element):
     else:
         veux.serve(artist)
 
+    return {
+        "motion": motion,
+        "convergence": post[-1],
+    }
+
 
 if __name__ == "__main__":
     import os
-    analyze(element = os.environ.get("Element", "ExactFrame"))
+
+    analyze(element = os.environ.get("Element", "ExactFrame"),
+            post=[PlotConvergenceRate(ci=None, x_mode="step")]
+    )
 
