@@ -6,7 +6,7 @@ import os
 import veux
 from veux.motion import Motion
 from xsection.library import Channel
-import opensees.openseespy as ops
+import xara
 
 import matplotlib.pyplot as plt
 try:
@@ -17,7 +17,7 @@ except:
 
 
 if __name__ == "__main__":
-    model = ops.Model(ndm=3, ndf=7)
+    model = xara.Model(ndm=3, ndf=6)
 
     E = 2.1e4 # MPa
     v = 0.30 #0.5*E/G - 1
@@ -29,22 +29,24 @@ if __name__ == "__main__":
 
     mat = 1
     sec = 1
+    element = os.environ.get("Element", "ExactFrame")
+    section = os.environ.get("Section", "Elastic")
     model.material('ElasticIsotropic', mat, E, v) #G=G)
 
-    shape = Channel(d=10, b=10, tf=0.2, tw=0.2).create_shape()
-    shape = shape.translate(shape.centroid())
+    shape = Channel(d=10, b=10, tf=0.2, tw=0.2)
+    shape = shape.translate(-shape.centroid)
 
 
     # _m = section.mesh
     # veux.serve(veux.render((_m.nodes, _m.cells())))
 
     print(shape.summary())
-    if os.environ["Section"] == "Elastic":
-        cmm = shape.torsion.cmm()
-        cnn = shape.torsion.cnn()
-        cnv = shape.torsion.cnv()
-        cnm = shape.torsion.cnm()
-        cmw = shape.torsion.cmw()
+    if section == "Elastic":
+        cmm = shape.cmm()
+        cnn = shape.cnn()
+        cnv = shape.cnv()
+        cnm = shape.cnm()
+        cmw = shape.cmw()
         A = cnn[0,0]
         model.section("ElasticFrame", sec,
                         E=E,
@@ -56,7 +58,7 @@ if __name__ == "__main__":
                         Qz=cnm[2,0],
                         Iy=cmm[1,1],
                         Iz=cmm[2,2],
-                        J =shape.torsion.torsion_constant(),
+                        J =shape.elastic.J,
                         Ry= cnv[1,0],
                         Rz=-cnv[2,0],
                         Sy= cmw[1,0],
@@ -64,13 +66,12 @@ if __name__ == "__main__":
         )
     else:
         model.section("ShearFiber", 1, GJ=0)
-        for fiber in shape.fibers():
+        for fiber in shape.create_fibers():
             y, z = fiber.location
             model.fiber(y, z, fiber.area, mat, fiber.warp[0], section=1)
 
 
     model.geomTransf("Linear", 1, (0,0,1))
-    element = os.environ.get("Element", "ExactFrame")
 
     model.node(0, (0,0,0))
     for i in range(ne):
