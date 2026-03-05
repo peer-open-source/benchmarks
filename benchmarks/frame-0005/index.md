@@ -1,5 +1,5 @@
 ---
-title: "0005 - Nonlinear elastic columns with shear"
+title: "Nonlinear elastic columns with shear"
 description: This example investigates P-Delta effects in columns with and without shear.
 tags: ["Frame", "Steel"]
 thumbnail: img/aisc-column.png
