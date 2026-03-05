@@ -82,7 +82,7 @@ def plotu(domain, u=None):
 
     for crd in np.eye(len(domain),dtype=int)==1:
         for i,fixed_coord in enumerate(np.linspace(*domain[~crd].T,grid)):
-            print(crd, fixed_coord)
+            # print(crd, fixed_coord)
             base = np.zeros((ndm,curv))
             base[crd,:] = np.linspace(*domain[crd].T, curv).T
             base[~crd,:] = np.array([fixed_coord]*curv).T
@@ -111,7 +111,7 @@ def plotu(u, domain, ax=None):
             base[not crd] = np.array([fixed_coord]*curv)
             ax.plot(*base, alpha=0.5, color="gray")
 
-            print(np.array([x.flatten()+u(x) for x in np.array(base).T]))
+            # print(np.array([x.flatten()+u(x) for x in np.array(base).T]))
             #plt.plot(*np.array([[[5,1],[-1,0]]@x for x in np.array(base).T]), color="red")
             ax.plot(*np.array([x+u(x) for x in np.array(base).T]).T, color="red")
     ax.axis("equal")
@@ -119,6 +119,7 @@ def plotu(u, domain, ax=None):
 
 
 if __name__ == "__main__":
+    print("Testing plot routines")
 
     # plotu(lambda x: print(x) or np.array([5*x[0]+x[1]**2, -x[0]]), ((0, 1), (0, 1)))
     plt.style.use("typewriter")
@@ -130,18 +131,18 @@ if __name__ == "__main__":
     nu = 0.3
     plot_grid((0,5,9), (0., 1., 4), (-h/2,h/2,4), u=lambda x,y,z:
             (-x*y/R, y*z/R, (nu*x**2 + y**2 - z**2)/R)
-    ).figure.savefig("img/beam.png")
+    )#.figure.savefig("img/beam.png")
 
     R /= -2
     ax = plotu(lambda x: ( -x[1]*x[0]/R, (x[0]**2 - x[1]**2)/R,), ((-0.5, 0.5), (-0.5, 0.5)))
     ax.set_xlabel("$x_2$")
     ax.set_ylabel("$x_3$")
     ax.set_title("Cross Section Deformation")
-    ax.figure.savefig("img/cross.png")# , ax.figure.add_subplot(122))
+    # ax.figure.savefig("img/cross.png")# , ax.figure.add_subplot(122))
     #plt.show()
     #plotu(lambda x: np.array([0.0, 1/2*(nu*x[1]**2 + 3**2 - 5**2)]), ((0,1),(0,1)))
     #plotu(((0.,5.),(0,1.)))
     #plotu(((0.,5.),(0,1.),(-1,1)))
-
-    #plt.show()
+    print("hi")
+    plt.show()
 
