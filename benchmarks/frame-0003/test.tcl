@@ -32,6 +32,7 @@ element ExactFrame 5 {9 10 11} -section 1 -shear 1 -transform 1
 element ExactFrame 6 {11 12 13} -section 1 -shear 1 -transform 1
 element ExactFrame 7 {13 14 15} -section 1 -shear 1 -transform 1
 element ExactFrame 8 {15 16 17} -section 1 -shear 1 -transform 1
+
 pattern Plain 1 Linear
 eleLoad Frame Heaviside -basis local -force {0 0 20000.0} -pattern 1 -elements {1 2 3 4 5 6 7 8}
 system Umfpack 
