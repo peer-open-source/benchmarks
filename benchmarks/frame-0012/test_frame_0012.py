@@ -19,7 +19,7 @@ nu = 0.3
 
 def test_bwd():
 
-    # Model factory (pure builder, no analysis)
+    # Model factory
     def create_model(L, E, fibers: Array[:, ("y", "z", "area")]):
 
         m = ChainModel(ndm=3, ndf=6, parameters=2+len(fibers)*3)
@@ -30,7 +30,7 @@ def test_bwd():
 
         m.material("ElasticIsotropic", 1, E, nu)
 
-        m.section("ShearFiber", 1, mixed_type="None")#"UT")
+        m.section("ShearFiber", 1, mixed_type="None")
         for fiber in fibers:
             m.fiber(*fiber, material=1, section=1)
 
@@ -78,15 +78,6 @@ def test_bwd():
     uy   = analyze_1(L,E, fibers)  
     print("uy =", uy)
 
-
-    #
-    # Gradients
-    #
-    # dg = jax.grad(analyze_1, (0,1,2))
-    # dL, dE, dfib = dg(L,E,fibers)
-
-    # assert dL == pytest.approx(H*L**2/(E*Iy) + H/(G*A), rel=1e-2)
-    # assert dE == pytest.approx(-H*L**3/(3*E**2*Iy) - (H*L/(G**2*A))*G/E, rel=1e-3)
 
     #
     # Chain Rule
@@ -118,10 +109,8 @@ def test_bwd():
 
 def test_fwd():
 
-    # Model factory (pure builder, no analysis)
+    # 1. Define model builder
     def create_model(L, E, fibers: Array[:, ("y", "z", "area")]):
-
-
 
         m = ChainModel(ndm=3, ndf=6, parameters=2+len(fibers)*3)
 
@@ -131,7 +120,7 @@ def test_fwd():
 
         m.material("ElasticIsotropic", 1, E, nu)
 
-        m.section("ShearFiber", 1, mixed_type="None")#"UT")
+        m.section("ShearFiber", 1, mixed_type="None")
         for fiber in fibers:
             m.fiber(*fiber, material=1, section=1)
 
@@ -165,13 +154,6 @@ def test_fwd():
 
     fibers = create_fibers(b, d, nx,ny)
 
-    print("A = " + str(A))
-    print("As = " + str(sum(fiber[2] for fiber in fibers)))
-
-    print("Iy = " + str(Iy))
-    print("Iyf = " + str(sum(fiber[2]*fiber[1]**2 for fiber in fibers)))
-    print("Iz = " + str(Iz))
-    print("Izf = " + str(sum(fiber[2]*fiber[0]**2 for fiber in fibers)))
 
     # Bind function for node=2,dof=3
     analyze_1 = StaticAnalysis(create_model, output=(2, 3))
@@ -179,15 +161,6 @@ def test_fwd():
     uy   = analyze_1(L,E, fibers)  
     print("uy =", uy)
 
-
-    #
-    # Gradients
-    #
-    # dg = jax.grad(analyze_1, (0,1,2))
-    # dL, dE, dfib = dg(L,E,fibers)
-
-    # assert dL == pytest.approx(H*L**2/(E*Iy) + H/(G*A), rel=1e-2)
-    # assert dE == pytest.approx(-H*L**3/(3*E**2*Iy) - (H*L/(G**2*A))*G/E, rel=1e-3)
 
     #
     # Chain Rule
@@ -198,17 +171,28 @@ def test_fwd():
 
     du = jax.jacfwd(analyze_2, (0,1,2,3))
     dL, dE, dh, db = map(float,du(L, E, d, b))
+
+
+    #
+    # Verify
+    #
     print("∂u/∂E  =",  dE)
     print("∂u/∂h =",  dh)
     print("∂u/∂b  =", db)
+
+    print("A = " + str(A))
+    print("As = " + str(sum(fiber[2] for fiber in fibers)))
+
+    print("Iy = " + str(Iy))
+    print("Iyf = " + str(sum(fiber[2]*fiber[1]**2 for fiber in fibers)))
+    print("Iz = " + str(Iz))
+    print("Izf = " + str(sum(fiber[2]*fiber[0]**2 for fiber in fibers)))
 
     dI = -H*L**3/(3*E*Iy**2)
     dA = -H*L/(G*A**2)
     dIdh, dIdb = jax.grad(lambda d, b: b*d**3/12.0, (0,1))(d,b)
     dAdh, dAdb = jax.grad(lambda d, b: b*d, (0,1))(d,b)
 
-    # dudI = -H*L**3/(3*E*I**2)
-    # dudA = -H*L/(G*A**2)
     assert uy == pytest.approx(H*L**3/(3*E*Iy) + H*L/(G*A))
     assert dh == pytest.approx(dIdh*dI + dAdh*dA, rel=1e-4)
     assert db == pytest.approx(dIdb*dI + dAdb*dA, rel=1e-4)
@@ -218,10 +202,8 @@ def test_fwd():
 
 def test_grad():
 
-    # Model factory (pure builder, no analysis)
+    # 1. Define model builder
     def create_model(L, E, fibers: Array[:, ("y", "z", "area")]):
-
-
 
         m = ChainModel(ndm=3, ndf=6, parameters=2+len(fibers)*3)
 
@@ -231,7 +213,9 @@ def test_grad():
 
         m.material("ElasticIsotropic", 1, E, nu)
 
-        m.section("ShearFiber", 1, mixed_type="None")#"UT")
+        # Define section
+        m.section("ShearFiber", 1, mixed_type="None")
+        # Populate section with fibers
         for fiber in fibers:
             m.fiber(*fiber, material=1, section=1)
 
@@ -258,12 +242,11 @@ def test_grad():
     G  = E / (2 * (1 + nu))
     d  = 0.35           # Web height
     b  = 0.35           # Flange width
-    
+    fibers = create_fibers(b, d, nx,ny)
+
     Iy = d**3 * b / 12.0
     Iz = b**3 * d / 12.0
     A  = d * b
-
-    fibers = create_fibers(b, d, nx,ny)
 
     print("A = " + str(A))
     print("As = " + str(sum(fiber[2] for fiber in fibers)))
@@ -278,16 +261,6 @@ def test_grad():
 
     uy   = analyze_1(L,E, fibers)  
     print("uy =", uy)
-
-
-    #
-    # Gradients
-    #
-    # dg = jax.grad(analyze_1, (0,1,2))
-    # dL, dE, dfib = dg(L,E,fibers)
-
-    # assert dL == pytest.approx(H*L**2/(E*Iy) + H/(G*A), rel=1e-2)
-    # assert dE == pytest.approx(-H*L**3/(3*E**2*Iy) - (H*L/(G**2*A))*G/E, rel=1e-3)
 
     #
     # Chain Rule
