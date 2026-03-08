@@ -1,7 +1,7 @@
 key: model-0062
-title: 'm0061 - 7-Story Frame: Eigenvalue & Static Loads'
+title: '7-Story Frame: Eigenvalue & Static Loads'
 description: ''
-thumbnail_url: ''
+thumbnail_url: null
 benchmarks: []
 scripts:
 - path: benchmarks/model-0062/test.tcl
