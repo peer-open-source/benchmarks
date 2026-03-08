@@ -19,7 +19,8 @@ tf = 10*mm
 
 y0 = dw/4 + tf/2
 
-J = (b*tf**3 + dw*tw**3) / 3
+# J = (b*tf**3 + dw*tw**3) / 3
+J = 7.937366000041271e-08
 
 E = 200000*MPa
 G = 80000*MPa
@@ -54,7 +55,8 @@ for ie,ele in enumerate(['dispBeamColumn','dispBeamColumnAsym']):
 
         ops.geomTransf('Corotational',1,0,1,0)
 
-        ops.node(0,0,0,0); ops.fix(0,1,1,1,1,0,0)
+        ops.node(0,0,0,0)
+        ops.fix(0,1,1,1,1,0,0)
         for i in range(Nele):
             ops.node(i+1,(i+1)*dL,0,0)
             if 'Asym' in ele:
