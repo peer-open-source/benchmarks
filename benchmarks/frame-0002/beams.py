@@ -1,5 +1,6 @@
 #
-# Tip-loaded cantilever beam with P-Delta effects
+# Tip-loaded cantilever beam with P-Delta effects, shear-free.
+#
 # Jun 2 2025
 #
 import xara
@@ -47,7 +48,7 @@ def create_cantilever(shape,
                         Qz=cnm[2,0],
                         Iy=cmm[1,1],
                         Iz=cmm[2,2],
-                        J =shape.torsion.torsion_constant(),
+                        J =shape.elastic.J,
                         Ry= cnv[1,0],
                         Rz=-cnv[2,0],
                         Sy= cmw[1,0],
