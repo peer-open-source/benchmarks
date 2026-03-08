@@ -1,5 +1,4 @@
-from math import cos,sin,sqrt,pi
-import xara
+
 
 # Newmark Integrators - Linear & Nonlinear Examples
 
@@ -10,11 +9,11 @@ import xara
 #         Linear:    Examples 5.3 and 5.4
 #         Nonlinear: Examples 5.5 and 5.6
 
-
+from math import cos,sin,sqrt
+import xara
 print("Verification of Newmark Integrators (Chopra)")
 
 # global variables
-PI =  pi
 testOK = 0
 tol = 1.0e-3
 
