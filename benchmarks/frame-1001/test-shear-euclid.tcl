@@ -23,7 +23,7 @@ element $element 4  4 5  -section 1 -transform 1 -shear 1
 element $element 5  5 6  -section 1 -transform 1 -shear 1
 
 
-test EnergyIncr 1e-12 6 0
+test EnergyIncr 1e-16 6 0
 pattern Plain 1 Linear {
   load 6 0 0 0 0 0 [expr -4.0*acos(-1)];
 }
