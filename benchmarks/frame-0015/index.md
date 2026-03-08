@@ -33,7 +33,7 @@ Nonuniform constrained warping was considered by <cite keys="zhang2011formulatio
 - <cite key="trahair2005nonlinear">trahair2005nonlinear</cite>
 - Battini et al. (2002a), example 7.4
 - <cite key="du2021threedimensional"></cite>
-- <cite key="rong2020geometrically">rong2020geometrically</cite>
+- <cite key="rong2020geometrically"></cite>
 
 
 # References
