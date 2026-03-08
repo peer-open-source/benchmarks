@@ -1,7 +1,7 @@
 key: solve-0003
 title: Using determinants in solvers
 description: ''
-thumbnail_url: ''
+thumbnail_url: null
 benchmarks: []
 scripts:
 - path: benchmarks/solve-0003/test-arch.tcl
