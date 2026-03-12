@@ -7,8 +7,8 @@ import pytest
 
 def _section_properties(tw, hw, bf, tf):
     # Area and moment of inertia
-    A = tw * (hw - 2 * tf) + 2 * bf * tf
-    I = tw * (hw - 2 * tf)**3/12.0 + 2*bf*tf*(0.5 * (hw - tf))**2
+    A = tw*(hw - 2*tf) + 2*bf*tf
+    I = tw*(hw - 2*tf)**3/12.0 + 2*bf*tf*(0.5 * (hw - tf))**2
     return A, I
 
 
