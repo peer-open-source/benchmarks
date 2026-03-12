@@ -1,5 +1,5 @@
 key: frame-1002
-title: 1002 - Cantilever with transverse loading (Postbuckling)
+title: Cantilever with transverse loading (Postbuckling)
 description: In this case the cantilever beam is subjected only to a transverse force
   of $\boldsymbol{F} = 10 \, \mathbf{E}_2$ in a single step.
 thumbnail_url: frame-1002/img/frame-1002.png
