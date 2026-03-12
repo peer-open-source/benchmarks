@@ -1,6 +1,35 @@
-pragma openseespy
-model  -ndm 3 -ndf 6
-section ElasticShell 1 10000.0 0.0 1.0 
+if {![llength [info commands verify]]} {
+  proc verify {cmd {value ""} {reference ""} {tolerance 1e-12} {about ""}} {
+      if {$cmd == "error"} {
+          if {$reference == 0} {
+            set check [expr abs($value)]
+          } else {
+            set check [expr abs(($value - $reference)/$reference)]
+          }
+          if {$check > $tolerance} {
+            puts  "   \033\[31mFAIL\033\[0m: | $value - $reference | = $check > $tolerance"
+            error "$about"
+          } else {
+            puts  "   \033\[32mPASS\033\[0m   $value  $check $about"
+          }
+
+      } elseif {$cmd == "value"} {
+          set check [expr abs($value - $reference)]
+          if {abs($value - $reference) > $tolerance} {
+            puts  "   \033\[31mFAIL\033\[0m($about): | $value - $reference | = $check > $tolerance"
+            error "$about"
+          } else {
+            puts  "    \033\[32mPASS\033\[0m  $value $check $about"
+          }
+      } else {
+        # "about"
+        puts "  $value"
+      }
+  }
+}
+
+model Basic -ndm 3 -ndf 6
+section ElasticMembranePlateSection 1 10000.0 0.0 1.0 
 node  1  0.0 0.0 0.0 
 node  2  1.0 0.0 0.0 
 node  3  2.0 0.0 0.0 
@@ -65,9 +94,10 @@ element ASDShellQ4 19 19 20 41 40 1 -corotational
 element ASDShellQ4 20 20 21 42 41 1 -corotational
 fix 1 1 1 1 1 1 1 
 fix 22 1 1 1 1 1 1 
-pattern Plain 1 Linear 
-nodalLoad 21 0 0 0 0 -261.79938779914943 0 -pattern 1 
-nodalLoad 42 0 0 0 0 -261.79938779914943 0 -pattern 1 
+pattern Plain 1 Linear {
+  load 21 0 0 0 0 -261.79938779914943 0
+  load 42 0 0 0 0 -261.79938779914943 0
+}
 constraints Transformation 
 numberer RCM 
 system UmfPack 
@@ -79,4 +109,5 @@ analyze 40
 
 verify value [nodeDisp 42 3]  0                  1e-10
 verify value [nodeDisp 42 5] -12.56637061435806  1e-10
+verify value [numIter] 4 0
 
