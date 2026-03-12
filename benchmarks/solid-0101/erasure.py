@@ -1,9 +1,9 @@
-
+#
 # Auricchio, F., and R.L. Taylor. 
 #   “Two Material Models for Cyclic Plasticity: Nonlinear Kinematic Hardening and Generalized Plasticity.” 
 #   International Journal of Plasticity 11, no. 1 (1995): 65–98. 
 #   https://doi.org/10.1016/0749-6419(94)00039-5.
-
+#
 import numpy as np
 import xara
 
@@ -42,7 +42,6 @@ def create_field(exx=0, eyy=0, ezz=0, gxy=0, gxz=0, gyz=0):
         ux =     exx*x + 0.5*gxy*y + 0.5*gxz*z
         uy = 0.5*gxy*x +     eyy*y + 0.5*gyz*z
         uz = 0.5*gxz*x + 0.5*gyz*y +     ezz*z
-        print(ux, uy, uz)
         return np.array([ux, uy, uz])
     return u
 
@@ -53,13 +52,6 @@ def apply_shear_axial_histories(block, model,
     """
     Superpose independent γxz(t) and εzz(t) histories on the cube using per-DOF Path series.
     """
-
-
-    def u_from_unit_shear(x, y, z):  # γxz = 1
-        return 0.5*z, 0.0, 0.5*x
-
-    def u_from_unit_axial(x, y, z):  # εzz = 1
-        return 0.0, 0.0, z
 
     t_s, g_s = map(np.array, zip(*shear_hist))
     t_a, e_a = map(np.array, zip(*axial_hist))
@@ -76,9 +68,7 @@ def apply_shear_axial_histories(block, model,
         model.timeSeries("Path", series_tag,
                          time=times.tolist(),
                          values=np.asarray(values, dtype=float).tolist())
-        # Activate a Plain pattern that uses this time series
         model.pattern("Plain", series_tag, series_tag)
-        # Add the SP while this pattern is active (no pattern arg on sp)
         model.sp(node, dof, 1.0, pattern=series_tag)
         series_tag += 1
 
@@ -122,7 +112,8 @@ def test_erasure(name = "GeneralizedJ2"):
     shear = [(0,0), (1,1.2), (3,-1.2), (5,1.2), (6,0), (7,1.2), (9,-1.2), (11,1.2), (12,0), (13,1.2)]
     axial = [(0,0), (5,0), (6,0.7), (7,0), (11,0), (12,0.7), (13,0)]
 
-    times = apply_shear_axial_histories(block, model, shear_hist=shear, axial_hist=axial)
+    times = apply_shear_axial_histories(block, model,
+                                        shear_hist=shear, axial_hist=axial)
 
     # Static analysis over the merged time grid
     nstep = 1000
@@ -130,7 +121,7 @@ def test_erasure(name = "GeneralizedJ2"):
     model.system("FullGeneral")
     model.numberer("Plain")
     model.constraints("Transformation")
-    model.test("Residual", 1e-12, 10, 1)
+    model.test("Residual", 1e-12, 10, 0)
     model.integrator("LoadControl", max(times)/nstep)
     model.algorithm("Newton")
     model.analysis("Static")
@@ -156,14 +147,17 @@ def test_erasure(name = "GeneralizedJ2"):
 
 
 if __name__ == "__main__":
-    tau,sig,gam,eps = test_erasure("J2") #"J2Simplified")
-
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(2,1)
-    ax[0].plot(eps, sig)
-    ax[0].set_ylabel(r'$\sigma_{zz}$')
-    ax[0].set_xlabel(r'$\varepsilon_{zz}$')
-    ax[1].plot(gam, tau)
+    for material in ["GeneralizedJ2", "J2Simplified", "J2"]:
+        tau,sig,gam,eps = test_erasure(material)
+
+        ax[0].plot(eps, sig)
+        ax[1].plot(gam, tau, label=material)
     ax[1].set_ylabel(r'$\sigma_{xz}$')
     ax[1].set_xlabel(r'$\gamma_{xz}$')
+    ax[0].set_ylabel(r'$\sigma_{zz}$')
+    ax[0].set_xlabel(r'$\varepsilon_{zz}$')
+    ax[1].legend()
+    plt.tight_layout()
     plt.show()
