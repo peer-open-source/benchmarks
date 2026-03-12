@@ -1,3 +1,4 @@
+# PlanarShearWall.tcl 
 # Linear Elastic Planar Shear Walls
 
 # REFERENCES:
@@ -309,7 +310,8 @@ foreach eleType {stdBrick SSPbrick} {
 }
 
 
-#set results [open STATUS.md a+]
+verify value $testOK 0
+
 if {$testOK == 0} {
     puts "\nPASSED Verification Test PlanarShearWall.tcl \n\n"
 #   puts $results "| PASSED |  PlanarShearWall.tcl"
