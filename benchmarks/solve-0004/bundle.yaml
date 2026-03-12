@@ -3,5 +3,7 @@ title: Modified Newton methods
 description: ''
 thumbnail_url: solve-0004/img/image.png
 benchmarks: []
-scripts: []
+scripts:
+- path: benchmarks/solve-0004/o-test.tcl
+  description: ''
 references: []
