@@ -12,7 +12,6 @@ def create_prism(length:    float,
                  boundary:  tuple,
                  steps = 1,
                  scale = 1.0,
-
                  orient: tuple  = (0, 0, 1),
              #   orient = (0,  -1, 0)
                  transform: str = None,
