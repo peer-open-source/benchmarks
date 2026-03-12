@@ -22,7 +22,7 @@ node        8      0.00000     1.0000    1.0000
 #
 # Elements
 #
-element bbarBrick  1      1    2   3   4    5   6   7   8   2               
+element bbarBrick  1  1 2 3 4 5 6 7 8   2               
 
 fix      1      1      1      1 
 fix      2      1      1      1  
