@@ -1,7 +1,9 @@
 
 from xara import Section, Material
 
+
 def create_section(shape, trace, shear_):
+
     def _create_material(model, material):
         material._mtag = 1
         m1 = {k: material[k] for k in {"E", "G", "Fy", "Hiso", "Hkin"} }
@@ -10,12 +12,15 @@ def create_section(shape, trace, shear_):
         else:
             model.material(material.type, 1, **m1)
 
+
     def section(model, tag, shape, material):
         # shape = shape.translate(-shape.centroid)
         _create_material(model, material)
 
         if not shear_:
             type = "AxialFiber"
+        elif trace == "MS":
+            type = "NDFiber"
         else:
             type = "ShearFiber"
         
@@ -24,7 +29,8 @@ def create_section(shape, trace, shear_):
                 type=type,
                 shape=shape,
                 mixed_type=trace,
-                material=material
+                material=material,
+                mixed=trace is not None
             ),
             tag
         )
