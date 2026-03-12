@@ -1,5 +1,6 @@
+#
 # Cantilever beam subjected to follower end load.
-# Basic section properties
+#
 import sys
 import veux
 import numpy as np
@@ -7,7 +8,6 @@ from veux.motion import Motion
 import xara
 import matplotlib.pyplot as plt
 try:
-    pass
     plt.style.use("typewriter")
 except:
     pass
@@ -42,7 +42,7 @@ def create_cantilever(ne, element):
         start = i * (nen - 1)
         nodes = list(range(start, start + nen))
         model.element(element, i+1, nodes,
-                      section=sec, transform=1, shear=0)
+                      section=sec, transform=1, shear=1)
 
     model.fix(0,  (1,1,1,  1,1,1))
     for i in range(nmn):
@@ -67,12 +67,10 @@ def analyze(element):
     Pmax   = 150e3 # N
     model.pattern("Plain", 1, "Linear")
 
-    print("Pattern = element")
-
 
     model.eleLoad("Frame", "Dirac",
                   force = [0, 1, 0],
-                  basis = "director", 
+                  basis = "director",
                   offset=[1.0,0,0],
                   pattern=1,
                   elements=[ne]
@@ -112,6 +110,7 @@ def analyze(element):
         ax.plot(P, u, label="$u$")
         ax.plot(P, v, label="$v$")
         ax.plot(P, w, label="$w$")
+        ax.set_xlim([0, None])
         ax.legend()
         plt.show()
 
