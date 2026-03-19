@@ -16,7 +16,7 @@ def _test_constructors():
         match syntax:
             case "a":
                 model.element("ForceFrame", 1, 
-                              (1, 2), 
+                              (1, 2),
                               section=1, 
                               transform=1, 
                               shear=0,
