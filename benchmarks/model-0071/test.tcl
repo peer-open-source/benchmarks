@@ -45,15 +45,15 @@ analyze 1
 
 # compute expected solution
 set UCref [list [expr ([lindex $U1 0] + [lindex $U2 0] + [lindex $U3 0] )/3.0] [expr ([lindex $U1 1] + [lindex $U2 1] + [lindex $U3 1] )/3.0]]
-puts "Expected displacement at constrained node is (U1+U2+U3)/3:\n$UCref\n\n"
+#puts "Expected displacement at constrained node is (U1+U2+U3)/3:\n$UCref\n\n"
 
 # read results
 set UC [list {*}[nodeDisp 4]]
-puts "Obtained displacement at constrained node is UC:\n$UC\n\n"
+#puts "Obtained displacement at constrained node is UC:\n$UC\n\n"
 
 # check error
 set ER [list [expr abs([lindex $UC 0] - [lindex $UCref 0])/[lindex $UCref 0]] [expr abs([lindex $UC 1] - [lindex $UCref 1])/[lindex $UCref 1]]]
-puts "Relative error is abs(UC-UCref)/UCref:\n$ER\n\n"
+#puts "Relative error is abs(UC-UCref)/UCref:\n$ER\n\n"
 foreach value $ER {
   verify value $value 0.0 1e-14
 }
