@@ -15,7 +15,7 @@ L = 10.0
 H = 300  # Load applied at the top node
 nu = 0.3
 
-def _test_bwd():
+def _test_bwd_Idea():
     from xsection.library._rectangle import create_core_fibers, create_core_mesh
     from xsection.analysis.xvenant import venant_warping
 
