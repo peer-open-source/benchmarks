@@ -42,10 +42,9 @@ test NormUnbalance 1e-6 20
 
 integrator LoadControl 0.5 
 analysis Static 
-analyze 1 
+verify value [analyze 1] 0
 
-puts "Iterations: [numIter]"
-
+verify value [numIter] 1
 
 # Ensure all displacements are exactly zero
 for {set i 1} {$i < 10} {incr i} {
