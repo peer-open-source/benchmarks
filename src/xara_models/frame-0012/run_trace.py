@@ -7,15 +7,12 @@ import veux
 import xara
 
 from xara.benchmarks import Prism
-import xara.units.iks as units
 import numpy as np
 import matplotlib.pyplot as plt
 
-from xsection._benchmarks import load_shape
 from xsection.analysis import SaintVenantSectionAnalysis
 
 from venant import SaintVenant
-import xara.units.us as units
 
 def error(a, b):
     if abs(b) < 1e-15:
@@ -35,54 +32,37 @@ def analyze(model, P, T):
     assert model.analyze(n) == 0
 
 
-def run_trace(options):
+def run_trace(options, Figures=None):
+    if Figures is None:
+        Figures = {}
 
     # element = os.environ.get("Element", "ForceFrame")
     element = options.element
-    case = options.shape
+    case = options.shape_name
     try:
         case = int(case)
     except:
         pass
 
     NIP = 5
-    P =  0.18159
-    T  = 0.1 # 0
+    P =  1 #0.18159
+    T  = 1 #0.1 # 0
     if "Exact" in element:
         T /= 10 
         P /= 10
         NIP = 2
 
-    E  = 2.9
-    nu = options.poisson 
-    G = E/(2*(1+nu))
-    material = xara.Material(E=E, G=G)
 
-    print(f"Shape {case}")
-    shape = load_shape(case, material=material, units=units, mesh_type="T6")
-
-    # G = E/(2*(1+nu))
-    print(f"{nu = }")
-
-
-    # shape = shape.translate(-shape.centroid)
-    shape = shape.translate(-shape._analysis.shear_center())
-    if options.rotate:
-        shape = shape.rotate(-np.pi/8)
-    # shape = shape.rotate(np.pi/8)
+    shape = options.shape
+    material = shape.material
 
 
     sv = SaintVenantSectionAnalysis(shape)
-    print(sv.summary(format="texsection"))
 
-    # veux.serve(veux.render(shape.model))
-
-
-    EI = E*shape.cmm()[1,1]
 
 
     L = shape.d*options.length # 1.5
-    soln = SaintVenant(shape, length=L, sv=sv, material={"E": E, "G": G}, V=[0.0, P], T=-T)
+    soln = SaintVenant(shape, length=L, sv=sv, material=material, V=[0.0, P], T=-T)
 
     fig, ax = plt.subplots()
 
@@ -108,12 +88,12 @@ def run_trace(options):
                       length=L,
                       boundary=((1,1,1,  1,1,1),
                                 (0,0,0,  0,0,0)),
-                      material=material,#{"type": "ElasticIsotropic", "E": E, "G": G},
+                      material=material,
                       element=element,
                       section=xara.Section("MixedFiber", shape, material, mixed_type=trace_name),#create_section(trace),
                       shear=1,
                       vertical=3,
-                      integration={"points": NIP, "type": "Legendre"},
+                      integration={"points": NIP, "type": "Lobatto"},
                       divisions=int(os.getenv("ne", 1)),
                       order=1 if "shear" not in element.lower() else 2
                 )
@@ -149,8 +129,8 @@ def run_trace(options):
 
         end = len(model.getNodeTags())
         uz  = model.state.u(end, 3)
-        u_euler = P*L**3/(3*EI)
-        u_shear = uz - u_euler
+        # u_euler = P*L**3/(3*EI)
+        # u_shear = uz - u_euler
 
         # print(f"Uz = {uz:.8f}, Uz theory = {u_iesan[2]:.8f} ({u_euler:.6f} + {u_shear:.6f})")
         # u_end = model.state.u(end)
