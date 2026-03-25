@@ -5,17 +5,17 @@ import os
 from argparse import ArgumentParser
 
 import veux
-from xara import Material, Section
+from xara import  Section
 from xara.benchmarks import Prism
-import xara.units.iks as units
 
 import numpy as np
 from pandas import DataFrame as df
 import matplotlib.pyplot as plt
 from xara.post import NodalAverage, FiberStress
-from xsection._benchmarks import load_shape
 from xsection.analysis import SaintVenantSectionAnalysis
+from thesis import MultiFigure
 
+from post import PlotFiberStrain
 from venant import SaintVenant
 
 def analyze(model, P, T):
@@ -30,53 +30,41 @@ def analyze(model, P, T):
     assert model.analyze(n) == 0
 
 
-def run_strain(options):
+def run_strain(options, Figures=None):
+    if Figures is None:
+        Figures = {}
 
     element = options.element
-    case = options.shape
+    case = options.shape_name
     try:
         case = int(case)
     except:
         pass
 
     NIP = 5
-    P = 1
-    T = 1
+    P   = 1
+    T   = 1
     ne = int(os.getenv("ne", 1))
 
 
-    E  = 1#2.9
-    nu = options.poisson
-    G = E/(2*(1+nu))
-    material = Material(E=E, G=G)
 
+    shape = options.shape
+    material = shape.material
 
-    print(f"Shape {case}")
-    shape = load_shape(case, material=material, #nu=nu, 
-                       units=units, mesh_type="T6")
-
-    # nu = shape._poisson
-    print(f"{nu = }")
-
-    # shape = shape.translate(-shape.centroid)# shape._section_analysis.axial_center())
-    if options.rotate:
-        shape = shape.rotate(-np.pi/8)
 
     sv = SaintVenantSectionAnalysis(shape)
-    print(sv.summary(format="texsection"))
-
-    # veux.serve(veux.render(shape.model))
 
 
-    A  = shape.cnn()[0,0]
 
-    # EI = E*shape.cmm()[1,1]
+    Figures["strain"] = veux.ShapeArtist(shape)
+
+
+
     trace = sv.create_trace(form=options.trace)
-    L = shape.d*options.length # 2.5
-    soln = SaintVenant(shape, length=L, sv=sv, material={"E": E, "G": G}, V=[0.0, P], T=-T)
+    L = shape.d*options.length
+    soln = SaintVenant(shape, length=L, sv=sv, material=material, V=[0.0, P], T=-T)
 
 
-    from post import PlotFiberStrain
 
     plot = PlotFiberStrain()
 
@@ -85,12 +73,12 @@ def run_strain(options):
                     length=L,
                     boundary=((1,1,1,  1,1,1),
                               (0,0,0,  0,0,0)),
-                    material=material,#{"type": "ElasticIsotropic", "E": E, "G": G},
+                    material=material,
                     element=element,
                     section=Section("MixedFiber", shape, material, mixed_type=options.trace),#_create_section(trace),
                     shear=1,
                     vertical=3,
-                    integration={"points": NIP, "type": "Legendre"},
+                    integration={"points": NIP, "type": "Lobatto"},
                     divisions=ne,
                     order=1 if "exact" not in element.lower() else 2
             )
@@ -142,10 +130,20 @@ def run_strain(options):
     # print("Trace: ", trace.solve(soln.p).position(L))
     # print(".      ", trace.solve(soln.p).rotation(L))
 
+
+    elem_stress = FiberStress(model, 
+                              shape, 
+                              section=1, 
+                              stress="sxz", 
+                              element=1)
+    Figures["strain"].draw_surfaces(
+        field=elem_stress,
+        # scale=1/max(elem_stress(n) for n in range(len(shape.model.nodes)))
+    )
     plot.finalize()
     plt.show()
 
-    return
+    return Figures
 
     # soln.render(trace=trace)
     if True:
@@ -159,11 +157,6 @@ def run_strain(options):
             )
         veux.serve(artist)
 
-    elem_stress = FiberStress(model, 
-                              shape, 
-                              section=1, 
-                              stress="sxz", 
-                              element=1)
     if False:
         artist = veux.create_artist(shape.model, ndf=1)
     #       artist.draw_surfaces()
