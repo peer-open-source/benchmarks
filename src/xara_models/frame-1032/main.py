@@ -10,12 +10,6 @@ import os
 # External libraries
 import numpy as np
 import matplotlib.pyplot as plt
-# try:
-#     plt.style.use("veux-web")
-# except:
-#     pass
-
-
 
 
 if __name__ == "__main__":
