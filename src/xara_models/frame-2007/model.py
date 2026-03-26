@@ -66,6 +66,7 @@ def analyze(model, nn, shear=True, trace=None, plots=(), verbose=False):
 
     try:
         model.pattern("Plain", 1, 1)
+        # impose displcement at node nn in dof 3 with value 1.0
         model.sp(nn, 3, 1.0, pattern=1)
         model.integrator("LoadControl", 1/step)
 
