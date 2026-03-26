@@ -362,10 +362,11 @@ nodeDisp 10 1
 nodeDisp 10 2 
 getTime  
 getTime  
-analyze 1 
+verify value [analyze 1] 0
 numIter  
 nodeDisp 10 1 
 nodeDisp 10 2 
 getTime  
 getTime  
 nodeDisp 10 
+
