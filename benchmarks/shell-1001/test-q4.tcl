@@ -92,7 +92,8 @@ element ASDShellQ4 17 17 18 39 38 1 -corotational
 element ASDShellQ4 18 18 19 40 39 1 -corotational
 element ASDShellQ4 19 19 20 41 40 1 -corotational
 element ASDShellQ4 20 20 21 42 41 1 -corotational
-fix 1 1 1 1 1 1 1 
+
+fix  1 1 1 1 1 1 1 
 fix 22 1 1 1 1 1 1 
 pattern Plain 1 Linear {
   load 21 0 0 0 0 -261.79938779914943 0
@@ -101,7 +102,7 @@ pattern Plain 1 Linear {
 constraints Transformation 
 numberer RCM 
 system UmfPack 
-test NormDispIncr 1e-05 100 0
+test NormDispIncr 1e-08 10 0
 algorithm Newton 
 integrator LoadControl 0.025 
 analysis Static 
