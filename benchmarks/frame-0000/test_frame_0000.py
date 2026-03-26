@@ -1,7 +1,7 @@
 import xara
 import pytest
 
-def _test_constructors():
+def test_constructors():
     # From SAP2000 1-0014a
     A  = 216
     Iz = 2592
@@ -71,7 +71,9 @@ def test_transform():
 
     # Define geometry transforms
     model.geomTransf("Linear", 1, (-1, 0, 0))
-    model.geomTransf("Linear", 2, ( 0, 0, 1))             # <---- note subtly wrong vecxz
+
+    # Invalid vecxz
+    model.geomTransf("Linear", 2, ( 0, 0, 1))
 
     # Some reasonable properties (~300x600mm RC)
     A, E, G, J, Iz, Iy = 0.18, 30e9, 12e9, 0.01, 0.005, 0.005
@@ -81,7 +83,7 @@ def test_transform():
     ele_type = "PrismFrame"
     # tag *[ndI ndJ]  A  E  G  Jx  Iy   Iz  transfOBJs
     #osp.element(ele_type, 1, (1, 2), A, E, G, J, Iz, Iy, 1)
-    #osp.element(ele_type, 2, (2, 3), A, E, G, J, Iz, Iy, 2)           # <-- crashes
+    #osp.element(ele_type, 2, (2, 3), A, E, G, J, Iz, Iy, 2)     # <-- crashes
 
     ele_type = "forceBeamColumn"
     model.element(ele_type, 1, (1, 2), section=1, transform=1)
