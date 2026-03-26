@@ -3,7 +3,8 @@ title: Pure flexure (Finite Rotations)
 description: This problem highlights the exceptional accuracy of the ExactFrame formulation
   for simulating large deformations
 thumbnail_url: frame-1001/img/FrameCircle.png
-benchmarks: []
+benchmarks:
+- 'NL5: Straight cantilever with end moment'
 scripts:
 - path: benchmarks/frame-1001/test-shear-exact.tcl
   description: ''
