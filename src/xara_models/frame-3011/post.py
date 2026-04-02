@@ -3,18 +3,15 @@ import thesis
 from itertools import cycle
 
 class PlotResponse:
-    def __init__(self, scale, ax=None, axs=None):
+    def __init__(self, scale=1, ax=None, axs=None):
         self.scale = scale
 
         self.markers = cycle(["-","-.","--","-.", ":"])
         self.colors  = cycle(["gray", "r", "b", "g", "m", "c"])
         if ax is None:
-            fig, ax = thesis.subplots()#width=width*thesis.TextWidth*0.48, aspect=0.7)
+            fig, ax = thesis.subplots()
         else:
             fig = ax.figure
-        # fig, (ax,leg) = plt.subplots(ncols=2,
-        #                              gridspec_kw={"width_ratios": [5, 1.5]})#, constrained_layout=True)
-        # leg.axis("off")
         ax.axhline(0, color='k', lw=1)
         ax.axvline(0, color='k', lw=1)
         self.fig = fig
@@ -38,7 +35,7 @@ class PlotResponse:
         self.y.append(model.getTime()*scale)
 
     def draw(self):
-        if self._axs is None:#self._cycle is None:
+        if self._axs is None:
             self.ax.plot(self.x,self.y,
                     next(self.markers), 
                     color=next(self.colors),
