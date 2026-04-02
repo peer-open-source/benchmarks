@@ -3,7 +3,7 @@ set kt 10.0; # translational stiffness
 set kr 20.0; # rotational stiffness
 set P   5.0; # applied load
 set L  10.0; # length of the link
-set c  0.5; # shear distance
+set c   0.5; # shear distance
 
 model basic -ndm 2 -ndf 3 
 uniaxialMaterial Elastic 1 $kt
