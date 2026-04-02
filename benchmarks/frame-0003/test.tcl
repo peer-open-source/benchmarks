@@ -40,45 +40,9 @@ integrator LoadControl 0.05
 test Energy 1e-16 8 0
 algorithm Newton 
 analysis Static 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
-analyze 1 
-nodeDisp 9 3 
+verify value [analyze 20] 0
+
+
+puts [nodeDisp 9 3]
 reactions  
 
