@@ -1,5 +1,6 @@
 
-model  -ndm 3 -ndf 6
+model Basic -ndm 3 -ndf 6 -rotation iter
+
 node  1   0.0               0.0                0.0 
 node  2  11.999850000312499 0.0599997500003125 0.0 
 node  3  23.999700000624998 0.1199995000006250 0.0 
@@ -25,7 +26,16 @@ node 21 239.997000006250000 1.19999500000625 0.0
 fix  1 1 1 1 1 1 1 
 fix 21 0 1 1 0 1 1 
 
-section ElasticFrame 1 -E 71240 -G 27190 -A 10.0 -J 2.16 -Iy 0.0833 -Iz 0.0833 -Ay 10.0 -Az 10.0 
+section ElasticFrame 1 \
+  -E 71240 \
+  -G 27190 \
+  -A 10.0 \
+  -J 2.16 \
+  -Iy 0.0833 \
+  -Iz 0.0833 \
+  -Ay 10.0 \
+  -Az 10.0 
+
 geomTransf Linear 1 0.0 0.0 1.0 
 element ExactFrame  1  1  2 -section 1 -transform 1 -shear 1
 element ExactFrame  2  2  3 -section 1 -transform 1 -shear 1
@@ -54,13 +64,11 @@ pattern Plain 1 Linear {
 
 test NormDispIncr 1e-09 52 0
 integrator MinUnbalDispNorm 1 5 1.5384615384615384e-05 1 
-system Umfpack 
+system BandGeneral 
 analysis Static 
 
-nodeDisp 21 4 
-getTime  
-getLoadFactor 1 
-analyze 400
+
+verify value [analyze 400] 0 0
 nodeDisp 21 4 
 getTime
 getLoadFactor 1 
