@@ -5,6 +5,9 @@
 #                |
 # #|============== ->>
 #
+#
+# section AxialFiber -shear 1 {};
+#
 
 proc printEigenvalues {E A Iz Iy G J L tolerance} {
     # Compute element eigenvalues
@@ -69,7 +72,8 @@ set lp [expr $beta*$L]
 set nIP 8
 
 set elements { 1 5 CubicFrame 2 ForceFrame} ; # 3 4
-set sections {1 4}; # {3 AxialFiber}; # 2
+set sections {1 4 3 Fiber}; # { AxialFiber}; # 2
+
 
 foreach element $elements {
   foreach section $sections {
@@ -112,11 +116,21 @@ foreach element $elements {
             puts "  Section: ElasticFrame"
             section ElasticFrame 1 $E -A $A -Iz $Iz -Iy $Iy -G $G -J $J
         }
-        AxialFiber {
-            puts "  Section: FiberFrame"
+        Fiber {
+            puts "  Section: Fiber"
             uniaxialMaterial Elastic 1 $E
             uniaxialMaterial Elastic 2 [expr $G*$J]
             section Fiber $sec -torsion 2 {
+                set b2 [expr $b/2]
+                set d2 [expr $d/2]
+                patch rect 1 10 10 $d2 $b2 -$d2 -$b2
+            }
+            set tol 0.02
+        }
+        AxialFiber {
+            puts "  Section: AxialFiber"
+            uniaxialMaterial Elastic 1 $E
+            section AxialFiber $sec -GJ [expr $G*$J] {
                 set b2 [expr $b/2]
                 set d2 [expr $d/2]
                 patch rect 1 10 10 $d2 $b2 -$d2 -$b2

@@ -70,6 +70,7 @@ proc euler_buckling {
   # Initialize
   set lam_0 [getTime]
   set eig_0 [eigen 1]
+  set status -1
 
   for { set i 1 } { $i <= [expr int($PeakLoadRatio/$load_step)] } { incr i } {
       analyze 1
@@ -85,6 +86,7 @@ proc euler_buckling {
           puts "    Percent Error:                    [format "%.2f%%" [expr 100*($lam_i-1)]]"
 
           verify error $lam_i 1 0.01
+          set status 0
 
           return [expr $lam_i*$euler_load]
       }
@@ -92,6 +94,8 @@ proc euler_buckling {
       set lam_0 $lam
       set eig_0 $eig
   }
+
+  verify value $status 0
 }
 
 euler_buckling forceBeamColumn Corotational

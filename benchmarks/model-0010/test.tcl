@@ -218,7 +218,7 @@ foreach eleType {ShellMITC4 ASDShellQ4} {
 #
 #  SSPbrick
 if 1 {
-foreach eleType {stdBrick SSPbrick} {
+foreach eleType {stdBrick SSPbrick bbarBrick} {
     set counter 0
 
     puts "\n:: Using $eleType element"
@@ -298,6 +298,7 @@ foreach eleType {stdBrick SSPbrick} {
 
 
             # verify result
+            verify value $disp $dispSAP $tol
             if {[expr abs($disp-$dispSAP)] > $tol} {
                 set testOK -1;
                 puts "failed  brick: $disp - $dispSAP [expr abs($disp-$dispSAP)] > $tol"

@@ -45,16 +45,20 @@ algorithm Newton
 test Residual 1e-6 15
 analysis Static 
 
+
 integrator LoadControl 0.5 
 verify value [analyze 1] 0
-puts "[numIter] [getTime]"
+verify value [expr [nodeDisp 9 1]+[nodeCoord 9 1]] 58.84412738535933 1e-6
+verify value [nodeDisp 9 2] 40.07601639250373 1e-6
+verify value [numIter] 14 0
 
 integrator LoadControl 0.25
 verify value [analyze 1] 0
-puts "[numIter] [getTime]"
 
 integrator LoadControl 0.25
 verify value [analyze 1] 0
-puts "[numIter] [getTime]"
 
-puts "[nodeDisp 9 1] [nodeDisp 9 2] [nodeDisp 9 3]" 
+
+verify value [expr [nodeDisp 9 1]+[nodeCoord 9 1]] 47.23285606777695 1e-6
+verify value [nodeDisp 9 2] 53.36914221120085 1e-6
+verify value [numIter] 7 0
