@@ -12,8 +12,10 @@ from xara.helpers import find_node
 from xara.post.convergence import PlotConvergenceRate
 from xsection.analysis import SaintVenantSectionAnalysis
 from xsection.library import WideFlange
+from xsection.properties import plastic_torque
 import thesis as plt
 import thesis
+import numpy as np
 
 verbose = False
 if verbose:
@@ -29,15 +31,19 @@ Cases = [
     dict(element="ExactFrame", wagner=False, trace="NR", tag=1),
     dict(element="ExactFrame", wagner=True,  trace="NR", tag=2),
 
-    dict(element="ForceFrame", wagner=False, trace="NR", tag=3),
-    dict(element="ForceFrame", wagner=True,  trace="NR", tag=4),
+    # dict(element="ForceFrame", wagner=False, trace="NR", tag=3),
+    # dict(element="ForceFrame", wagner=True,  trace="NR", tag=4),
 
-    dict(element="ExactFrame", wagner=False, trace="UE", tag=5),
-    dict(element="ExactFrame", wagner=True,  trace="UE", tag=6),
+    # dict(element="ExactFrame", wagner=False, trace="NT", tag=5),
+    # dict(element="ExactFrame", wagner=True,  trace="NT", tag=6),
 
-    dict(element="ForceFrame", wagner=False, trace="UG", tag=7),
-    dict(element="ForceFrame", wagner=True,  trace="UG", tag=8),
-    dict(element="ForceFrame", wagner=False, trace="MS", tag=9),
+    # dict(element="ExactFrame", wagner=False, trace="UE", tag=5),
+    # dict(element="ExactFrame", wagner=True,  trace="UE", tag=6),
+
+    # dict(element="ForceFrame", wagner=False, trace="UG", tag=7),
+    # dict(element="ForceFrame", wagner=True,  trace="UG", tag=8),
+    # dict(element="ForceFrame", wagner=False, trace="MS", tag=9),
+    dict(element="ExactFrame", wagner=True,  trace="NR", tag=10, nonlinear=True),
 ]
 
 class Test4:
@@ -100,12 +106,12 @@ class Test5:
                     tw=0.0080*units.meter,
                     material=xara.Material(
                         E  = 29e3*units.ksi,
-                        nu = 0.27,
+                        nu = 0.29,
                         Fy = 41.3*units.ksi,
-                        Hkin = 0.003*29e3*units.ksi,
+                        Hkin = 0.03*29e3*units.ksi,
                         type = "J2BeamThread"
                     ),
-                    mesh_scale=1/5,
+                    mesh_scale=1/2,
                     mesh_type="T6",
                     mesher="gmsh"
         )
@@ -129,6 +135,14 @@ class Test5:
         ]
 
 
+def _plastic_torque(shape, test, Fy):
+    Tp = 0.25*shape.tf*shape.bf**2*Fy
+    Ts = plastic_torque(shape)*Fy/np.sqrt(3)
+    To = Ts + Tp*shape.d/test.b[0]
+    print(f"{Ts = }, {Tp = }, {To = }")
+    return To
+
+
 def analyze(model, T, test, plots=()):
     # Loading
     # time step can be much larger. Fine stepping for plots.
@@ -142,8 +156,8 @@ def analyze(model, T, test, plots=()):
     model.integrator("LoadControl", 1/steps)
     model.analysis("Static")
     # model.test("Residual", 1e-8, 20, 1 if verbose else 0)
-    model.test("Energy", 1e-18, 20, 2 if verbose else 0)
-    # model.test("NormDispIncr", 1e-9, 10, 1 if verbose else 0)
+    # model.test("Energy", 1e-14, 200, 2 if verbose else 0)
+    model.test("NormDispIncr", 1e-9, 10, 1 if verbose else 0)
 
     model.pattern("Plain", 1, "Linear", load={
             find_node(model, x=b): [0,0,0, T,0,0, 0]
@@ -190,6 +204,7 @@ def create_section(shape, trace, wagner):
 if __name__ == "__main__":
     import sys 
     # os.environ["Wagner"] = "1"
+    Save = False
     transform = os.environ.get("Transform", "Corotational02")
 
     test = Test4()
@@ -206,15 +221,27 @@ if __name__ == "__main__":
     print(f"{Fy = }")
 
 
-
-    material = xara.Material(
-        E  = E,
-        nu = nu,
-        Fy = Fy,
-        # Hiso = 0.001 * E,
-        Hkin = 0.03 * E,#900*units.ksi, #
-        type = "J2BeamThread" #  "NonlinearJ2" #  "J2" # "GeneralizedJ2" # "J2Simplified" #
-    )
+    if False:
+        material = xara.Material(
+            E  = E,
+            nu = nu,
+            Fy = Fy,
+            # Hiso = 0.03 * E,
+            Hkin = 0.03 * E,#900*units.ksi, #
+            # Fsat = 1.5*Fy,
+            type =  "J2BeamThread" # "NonlinearJ2" #  "J2" # "GeneralizedJ2" # "J2Simplified" #
+        )
+    else:
+        material = xara.Material(
+            E  = E,
+            nu = nu,
+            Fy = Fy,
+            Hiso = 0.01*E,
+            # Hkin = 0.03 * E,#900*units.ksi, #
+            Hsat = 50, #0.005*Fy/(Fu-Fy)*E,
+            Fsat = 1.5*Fy,
+            type = "NonlinearJ2" # "J2BeamThread" #   "J2" # "GeneralizedJ2" # "J2Simplified" #
+        )
 
     size = 1 # 3 # 40
     shape = WideFlange(
@@ -226,31 +253,25 @@ if __name__ == "__main__":
                     mesh_scale=1/size,
                     mesh_type="T6",
                     mesher="gmsh")
-
-    print(shape.summary())
-    GJ = SaintVenantSectionAnalysis(shape).twist_rigidity()
+    
 
     L = test.L
+    To = _plastic_torque(shape, test, Fy)
+    sv = SaintVenantSectionAnalysis(shape)
+    GJ = sv.twist_rigidity()
+    print(sv.summary(format="texsection"))
 
     ##
-    plot_1 = PlotResponse(test.Tmax)
-    plot_2 = PlotConvergenceRate(n_ex_start=0, skip=True)
+    plot_1 = PlotResponse(test.Tmax/To)
+    plot_2 = PlotConvergenceRate(n_ex_start=0, skip=False)
     if True: #test.name == "Test 5":
         plot_1.ax.plot(
             [d for d in test.data[::2]],
-            [t/(units.kip*units.inch) for t in test.data[1::2]],
+            [t/To/(units.kip*units.inch) for t in test.data[1::2]],
             "o--", color="k", 
             fillstyle="none",
             # markersize=3, 
             label="Experiment"
-        )
-    if False:
-        # Plot linear stiffness
-        plot_1.ax.plot(
-            [d*test.a/(GJ) for d in test.data[1::2]],
-            [d for d in test.data[1::2]],
-            "--", color="k",
-            label="Linear"
         )
 
     ##
@@ -263,10 +284,22 @@ if __name__ == "__main__":
         element = case["element"]
         wagner  = case["wagner"]
         trace   = case["trace"]
+        nonlinear = case.get("nonlinear", False)
+        if nonlinear:
+            shape.material = xara.Material(
+                E  = E,
+                nu = nu,
+                Fy = Fy,
+                Hiso = 0.03*E,
+                # Hkin = 0.03 * E,#900*units.ksi, #
+                Hsat = 15, #0.005*Fy/(Fu-Fy)*E,
+                Fsat = 1.5*Fy,
+                type = "NonlinearJ2" # "J2BeamThread" #   "J2" # "GeneralizedJ2" # "J2Simplified" #
+            )
 
         if not shear and "Exact" in element:
             continue
-        
+
 
         print(f"Running {element} shear={shear} trace={trace}")
 
@@ -274,7 +307,7 @@ if __name__ == "__main__":
                     length=L,
                     boundary=((1,1,1,  1,0,0, 0),
                               (A,1,1,  1,0,0, 0)),
-                    material=material,
+                    material=shape.material,
                     element=element,
                     section=create_section(shape, trace, wagner),
                     shear=shear,
@@ -286,7 +319,7 @@ if __name__ == "__main__":
                     # iter=(20, 1e-10)
                 )
 
-        model = prism.create_model(iter=(20, 1e-14),
+        model = prism.create_model(iter=(40, 1e-14),
                                     echo_file=open(f"out/T{test.name[-1]}_C{case['tag']}.tcl", "w+")
                 )
         model.print(json=f"out/T{test.name[-1]}_C{case['tag']}.json")
@@ -303,8 +336,8 @@ if __name__ == "__main__":
         plot_1.draw()
         plot_2.draw()
 
-
-        plot_1.save_data("out/T{}_C{}_data.txt".format(test.name[-1], i))
+        if Save:
+            plot_1.save_data("out/T{}_C{}_data.txt".format(test.name[-1], i))
 
     
     plot_1.finish()
