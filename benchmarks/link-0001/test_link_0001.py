@@ -15,11 +15,11 @@ def test():
 
     model.node(1,0,0)
     model.fix(1,1,0,1)
-    model.element("zeroLength",1,(0,1), mat=1, dir=1, orient=(0,1,0))
+    model.element("zeroLength",1, (0,1), mat=1, dir=1, orient=(0,1,0))
 
     model.node(2,0,L)
     model.fix(2,1,0,1)
-    model.element("twoNodeLink",2,(0,2), mat=1, dir=1)
+    model.element("twoNodeLink",2, (0,2), mat=1, dir=1)
 
     model.timeSeries("Constant",1)
     model.pattern("Plain",1,"Constant")
