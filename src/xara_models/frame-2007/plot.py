@@ -19,18 +19,23 @@ if __name__ == "__main__":
     axs = thesis.MultiFigure((1,2), aspect=0.45)
     plot_1 = PlotResponse2(ax=axs[0], axs=axs)
     plot_2 = PlotResponse2(ax=axs[1], axs=axs)
+    plot_3 = PlotResponse2()
 
     axs[0].set_xlabel("Displacement (in)")
     axs[1].set_xlabel("Displacement (in)")
     axs[0].set_ylabel("Load (kips)")
+    plot_3.ax.set_xlabel("Displacement (in)")
+    plot_3.ax.set_ylabel("Load (kips)")
 
-    for ax in axs:
+    for ax in [axs[0], axs[1], plot_3.ax]:
+        ShellColors = iter(["k", "r", "b", "g", "m"])
         for file in Path("out").glob(f"shell-2007-case1-{shape_name}.txt"):
             case = file.stem.split("-")[-2][4:]
             ps, uz, vs, uy = np.loadtxt(file, unpack=True)
             stride = 200
-            ax.plot(uz[::stride], ps[::stride], "o", label=f"Shells ({case})", 
-                    color="gray",
+            ax.plot(uz[::stride], ps[::stride], "o", 
+                    label=f"Shells", 
+                    color=next(ShellColors),
                     markersize=4,
                     fillstyle="none",
                     # linestyle="-"
@@ -78,9 +83,27 @@ if __name__ == "__main__":
             plot_2.load_data(f"out/C{i}_{shape_name}_data.txt")
             plot_2.draw()
 
+        if i in {2, 4, 5}:
+            label = {
+                2: r"Compatible \eqref{eq:linear-gl-strain-pi}",
+                4: r"Enhanced \ref{sec:trace-energy}",
+                5: r"Enhanced \ref{sec:trace-cowper}"
+            }[i]
+            style = {
+                2: {"color": "r", "linestyle": "--"},
+                4: {"color": "b", "linestyle": "-."},
+                5: {"color": "g", "linestyle": ":"}
+            }[i]
+            plot_3.reset(label=label)
+            plot_3.load_data(f"out/C{i}_{shape_name}_data.txt")
+            plot_3.draw(style=style)
+
     # plt.tight_layout()
     thesis.space_ticks(axs[0], 'y', round=5)
     thesis.space_ticks(axs[1], 'y', round=5)
+    thesis.format_ticks(plot_3.ax)
+    thesis.legend(plot_3.ax)
     axs.finish()
-    axs.figure.savefig(f"img/{shape_name}_u.pgf", backend="pgf")
+    # axs.figure.savefig(f"img/{shape_name}_u.pgf", backend="pgf")
+    plot_3.ax.figure.savefig(f"img/{shape_name}_u.pgf", backend="pgf")
     plt.show()
