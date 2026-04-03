@@ -27,7 +27,7 @@ def analyze(model, P, T):
     model.integrator("LoadControl", 1/n)
     model.system("BandGen")
     model.analysis("Static")
-    model.test("Energy", 1e-16, 10, 1)
+    model.test("Energy", 1e-20, 2, 1)
 
     assert model.analyze(n) == 0
 
@@ -155,7 +155,7 @@ def run_trace(options, Figures=None):
             pass
 
     # plot.finalize()
-    plt.show()
+    # plt.show()
     # import sys
     # sys.exit()
     return
