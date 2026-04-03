@@ -43,7 +43,7 @@ def Bathe(Path, R,
         steps = [1.0]
 
 
-    # --- Store element property data ---
+    #
     section = {
          "E": E,
          "A": A,
@@ -72,7 +72,7 @@ def Bathe(Path, R,
         model.node(i+1, tuple(coord))
 
     # Boundary Conditions
-    # Fix the first node (all 6 DOFs)
+    # Fix the first node
     model.fix(1, (1, 1, 1, 1, 1, 1))
 
     #
