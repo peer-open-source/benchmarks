@@ -6,6 +6,7 @@ import os
 import sys
 import veux
 from pathlib import Path
+from argparse import ArgumentParser
 from veux.motion import Motion
 from xsection.analysis import SaintVenantSectionAnalysis
 from xsection._benchmarks import load_shape
@@ -14,6 +15,7 @@ from xsection.library import WideFlange, HollowRectangle, Channel, Rectangle, Ci
 import xara
 from xara import Section, Material
 from xara.post import FiberStress, NodalAverage
+from xara.post.convergence import PlotConvergenceRate
 
 # External libraries
 import numpy as np
@@ -53,38 +55,60 @@ def plot_solid(ax, s, shape_name="H05"):
             continue
         ax.plot(u[::10], T[::10], marker="2", markersize=3, label=f"{file.name}")
 
+
+
 if __name__ == "__main__":
+    parser = ArgumentParser()
+    Save = False
+    shape_name = "H05"
+    slenderness = 2 # 1.4
 
-    cases = Cases([
-        dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="b", mixed_type="NR"),
-        dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="c", mixed_type="NR"),
-        dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="b", mixed_type="NT"),
-        dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="c", mixed_type="NT"),
-    ])
-
-    # Mmax   = 1.2e3
-    shape_name = "H03"
-    slenderness = 1.4 #2 # 2
     if len(sys.argv) > 1:
         shape_name = sys.argv[1]
     if len(sys.argv) > 2:
         slenderness = float(sys.argv[2])
+
+    # cases = Cases([
+    #     # dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="b", mixed_type="NR"),
+    #     # dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="c", mixed_type="NR"),
+    #     # dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="b", mixed_type="NT"),
+    #     # dict(element="ExactFrame", section="MixedFiber", shape="h", boundary="c", mixed_type="NT"),
+    #     dict(element="ForceFrame", section="MixedFiber", shape="h", boundary="b", mixed_type="NR"),
+    #     dict(element="ForceFrame", section="MixedFiber", shape="h", boundary="c", mixed_type="NR"),
+    #     dict(element="ForceFrame", section="MixedFiber", shape="h", boundary="b", mixed_type="NT"),
+    #     dict(element="ForceFrame", section="MixedFiber", shape="h", boundary="c", mixed_type="NT"),
+    # ])
+
     element = os.environ.get("Element", "ExactFrame")
     section = os.environ.get("Section", "MixedFiber")
 
     WarpTypes = os.environ.get("WarpType", "NT,NR").split(",")
     Boundary  = os.environ.get("Boundary", "b,c").split(",")
 
-
-    material = xara.Material(
-        "J2BeamThread", #"NonlinearJ2", #"J2Simplified",
-        E=29e3, 
-        nu=0.27,
-        Fy=60,
-        Fsat=60,
-        Hiso=0.03*29e3,
-        tol=1e-16
-    )
+    if True:
+        material = xara.Material(
+            "NonlinearJ2", #"J2BeamThread", #"J2Simplified",
+            E=29e3, 
+            nu=0.27,
+            Fy=60,
+            Fsat=90,
+            Hiso=0.03*29e3,
+            tol=1e-16,
+            Q = [20, 10],
+            b = [0.4, 2.0],
+            C = [212, 67.8, 20],#, 30],
+            gamma= [3, 20, 90],#, 120]
+        )
+    else:
+        material = xara.Material(
+            "J2BeamThread", #"NonlinearJ2", #"J2Simplified",
+            E=29e3, 
+            nu=0.27,
+            Fy=60,
+            Fsat=60,
+            Hiso=0.03*29e3,
+            tol=1e-16
+        )
 
     print(f"Shape {shape_name.upper()}")
     shape = load_shape(shape_name, mesher="gmsh", material=material, mesh_type="T6")
@@ -96,7 +120,10 @@ if __name__ == "__main__":
     # veux.serve(a_sec)
 
     sv = SaintVenantSectionAnalysis(shape)
-    print(sv.summary(format="texsection"))
+    print(sv.summary())
+    if Save:
+        with open(f"out/{shape_name}.tex", "w") as f:
+            f.write(sv.summary(format="texsection"))
 
     GJ = sv.twist_rigidity()
     Mmax = GJ/(depth/2)*np.pi*2*1e-3
@@ -126,7 +153,7 @@ if __name__ == "__main__":
                 shape,
                 material,
                 boun,
-                ne=4, #16,
+                ne=8, #4 #16,
                 warp_type=warp_type,
                 nen=3 if element == "ExactFrame" else 2,
                 section = Section(type=section, 
@@ -137,16 +164,19 @@ if __name__ == "__main__":
             
             model.print(json=f"out/{key}.json")
 
-            u,T = analyze(model, Mmax,tol=1e-12)
+            post = [PlotConvergenceRate(x_mode="time", ci=95)]
+            u,T = analyze(model, Mmax,tol=1e-12, post=post)
             ax.plot(u, T, label=f"{boun} {warp_type}")
-
-            np.savetxt(f"out/{key}.txt", np.array([T,u]).T, header="T u", comments="")
+            if Save:
+                np.savetxt(f"out/{key}.txt", np.array([T,u]).T, header="T u", comments="")
 
             model.reactions()
             p1.update(model)
 
         
             p1.finalize()
+            post[0].draw()
+            post[0].finalize(title=key)
 
 
     
@@ -156,7 +186,8 @@ if __name__ == "__main__":
                 field=FiberStress(model, shape, section=1, stress="sxx", element=1),
                 cbar_label="Von Mises Stress (ksi)",
             )
-            artist.save(f"img/C{key}_stress.pgf", backend="pgf")
+            if Save:
+                artist.save(f"img/C{key}_stress.pgf", backend="pgf")
 
     fig.legend()
 
