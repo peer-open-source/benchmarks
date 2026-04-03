@@ -129,7 +129,14 @@ def analyze(element,
             render=False):
 
     en = ne*(nen-1)
+    E = 2.1e4 # MPa, or 210 GPa
+    v = 0.30  # 0.5*E/G - 1
+    material = xara.Material(
+        E = 2.1e4, # MPa, or 210 GPa
+        G = 0.5*E/(1+v) # 8076.92
+    )
     shape = Channel(d=30, b=10, tf=1.6, tw=1.0, 
+                    material=material,
                     mesh_scale=1/5,
                     mesher="gmsh")
 
@@ -214,8 +221,6 @@ def analyze(element,
     model.test("NormDispIncr", 1e-11, 500, 2)
     # model.test("Energy", 1e-16, 5000, 2)
 #   model.test('NormUnbalance',1e-6,10,1)
-    # model.algorithm("KrylovNewton")
-    # model.algorithm("BFGS")
     # model.algorithm("AcceleratedNewton", accelerator="Secant")
     model.analysis("Static")
     # model.initialize()
@@ -279,10 +284,6 @@ def analyze(element,
         status = model.analyze(1)
         plot_cr.update(model)
 
-        # import sys
-        # from pandas import DataFrame as df
-        # print(df(model.getTangent()))
-        # sys.exit()
 
     plot_cr.draw()
     plot_cr.finalize()
@@ -323,7 +324,7 @@ def analyze(element,
 
         wagner = int("Wagner" in os.environ)
         name = f"{pattern}-{cpoint}-{warp_base}-{section}-{element[:5].lower()}-{transform[-2:]}-wagner{wagner}"
-        # fig.savefig(f"img/1032-{name}-displacements.png")
+        fig.savefig(f"img/1032-{name}-displacements.png")
 
 
         x = [model.nodeCoord(node, 1) for node in model.getNodeTags()]
@@ -366,4 +367,4 @@ if __name__ == "__main__":
             warp_base=os.environ.get("Warping", "p") # "f", "r", "n"
             )
 
-    plt.show()
+    # plt.show()
