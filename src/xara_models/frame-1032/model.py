@@ -7,10 +7,18 @@
             | |_____.
             |_______|
 
-"""
 
+2. XARA_FIBER_THREADS=1 Warping=n Origin=O xm run frame-1032 
+   with mesh_scale=1, mesh_type="T6", warp_type="UE"
+
+1. XARA_FIBER_THREADS=1 Warping=r Origin=T Wagner=1 xm run frame-1032
+   with mesh_scale=1/8, mesh_type="T6"
+
+
+   Here UT gives uy on the wrong side
+"""
+from itertools import cycle
 import xara
-import veux
 import os
 from xara.shapes import Channel
 import numpy as np
@@ -45,7 +53,9 @@ class Problem:
                 origin="O",
                 length=900,
                 warp_type=None,
+                mesh_scale=1.0,
                 material=None,
+                wagner=0,
                 warp_base="n"):
         """
         origin:
@@ -74,27 +84,22 @@ class Problem:
             self.material = material
 
         # Natural origin is at center of web
-        shape = Channel(d=30,
+        shape = Channel(d=30,#+1.6,
                         b=10,
-                        tf=1.6, 
+                        tf=1.6,
                         tw=1.0, 
                         material=self.material,
-                        mesh_scale=1,
+                        mesh_scale=mesh_scale,#/6,
                         mesh_type="T6",
                         mesher="gmsh")
         
         self.origin = origin
         self.warp_base = warp_base
 
-        print(shape.summary())
-
-        print(SaintVenantSectionAnalysis(shape).summary(format=""))
-
-        # veux.serve(veux.render(shape.model))
 
         if origin in {"T", "node"}:
             # Top
-            offset = ( 0,   shape.d/2)
+            offset = ( 0,   (shape.d-shape.tf)/2)
         elif origin == "S": # was A
             # Shear center
             offset = shape._analysis.shear_center()
@@ -105,7 +110,7 @@ class Problem:
             offset = ( 2.449, 0)# shape.centroid #
 
         offset = np.array(offset)
-        self.load_offset = np.array([0, 15]) - offset
+        self.load_offset = np.array([0, (shape.d-shape.tf)/2]) - offset
 
         print(f"Origin = {origin}, offset = {offset}, load_offset = {self.load_offset}, warp_base = {warp_base}")
 
@@ -113,14 +118,21 @@ class Problem:
 
         self.shape = shape.translate(-np.array(offset))
 
-
-        if warp_base in "mn":
-            warp_type = "UE"
-        else:
-            warp_type = "NT"
+        if warp_type is None:
+            if warp_base in "mn":
+                warp_type = "UE"
+            else:
+                warp_type = "NT"
 
         self.warp_type = warp_type
-        self.name = f"{origin}-{warp_base}-{warp_type}"
+        Rot = 0
+        if "XARA_ROTATE" in os.environ:
+            Rot = ["iter", "incr"].index(os.environ["XARA_ROTATE"])
+        Elem=0
+        if "ExactFrame" in os.environ:
+            Elem = 2
+
+        self.name = f"{origin}-{warp_base}-R{Rot}-E{Elem}-{warp_type}-Mesh{mesh_scale}-Wagner{int(wagner)}"
 
 
 
@@ -142,7 +154,7 @@ class Problem:
     def create_model(self, element, section, transform, nen=2, ne=30):
         warp_base = self.warp_base
         wagner = int("Wagner" in os.environ)
-        mname = f"{self.name}-{element[:5].lower()}"#-{transform[-2:]}" #-wagner{wagner}"
+        mname = f"{self.name}-{element[:5].lower()}-ne{ne}"
         model = create_cantilever(ne,
                                   self.length,
                                     self.shape,
@@ -191,26 +203,20 @@ class Problem:
         import thesis as plt
         from matplotlib.ticker import MultipleLocator
 
-        element = model.name.lower()
-
         self.apply_loads(model)
         tip = model.getNodeTags()[-1]
-        model.system('Umfpack')
-        model.integrator("LoadControl", Pmax/100
-                        # Pmax/100 if "exact" in element else Pmax/300, # 50 
-                        # iter=20, 
-                        # min_step=Pmax/1000,
-                        # max_step=Pmax/100 if "exact" in element else Pmax/200
+        root = model.getNodeTags()[0]
+        model.system('BandGeneral')
+        model.integrator("LoadControl", Pmax/200 #200
         )
 
-        # model.test("NormDispIncr", 1e-11, 500, 2)
-        model.test("Energy", 1e-16, 500, 0)
-        # model.test('Residual',1e-7,50,0)
-        # model.algorithm("AcceleratedNewton", accelerator="Secant")
+        model.test("NormDispIncr", 1e-11, 500, 1)
+        # model.test("Energy", 1e-18, 600, 1)
+
         model.analysis("Static")
         # model.initialize()
 
-        plot_cr = PlotConvergenceRate()
+        plot_cr = PlotConvergenceRate(n_ex_start=2, n_ex_end=1)
         fg_warp, ax_warp = plt.subplots()
 
         u = []
@@ -223,26 +229,26 @@ class Problem:
             # ("BFGS",), 
             # ("Broyden",),
             ("AcceleratedNewton", "-accelerator", "Krylov"),
-            # ("BFGS",), 
-            # ("Broyden",),
-            # ("AcceleratedNewton", "-accelerator", "Krylov"),
-            # ("BFGS",), 
-            # ("Broyden",),
-            # ("AcceleratedNewton", "-accelerator", "Krylov"),
-            # ("BFGS",),
-            # ("Broyden",),
-            # ("AcceleratedNewton", "-accelerator", "Krylov"),
-            # ("BFGS",), 
-            # ("Broyden",),
-            # ("AcceleratedNewton", "-accelerator", "Krylov"),
-            # ("BFGS",), 
-            # ("Broyden",),
-            # ("BFGS",), 
-            # ("Broyden",),
-            # ("BFGS",), 
-            # ("Broyden",),
-            # ("KrylovNewton",), 
-            # ("NewtonLineSearch",),
+            ("BFGS",), 
+            ("Broyden",),
+            ("AcceleratedNewton", "-accelerator", "Krylov"),
+            ("BFGS",), 
+            ("Broyden",),
+            ("AcceleratedNewton", "-accelerator", "Krylov"),
+            ("BFGS",),
+            ("Broyden",),
+            ("AcceleratedNewton", "-accelerator", "Krylov"),
+            ("BFGS",), 
+            ("Broyden",),
+            ("AcceleratedNewton", "-accelerator", "Krylov"),
+            ("BFGS",), 
+            ("Broyden",),
+            ("BFGS",), 
+            ("Broyden",),
+            ("BFGS",), 
+            ("Broyden",),
+            ("KrylovNewton",), 
+            ("NewtonLineSearch",),
         ])
         status = -1
         while model.getTime() <= Pmax:
@@ -250,12 +256,14 @@ class Problem:
             if status != 0:
                 try:
                     alg = next(algorithms)
-                    # print(f"Switching to algorithm: {alg}")
+                    print(f"Switching to algorithm: {alg}")
                     model.algorithm(*alg)
                 except StopIteration:
                     print(f"Failed at time = {model.getTime()} with v = {v[-1]}")
                     break
 
+            for post_ in post:
+                post_.update(model)
             un = model.nodeDisp(tip)[:3]
             Rn = Rotation.from_quat(model.nodeRotation(tip)).as_matrix()
             rn = [0, *self.load_offset]
@@ -263,10 +271,7 @@ class Problem:
             u.append(-un[0])
             v.append( un[1])
             w.append(-un[2])
-            # print(f"Time: {model.getTime():.4f}, ux = {u[-1]:.4f}, uy = {v[-1]:.4f}, uz = {w[-1]:.4f}")
-            # u.append(-model.nodeDisp(tip, 1))
-            # v.append( model.nodeDisp(tip, 2))
-            # w.append(-model.nodeDisp(tip, 3))
+
             P.append( model.getTime())
 
             status = model.analyze(1)
@@ -279,29 +284,33 @@ class Problem:
 
         if True:
             fig, ax = plt.subplots()
+            ax.set_title(f"{self.name}")
             ax.set_xlabel(r"Displacements")
             ax.set_ylabel(r"Load, $\bar{F}$")
             # force y-axis ticks to even integers
             ax.yaxis.set_major_locator(MultipleLocator(2))
 
-            ax.set_xlim([0, 250])
-            ax.set_ylim([0,   Pmax])
+            # ax.set_xlim([0, 250])
+            # ax.set_ylim([0,   Pmax])
             ax.axvline(0, color='black', linestyle='-', linewidth=1)
             ax.axhline(0, color='black', linestyle='-', linewidth=1)
-            slines = iter(["-", "--", "-.", ":"])
-            for file in Path("out").glob("shell-1032-case3-pu.txt"):
+            slines = cycle(["--", "-.", ":"])
+            L = self.length
+            for file in (#*Path("out").glob(f"shell-1032-case3-pu.txt"),
+                         *Path("out").glob("C[13]-L" + str(int(L)) + "*-pu.txt"),):
                 case = file.stem.split("-")[-1]
                 try:
                     # us, ps = np.loadtxt(file, unpack=True)
-                    ps, us, vs, ws = np.loadtxt(file, unpack=True)
+                    ps, uz, ux, uy = np.loadtxt(file, unpack=True)
                 except:
                     continue
-                ax.plot(us, ps, label=f"Shell({case}) $u_z$", 
-                        linestyle=next(slines), color="gray")
-                ax.plot(vs, ps, label=f"Shell({case}) $u_y$", 
-                        linestyle=next(slines), color="lightgray")
-                ax.plot(ws, ps, label=f"Shell({case}) $u_x$", 
-                        linestyle=next(slines), color="darkgray")
+                ln = next(slines)
+                ax.plot(uz, ps, label=f"Shell({file.stem}) $u_z$", 
+                        linestyle=ln, alpha=0.8)
+                ax.plot(uy, ps, label=f"Shell({file.stem}) $u_y$", 
+                        linestyle=ln, alpha=0.6)
+                ax.plot(-ux, ps, label=f"Shell({file.stem}) $-u_x$", 
+                        linestyle=ln, alpha=0.4)
             ax.plot(u, P, label="$u_x$")
             ax.plot(v, P, label="$u_y$")
             ax.plot(w, P, label="$u_z$")
@@ -311,7 +320,7 @@ class Problem:
 
             name = model.name
 
-            fig.savefig(f"img/og-1032-{name}-displacements.png", dpi=600)
+            # fig.savefig(f"img/og-1032-{name}-{int(L)}-displacements.png", dpi=600)
 
 
 
@@ -368,10 +377,9 @@ def create_cantilever(ne,
             model.fiber(**fiber, material=mat, section=sec)
 
     elif "fiber" in section.lower():
-        model.section("ShearFiber", sec, shape, mixed_type=warp_type)
+        model.section(section, sec, shape, mixed_type=warp_type)
 
     else:
-        # shape.torsion._solution = shape.translate(center).torsion.solution()
         cnn = shape.cnn()
         cnm = shape.cnm()
         cnv = shape.cnv()
@@ -425,8 +433,8 @@ def create_cantilever(ne,
         else:
             model.element(element, i+1, nodes, 
                         gauss_type="Legendre",
-                        gauss_points=3,
-                        shear=0,
+                        gauss_points=4,
+                        shear=1,
                         section=sec, 
                         transform=1,
                         iter=(20,1e-14)
