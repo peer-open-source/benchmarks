@@ -71,7 +71,7 @@ def create_cantilever(aspect,
 
 
 
-def analyze(model: xara.Model, Mmax,  tol=1e-16):
+def analyze(model: xara.Model, Mmax,  tol=1e-16, post=()):
     # Apply torsional moment
     nsteps =  100
     end = model.getNodeTags()[-1]
@@ -104,4 +104,6 @@ def analyze(model: xara.Model, Mmax,  tol=1e-16):
         # print(model.getTime()/Mmax)
         u.append(model.nodeDisp(end, 4))
         T.append(model.state.time)
+        for post_fn in post:
+            post_fn.update(model)
     return u, T
