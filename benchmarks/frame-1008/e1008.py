@@ -103,11 +103,11 @@ def analyze(model, Mmax, Fmax, nsteps=1, post=None):
 if __name__ == "__main__":
     length = 10.0
 
+    # Ibrahimbegovic parameters
     material = dict(
         E = 1e4,
         G = 1e4
     )
-
     shape = dict(
         A   = 1,
         Ay  = 1,
