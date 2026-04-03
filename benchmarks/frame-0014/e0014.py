@@ -17,23 +17,24 @@ except:
 
 
 if __name__ == "__main__":
-    model = xara.Model(ndm=3, ndf=6)
+    model = xara.Model(ndm=3, ndf=7)
 
     E = 2.1e4 # MPa
     v = 0.30 #0.5*E/G - 1
     G = 0.5*E/(1+v) # 787500
 
     L  = 150
-    ne = 5
+    ne = 8
 
 
     mat = 1
     sec = 1
+    material = xara.Material(E=E, G=G)
     element = os.environ.get("Element", "ExactFrame")
     section = os.environ.get("Section", "Elastic")
     model.material('ElasticIsotropic', mat, E, v) #G=G)
 
-    shape = Channel(d=10, b=10, tf=0.2, tw=0.2)
+    shape = Channel(d=10, b=10, tf=0.2, tw=0.2, material=material)
     shape = shape.translate(-shape.centroid)
 
 
@@ -105,7 +106,7 @@ if __name__ == "__main__":
 
     model.system('Umfpack')
     model.integrator("LoadControl", Pmax/1000)#, 8, Pmax/500, Pmax/2)
-    model.test("NormDispIncr", 1e-8, 5, 1)
+    model.test("NormDispIncr", 1e-10, 5, 1)
 #   model.test('NormUnbalance',1e-6,10,1)
     model.algorithm("Newton")
     model.analysis('Static') #,'-noWarnings')
