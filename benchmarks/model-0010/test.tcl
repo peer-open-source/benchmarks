@@ -50,7 +50,7 @@ set nyFloor 16
 # {quad SSPquad}
 
 if 1 {
-foreach eleType {quad enhancedQuad} {
+foreach eleType {quad enhancedQuad SSPquad MixedQuad} {
 
     set counter 0
     puts "\n:: Using '$eleType' element"
