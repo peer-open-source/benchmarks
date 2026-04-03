@@ -1,8 +1,32 @@
+set element ForceFrame
+
 model  -ndm 3 -ndf 6
 
 material ElasticIsotropic 1 2100000.0 0.33 
 
-section ShearFiber 1 -GJ 0
+node 0 0 0 0 
+node 1 2.5 0 0 
+node 10 25.0 0 0 
+node 11 27.5 0 0 
+node 12 30.0 0 0 
+node 13 32.5 0 0 
+node 14 35.0 0 0 
+node 15 37.5 0 0 
+node 16 40.0 0 0 
+node 17 42.5 0 0 
+node 18 45.0 0 0 
+node 19 47.5 0 0 
+node 2 5.0 0 0 
+node 20 50.0 0 0 
+node 3 7.5 0 0 
+node 4 10.0 0 0 
+node 5 12.5 0 0 
+node 6 15.0 0 0 
+node 7 17.5 0 0 
+node 8 20.0 0 0 
+node 9 22.5 0 0 
+
+section ShearFiber 1 {
 fiber  -area 0.0007329774403178536 -y 0.01830766183353832 -z -1.0266359371653724 -warp {{0.018769716480967442 -1.0186337924409923 0.011823390380335278} {0 0.0 0}} -section 1 -material 1
 fiber  -area 0.0008011860393409605 -y 0.23632642492858094 -z -2.5573006683545447 -warp {{0.6044107657398395 -2.556003524397603 0.2469940414927076} {0 0.0 0}} -section 1 -material 1
 fiber  -area 0.0008387988571548631 -y -0.08712879194866498 -z -0.8223530696768737 -warp {{-0.07152815353842867 -0.836719842044171 -0.09493925998433617} {0 0.0 0}} -section 1 -material 1
@@ -7746,53 +7770,37 @@ fiber  -area 0.0004944480592701914 -y -0.10473766306540448 -z 4.95762108419721 -
 fiber  -area 0.00043413228369419736 -y -0.13603859039686503 -z 4.981131764914283 -warp {{0.6355840215444218 4.745030960228714 0.11020234311987004} {0 0.0 0}} -section 1 -material 1
 fiber  -area 0.0007217043816246425 -y -0.16896010608142698 -z 4.915154213071275 -warp {{0.7975640104871994 4.798836494272888 0.05593918921001676} {0 0.0 0}} -section 1 -material 1
 fiber  -area 0.0005672530885461414 -y -0.15741952337744505 -z 4.947259523809365 -warp {{0.7402959417154656 4.778574000406079 0.09010765938598181} {0 0.0 0}} -section 1 -material 1
+}
+
 geomTransf Linear 1 0 0 1 
-node 0 0 0 0 
-node 1 2.5 0 0 
-element ForceFrame 1 0 1 -section 1 -transform 1
-node 2 5.0 0 0 
-element ForceFrame 2 1 2 -section 1 -transform 1
-node 3 7.5 0 0 
-element ForceFrame 3 2 3 -section 1 -transform 1
-node 4 10.0 0 0 
-element ForceFrame 4 3 4 -section 1 -transform 1
-node 5 12.5 0 0 
-element ForceFrame 5 4 5 -section 1 -transform 1
-node 6 15.0 0 0 
-element ForceFrame 6 5 6 -section 1 -transform 1
-node 7 17.5 0 0 
-element ForceFrame 7 6 7 -section 1 -transform 1
-node 8 20.0 0 0 
-element ForceFrame 8 7 8 -section 1 -transform 1
-node 9 22.5 0 0 
-element ForceFrame 9 8 9 -section 1 -transform 1
-node 10 25.0 0 0 
-element ForceFrame 10 9 10 -section 1 -transform 1
-node 11 27.5 0 0 
-element ForceFrame 11 10 11 -section 1 -transform 1
-node 12 30.0 0 0 
-element ForceFrame 12 11 12 -section 1 -transform 1
-node 13 32.5 0 0 
-element ForceFrame 13 12 13 -section 1 -transform 1
-node 14 35.0 0 0 
-element ForceFrame 14 13 14 -section 1 -transform 1
-node 15 37.5 0 0 
-element ForceFrame 15 14 15 -section 1 -transform 1
-node 16 40.0 0 0 
-element ForceFrame 16 15 16 -section 1 -transform 1
-node 17 42.5 0 0 
-element ForceFrame 17 16 17 -section 1 -transform 1
-node 18 45.0 0 0 
-element ForceFrame 18 17 18 -section 1 -transform 1
-node 19 47.5 0 0 
-element ForceFrame 19 18 19 -section 1 -transform 1
-node 20 50.0 0 0 
-element ForceFrame 20 19 20 -section 1 -transform 1
+element $element 1 0 1 -section 1 -transform 1
+element $element 10 9 10 -section 1 -transform 1
+element $element 11 10 11 -section 1 -transform 1
+element $element 12 11 12 -section 1 -transform 1
+element $element 13 12 13 -section 1 -transform 1
+element $element 14 13 14 -section 1 -transform 1
+element $element 15 14 15 -section 1 -transform 1
+element $element 16 15 16 -section 1 -transform 1
+element $element 17 16 17 -section 1 -transform 1
+element $element 18 17 18 -section 1 -transform 1
+element $element 19 18 19 -section 1 -transform 1
+element $element 2 1 2 -section 1 -transform 1
+element $element 20 19 20 -section 1 -transform 1
+element $element 3 2 3 -section 1 -transform 1
+element $element 4 3 4 -section 1 -transform 1
+element $element 5 4 5 -section 1 -transform 1
+element $element 6 5 6 -section 1 -transform 1
+element $element 7 6 7 -section 1 -transform 1
+element $element 8 7 8 -section 1 -transform 1
+element $element 9 8 9 -section 1 -transform 1
+
 fix 0 1 1 1 1 1 1 
-getNodeTags  
-pattern Plain 1 Linear 
-nodalLoad 20 0 0 0 1 0 0 -pattern 1 
-system Umfpack 
+
+pattern Plain 1 Linear {
+  load 20 0 0 0 1 0 0  
+}
+
+system BandSPD 
 integrator LoadControl 600.0 
 test NormDispIncr 1e-08 100 0
 algorithm Newton 
