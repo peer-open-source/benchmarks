@@ -40,12 +40,10 @@ def test_constructors():
         add_element(model, syntax)
 
 
-        model.print(json="/dev/stdout")
-
         model.constraints("Transformation")
         model.system("BandGeneral")
         # model.analysis("Static")
-        ev = model.eigen(2)#, solver="-genBandArpack")
+        ev = model.eigen(2, solver="-genBandArpack")
 
         assert len(ev) == 2
         assert ev[0] == pytest.approx(13268.512, rel=1e-6), ev[0]
