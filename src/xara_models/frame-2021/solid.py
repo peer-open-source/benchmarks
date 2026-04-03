@@ -246,27 +246,47 @@ if __name__ == "__main__":
     if len(sys.argv) > 3:
         case = sys.argv[3]
 
-    material = xara.Material(
-        "NonlinearJ2", #"J2", #"J2Simplified",
-        E=29e3, 
-        nu=0.27,
-        Fy=60,
-        Fsat=60,
-        Hiso=0.03*29e3,
-        # Hsat=1,
-        tol=1e-14
-    )
+    case_label = f"solid_{shape_name}_{int(s)}_{case}"
+
+
+    if True:
+        material = xara.Material(
+            "NonlinearJ2", #"J2BeamThread", #"J2Simplified",
+            E=29e3, 
+            nu=0.27,
+            Fy=60,
+            Fsat=90,
+            Hiso=0.03*29e3,
+            tol=1e-16,
+            Q = [20, 10],
+            b = [0.4, 2.0],
+            C = [212, 67.8, 20],#, 30],
+            gamma= [3, 20, 90],#, 120]
+        )
+        case_label += "_NH"
+    else:
+        material = xara.Material(
+            "NonlinearJ2", #"J2", #"J2Simplified",
+            E=29e3, 
+            nu=0.27,
+            Fy=60,
+            Fsat=60,
+            Hiso=0.03*29e3,
+            # Hsat=1,
+            tol=1e-14
+        )
+
     shape = load_shape(shape_name, material=material)
 
     model, (u,T) = analyze_rotation(s, shape, material, rotation=0.15, case=case)
 
     a_model = draw_model(model)
     if Save:
-        a_model.save(f"out/solid_{shape_name}_{int(s)}_{case}.glb")
+        a_model.save(f"out/{case_label}.glb")
 
 
     if Save:
-        np.savetxt(f"out/solid_{shape_name}_{int(s)}_{case}.txt", np.column_stack((u, T)), header="u T")
+        np.savetxt(f"out/{case_label}.txt", np.column_stack((u, T)), header="u T")
 
 
     plt.plot(u, T, marker="o", markersize=3)
