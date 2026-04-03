@@ -112,12 +112,13 @@ def create_model(L, d, b, tw, tf, linear=True):
 
 
 if __name__ == "__main__":
+    Save = False
     linear=False
     fig, ax = plt.subplots()
     if "Case" in os.environ:
         Cases = [int(os.environ["Case"])]
     else:
-        Cases = [2,3]
+        Cases = [1]#2,3]
 
     poisson = 0.25
 
@@ -148,8 +149,10 @@ if __name__ == "__main__":
             tf=shape.tf, 
             linear=linear)
         artist = veux.create_artist(model, vertical=3)
-    #   artist.draw_surfaces()
+        artist.draw_surfaces()
         artist.draw_outlines()
+        artist.save(f"out/shell_model.glb")
+        # veux.serve(artist)
 
         if case == 1:
             for node in find_nodes(model, x=0):
@@ -239,16 +242,17 @@ if __name__ == "__main__":
 
         ax.plot(u, P, label=f"Case {case}")
 
-        np.savetxt(f"out/shell-2007-case{case}-pu.txt",
-                    np.column_stack((P, u, ux, uy)),
-                    header="P u3 ux uy"
-        )
+        if Save:
+            np.savetxt(f"out/shell-2007-case{case}-pu.txt",
+                        np.column_stack((P, u, ux, uy)),
+                        header="P u3 ux uy"
+            )
 
-    # ax.grid(True)
-    # ax.legend()
+    ax.grid(True)
+    ax.legend()
 
-    # plt.show()
-    # artist.draw_surfaces(state=model.nodeDisp)
-    # veux.serve(artist)
+    plt.show()
+    artist.draw_surfaces(state=model.nodeDisp)
+    veux.serve(artist)
 
 
