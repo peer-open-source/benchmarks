@@ -20,7 +20,7 @@ set uExact [expr -164.24*$P/($E*$thickness)]
 
 set formatString {%20s%15.5e}
 
-foreach shellType {ShellMITC4 ASDShellQ4 ShellDKGQ ShellNLDKGQ} {
+foreach shellType {ShellMITC4 ASDShellQ4 ShellDKGQ ShellNLDKGQ } {
     set numEle 32
 
     wipe
@@ -92,7 +92,7 @@ foreach shellType {ShellMITC4 ASDShellQ4 ShellDKGQ ShellNLDKGQ} {
     system Umfpack; # TProfileSPD Thread  4   2; # Umfpack
     analysis Static 
     
-    analyze 1
+    verify value [analyze 1] 0
     set res [nodeDisp $tipNode 3]
     set err [expr abs(100*($uExact-$res)/$uExact)]
 
