@@ -24,7 +24,7 @@ F = 1
 offset = b/2
 T = F*offset
 Elements = [
-    "ExactFrame"
+    "ExactFrame", #"ForceFrame"
 ]
 
 def _run_axial(element, load_type="center"):
