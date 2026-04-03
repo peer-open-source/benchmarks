@@ -1,3 +1,4 @@
+set element ExactFrame
 
 model  -ndm 3 -ndf 6
 node 1 0.0 0 0 
@@ -12,7 +13,8 @@ node 9 0.5 0 0
 
 fix 1 1 1 1 1 0 0 
 fix 9 0 1 1 1 0 0 
-material J2 1 -E 220000000000.0 -G 86614173228.34645 -Fy 413685441.48 -Fs 413685441.48 -Hiso 9997398169.1 -Hsat 16
+material NonlinearJ2 1 -E 220000000000.0 -G 86614173228.34645 -Fy 413685441.48 -Fs 453685441.48 -Hiso 9997398169.1 -Hsat 16
+
 
 section ShearFiber 1 -GJ 0
 fiber  -area 0.000125 -y -0.012500000000000002 -z -0.0016666666666666668 -warp {{1.607450000329358e-05 0.005475421932095159 0.011483540411649784} {0 0.0 0}} -material 1 -section 1
@@ -26,21 +28,23 @@ fiber  -area 9.375000000000002e-05 -y -0.043750000000000004 -z 0.001666666666666
 fiber  -area 6.250000000000003e-05 -y 0.03229166666666667 -z -0.0016666666666666668 -warp {{-4.450046555907564e-05 0.005381950474960816 -0.03445349069293446} {0 0.0 0}} -material 1 -section 1
 fiber  -area 6.249999999999999e-05 -y 0.04583333333333334 -z -0.0016666666666666668 -warp {{-5.9207904517633025e-05 0.001833164659856833 -0.04303346827213562} {0 0.0 0}} -material 1 -section 1
 
+
 geomTransf Linear 1 0 0 1 
-element ExactFrame 1 {1 2} -section 1 -shear 1 -transform 1
-element ExactFrame 2 {2 3} -section 1 -shear 1 -transform 1
-element ExactFrame 3 {3 4} -section 1 -shear 1 -transform 1
-element ExactFrame 4 {4 5} -section 1 -shear 1 -transform 1
-element ExactFrame 5 {5 6} -section 1 -shear 1 -transform 1
-element ExactFrame 6 {6 7} -section 1 -shear 1 -transform 1
-element ExactFrame 7 {7 8} -section 1 -shear 1 -transform 1
-element ExactFrame 8 {8 9} -section 1 -shear 1 -transform 1
+element $element 1 {1 2} -section 1 -shear 1 -transform 1
+element $element 2 {2 3} -section 1 -shear 1 -transform 1
+element $element 3 {3 4} -section 1 -shear 1 -transform 1
+element $element 4 {4 5} -section 1 -shear 1 -transform 1
+element $element 5 {5 6} -section 1 -shear 1 -transform 1
+element $element 6 {6 7} -section 1 -shear 1 -transform 1
+element $element 7 {7 8} -section 1 -shear 1 -transform 1
+element $element 8 {8 9} -section 1 -shear 1 -transform 1
+
 pattern Plain 1 Linear 
 eleLoad Frame Heaviside -basis local -force {0 0 20000.0} -pattern 1 -elements {1 2 3 4 5 6 7 8}
 
-system Umfpack 
-integrator LoadControl 0.05 
-test Energy 1e-16 10 0 
+system BandGeneral 
+integrator LoadControl 0.01
+test Energy 1e-13 20 0 
 algorithm Newton 
 analysis Static 
 analyze 20
