@@ -3,8 +3,6 @@
 # May 30 2025
 #
 import os
-
-import veux
 import xara
 from xara.benchmarks import Prism
 import xara.units.iks as units
@@ -26,13 +24,14 @@ def analyze(model, P):
 
 if __name__ == "__main__":
 #   shape = Rectangle(d=14, b=10, mesh_scale=1/100) #
-    section_type = os.environ.get("Section", "ShearFiber")
-    shape = from_aisc("W14x48", units=units, mesh_scale=1/100)
 
 
     E  = 29e3*units.ksi
     G  = 11.2e3*units.ksi
     material = xara.Material(E=E, G=11.2e3*units.ksi)
+    shape = from_aisc("W14x48", units=units, mesh_scale=1/100, material=material)
+
+    section_type = os.environ.get("Section", "ShearFiber")
     section  = xara.Section(section_type, material, shape, mixed=False)
 
     A  = shape.cnn()[0,0]
@@ -53,6 +52,7 @@ if __name__ == "__main__":
                       order=1
                 )
         model = prism.create_model()
+        model.print(json="a.json")
 
         P = 10
         analyze(model, P)
