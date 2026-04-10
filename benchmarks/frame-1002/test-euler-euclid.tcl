@@ -67,6 +67,5 @@ foreach element {ForceFrame PrismFrame} {
     set avg_iter [expr $avg_iter+($n-$avg_iter)/($i+1)]
   }
 
-  puts "  average iterations = $avg_iter"
   verify value $avg_iter 2.9701492537313423
 }
