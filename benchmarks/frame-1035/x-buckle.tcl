@@ -1,7 +1,8 @@
 pragma openseespy
 model  -ndm 3 -ndf 6
+
 material ElasticIsotropic 1 -E 200000000.0 -nu 0.25
-section ShearFiber 1 -GJ 0 
+section ShearFiber 1 {
 fiber  -area 6.765143034954495e-06 -y 0.0024063251185029353 -z 0.004037846323917582 -warp {{-1.1568682318182274e-05 -0.005793037114187882 -0.0023806510415461707} {0 0 0} {0 0 0}} -material 1 -section 1
 fiber  -area 3.750000000000004e-06 -y 0.0025 -z -0.3125 -warp {{-0.0007776802559431584 -0.3110348087943526 0.0012694336555485566} {0 0 0} {0 0 0}} -material 1 -section 1
 fiber  -area 6.111227880394706e-06 -y -0.012485536460248407 -z -0.00242967294167373 -warp {{-2.331029181494119e-05 0.003467234517398722 0.013554880598955852} {0 0 0} {0 0 0}} -material 1 -section 1
@@ -609,6 +610,8 @@ fiber  -area 5.008994550243978e-06 -y 0.0009999999999999998 -z -0.18209089034493
 fiber  -area 5.715631000985933e-06 -y 0.0009999999999999998 -z -0.17814514022244135 -warp {{-0.00017861763575144352 -0.17849859958091308 4.7135029730502455e-06} {0 0 0} {0 0 0}} -material 1 -section 1
 fiber  -area 5.008994550243978e-06 -y -0.001 -z -0.16540910965506317 -warp {{0.0001642884949368817 -0.16453579318455738 -5.486340487489358e-05} {0 0 0} {0 0 0}} -material 1 -section 1
 fiber  -area 5.715631000985891e-06 -y -0.001 -z -0.1693548597775587 -warp {{0.0001688823642521283 -0.16900140041908923 -4.713502098896644e-06} {0 0 0} {0 0 0}} -material 1 -section 1
+}
+
 geomTransf Corotational 1 0 0 1 
 node 0 0 0 0 
 fix 0 1 1 1 1 0 0 
@@ -655,7 +658,7 @@ element ExactFrame 20 19 20 -transform 1 -section 1
 fix 20 0 1 1 0 0 0 
 
 foreach node [getNodeTags] {
-    mass $node 1 1 1 1 1 1
+  mass $node 1 1 1 1 1 1
 }
 
 
@@ -664,7 +667,7 @@ nodalLoad  0 0 0 0 0 80 0 -pattern 1
 nodalLoad 20 0 0 0 0 -80 0 -pattern 1 
 integrator LoadControl 0.00125 
 system FullGeneral 
-test Energy 1e-24 180 0 
+test Energy 1e-23 20 0
 analysis Static 
 
 verify value [analyze 500] 0
