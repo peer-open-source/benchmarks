@@ -25,7 +25,8 @@ def analyze(model, P, T):
     model.integrator("LoadControl", 1/n)
     model.system("BandGen")
     model.analysis("Static")
-    model.test("Residual", 1e-10, 5, 1)
+    model.test("Energy", 1e-20, 2, 1)
+    # model.test("Residual", 1e-10, 5, 1)
 
     assert model.analyze(n) == 0
 
@@ -35,11 +36,8 @@ def run_strain(options, Figures=None):
         Figures = {}
 
     element = options.element
-    case = options.shape_name
-    try:
-        case = int(case)
-    except:
-        pass
+
+    print(f"Trace: {options.trace}")
 
     NIP = 5
     P   = 1
@@ -56,7 +54,6 @@ def run_strain(options, Figures=None):
 
 
 
-    Figures["strain"] = veux.ShapeArtist(shape)
 
 
 
@@ -75,7 +72,7 @@ def run_strain(options, Figures=None):
                               (0,0,0,  0,0,0)),
                     material=material,
                     element=element,
-                    section=Section("MixedFiber", shape, material, mixed_type=options.trace),#_create_section(trace),
+                    section=Section("MixedFiber", shape, material, mixed_type=options.trace),
                     shear=1,
                     vertical=3,
                     integration={"points": NIP, "type": "Lobatto"},
@@ -103,7 +100,6 @@ def run_strain(options, Figures=None):
             except:
                 pass
 
-    # print(f"M = {soln.moment(L)}")
     ifib = 100
     fiber = shape.model._fibers[ifib]
     r = fiber.coord
@@ -130,18 +126,20 @@ def run_strain(options, Figures=None):
     # print("Trace: ", trace.solve(soln.p).position(L))
     # print(".      ", trace.solve(soln.p).rotation(L))
 
-
-    elem_stress = FiberStress(model, 
-                              shape, 
-                              section=1, 
-                              stress="sxz", 
-                              element=1)
-    Figures["strain"].draw_surfaces(
-        field=elem_stress,
-        # scale=1/max(elem_stress(n) for n in range(len(shape.model.nodes)))
-    )
     plot.finalize()
-    plt.show()
+    for strain in ["xx", "xy", "xz"]:
+        Figures["strain_" + strain] = veux.ShapeArtist(shape)
+        elem_stress = FiberStress(model, 
+                                shape, 
+                                section=1, 
+                                stress="s" + strain, 
+                                element=1)
+        Figures["strain_" + strain].draw_surfaces(
+            field=elem_stress,
+            fontsize=16,
+            cbar_label=fr"$\varepsilon_{{{strain}}}$",
+            # scale=1/max(elem_stress(n) for n in range(len(shape.model.nodes)))
+        )
 
     return Figures
 
@@ -194,13 +192,17 @@ def run_strain(options, Figures=None):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("-e", "--element", default="ForceFrame",    help="Element type")
-    parser.add_argument("-s", "--shape",   type=str,   default="2",  help="Shape case")
-    parser.add_argument("-n", "--number",  type=int,   default=1,    help="Number of elements")
-    parser.add_argument("-v", "--poisson", type=float, default=-0.5, help="Poisson ratio")
-    parser.add_argument("-r", "--rotate",  default=False,  help="Rotate", action="store_true")
-    parser.add_argument("-t", "--trace",   default="energetic", help="Trace type")
-    options = parser.parse_args()
+    from options import parse_options
+    options = parse_options()
+    # parser = ArgumentParser()
+    # parser.add_argument("-e", "--element", default="ForceFrame",    help="Element type")
+    # parser.add_argument("-s", "--shape",   type=str,   default="2",  help="Shape case")
+    # parser.add_argument("-n", "--number",  type=int,   default=1,    help="Number of elements")
+    # parser.add_argument("-v", "--poisson", type=float, default=-0.5, help="Poisson ratio")
+    # parser.add_argument("-r", "--rotate",  default=False,  help="Rotate", action="store_true")
+    # parser.add_argument("-t", "--trace",   default="energetic", help="Trace type")
+    # options = parser.parse_args()
 
     run_strain(options)
+
+    plt.show()
