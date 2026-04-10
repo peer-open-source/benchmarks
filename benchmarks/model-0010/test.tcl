@@ -116,6 +116,7 @@ foreach eleType {quad enhancedQuad SSPquad MixedQuad} {
             puts [format $formatString $numFloor [expr $floorHeight * $numFloor] [expr $bayWidth * $numBay] $dispETABS $dispSAP $disp $diffR]
 
             # verify result
+            verify value $disp $dispSAP $tol
             if {[expr abs($disp-$dispSAP)] > $tol} {
                 set testOK -1;
                 puts "failed  quad: $disp - $dispSAP [expr abs($disp-$dispSAP)] > $tol"
@@ -315,9 +316,6 @@ verify value $testOK 0
 
 if {$testOK == 0} {
     puts "\nPASSED Verification Test PlanarShearWall.tcl \n\n"
-#   puts $results "| PASSED |  PlanarShearWall.tcl"
 } else {
     puts "\nFAILED Verification Test PlanarShearWall.tcl \n\n"
-#   puts $results "FAILED : PlanarShearWall.tcl"
 }
-#close $results
