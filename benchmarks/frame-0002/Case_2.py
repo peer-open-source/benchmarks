@@ -1,9 +1,9 @@
 # AISC Benchmark Problem, Case 2
 #
-# AISC 360-16, Commentary Figure C-C2.3
-#
 # Cantilever column with a 1-kip lateral point load at the end and a varying
 # axial load
+#
+# AISC 360-16, Commentary Figure C-C2.3
 #
 import numpy as np
 import xara as ops
