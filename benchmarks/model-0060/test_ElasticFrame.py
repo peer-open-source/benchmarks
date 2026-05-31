@@ -168,7 +168,7 @@ def test_ElasticFrame():
     # ---------------------------------
 
     # gravity loads constant and time in domain to e 0.0
-    model.loadConst('-time', 0.0)
+    model.loadConst(time=0.0)
 
     model.pattern("Plain", 2, "Linear")
     model.load( 13, 220.0,0.0,0.0, pattern=2)
