@@ -55,7 +55,7 @@ if __name__ == "__main__":
                                 (0,0,0,  0,0,0)),
                       material={"name": "ElasticIsotropic", "E": E, "G": G},
                       element=os.environ.get("Element", "ForceFrame"),
-                      section=os.environ.get("Section", "ShearFiber"),
+                      section=os.environ.get("Section", "MultiaxialFiber"),
                       shear=shear,
                       divisions=4
                 )
