@@ -70,8 +70,18 @@ def _run_axial(element, load_type="center"):
                         force=[w, 0, 0],
                         couple=[0,0,-m],
                         offset=[0,0,0])
-    
-    xara.solve(model, [load])
+
+    model.pattern(xara.StaticPattern(load))
+
+    assert model.getEleLoadClassTags() == 141414
+    assert model.getEleLoadClassTags(1) == 141414
+    assert model.getEleLoadClassTags(pattern=1) == 141414
+
+    analysis = xara.StaticAnalysis(model)
+    analysis.analyze()
+
+    assert model.getLoadFactor(1) == 1.0
+
     model.reactions()
     return model
 
@@ -136,7 +146,10 @@ def _run_twist(element, load_type="center"):
             offset=[1,0,0],
         )
 
-    xara.solve(model, [load])
+
+    model.pattern(xara.StaticPattern(load))
+    analysis = xara.StaticAnalysis(model)
+    analysis.analyze()
     model.reactions()
     return model
 
@@ -199,7 +212,9 @@ def _run_twist_column(element, load_type="center", basis="local"):
     else:
         raise ValueError(f"Unknown load_type {load_type!r}")
 
-    xara.solve(model, [load])
+    model.pattern(xara.StaticPattern(load))
+    analysis = xara.StaticAnalysis(model)
+    analysis.analyze()
     model.reactions()
     return model
 
