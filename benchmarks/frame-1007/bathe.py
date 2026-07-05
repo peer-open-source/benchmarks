@@ -6,7 +6,8 @@ import xara
 import numpy as np
 
 
-def Bathe(Path, R,
+def Bathe(Path, 
+          R,
           element: str,
           transform: str):
     model = xara.Model(ndm=3, ndf=6)
