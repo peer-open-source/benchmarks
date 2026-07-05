@@ -121,13 +121,13 @@ integrator LoadControl 0.1
 numberer RCM
 system SparseGeneral
 constraints Transformation
-test NormDispIncr 1e-5 10 1
+test NormDispIncr 1e-5 10 0
 algorithm Newton
 analysis Static
 
 puts "starting the hydrostatic analysis..."
 set startT [clock seconds]
-analyze 1000
+analyze 963
 set endT [clock seconds]
 
 puts "triaxial shear application finished..., [getTime]"
