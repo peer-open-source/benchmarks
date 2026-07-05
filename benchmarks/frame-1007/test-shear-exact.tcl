@@ -1,4 +1,12 @@
-
+# 
+# Reference
+# ---------
+#
+# Simo, J. C., and L. Vu-Quoc. 
+#   “A Three-Dimensional Finite-Strain Rod Model. Part II: Computational Aspects.” 
+#   Computer Methods in Applied Mechanics and Engineering 58, no. 1 (1986): 79–116. 
+#   https://doi.org/10.1016/0045-7825(86)90079-4.
+#
 model  -ndm 3 -ndf 6
 
 node 1  0.0               0.0  0.0
@@ -45,19 +53,21 @@ algorithm Newton
 test Residual 1e-6 15
 analysis Static 
 
-
+# P = 300
 integrator LoadControl 0.5 
 verify value [analyze 1] 0
 verify value [expr [nodeDisp 9 1]+[nodeCoord 9 1]] 58.84412738535933 1e-6
 verify value [nodeDisp 9 2] 40.07601639250373 1e-6
 verify value [numIter] 14 0
 
+# P = 450
 integrator LoadControl 0.25
 verify value [analyze 1] 0
+verify value [numIter] 9 0
 
+# P = 600
 integrator LoadControl 0.25
 verify value [analyze 1] 0
-
 
 verify value [expr [nodeDisp 9 1]+[nodeCoord 9 1]] 47.23285606777695 1e-6
 verify value [nodeDisp 9 2] 53.36914221120085 1e-6
