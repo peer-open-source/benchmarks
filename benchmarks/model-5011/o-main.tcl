@@ -73,7 +73,7 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
 
 	# analysis
 	constraints Transformation
-	test        NormDispIncr 1e-9 50 1
+	test        NormDispIncr 1e-9 50 0
 	algorithm   Newton
 	numberer    Plain
 	system      BandSPD; #SparseSPD
