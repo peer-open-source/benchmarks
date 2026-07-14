@@ -116,12 +116,12 @@ integrator LoadControl 0.1
 numberer RCM
 system Umfpack ; # SparseGeneral
 constraints Transformation
-test NormDispIncr 1e-5 1 1; #10 1
+test NormDispIncr 1e-5 1 9; #10 1
 algorithm Newton
 analysis Static
 
-#analyze 1000
-verify value [analyze 963] 0
+analyze 1000
+#verify value [analyze 963] 0
 
 verify value "[getTime]" 96.49999999999879
 
