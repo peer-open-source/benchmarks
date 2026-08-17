@@ -105,13 +105,10 @@ def analyze(transform, element, offset=True, model=None, n=40, dlam=1/10, ne=6, 
         model = create_model_offset(transform=transform, element=element, offset=offset, ne=ne)
 
     analysis = xara.StaticAnalysis(model, 
-                                #    test=("RelativeEnergyIncr", 1e-16, 5, 1),
-                                #    test=("Residual", 1e-8, 50, 1),
-                                #    test=("Energy", 1e-18, 50, 9),
                                    test=("NormDispIncr", tol, 100, 1 if verbose else 9),
                                 #    test=("NormDispIncr", 1e-9, 50,  9),
                                    system="BandGeneral",
-                                   integrator=("LoadControl", dlam)) #1/n))
+                                   integrator=("LoadControl", dlam))
 
     tip = find_node(model, y=L)
     u, N, ic = [], [], []
