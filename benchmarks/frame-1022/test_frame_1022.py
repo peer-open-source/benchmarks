@@ -142,3 +142,19 @@ def test_linear():
     assert model.nodeDisp(tip, 2) == pytest.approx(-0.094482758620690, abs=1e-10)
     assert model.nodeDisp(tip, 6) == pytest.approx( 0.028735632183908, abs=1e-10)
 
+
+
+def test_pdelta():
+    model = analyze("PDelta02", "PrismFrame", 
+            offset=True, 
+            tol=1e-14, 
+            n=1, # 1 step
+            ne=1, 
+            verbose=False, 
+            dlam=1)
+
+    tip = find_node(model, y=L)
+    assert model.nodeDisp(tip, 1) == pytest.approx(-2.795031055900625, abs=1e-10)
+    assert model.nodeDisp(tip, 2) == pytest.approx(-0.134641250803170, abs=1e-10)
+    assert model.nodeDisp(tip, 6) == pytest.approx( 0.042121796244735, abs=1e-10)
+
