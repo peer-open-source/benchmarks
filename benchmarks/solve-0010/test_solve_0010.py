@@ -1,6 +1,4 @@
-import sys
-sys.path.insert(0, '../../SRC/interpreter/')
-# sys.path.insert(0, '../build/lib/')
+
 import xara
 
 def test_solve_0010():
