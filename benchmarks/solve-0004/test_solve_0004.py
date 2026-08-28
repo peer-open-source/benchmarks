@@ -1,8 +1,12 @@
 
-# https://openseesdigital.com/2025/08/10/a-model-of-inconsistency/
-# PWD:2024/08/18/secant-accelerated-newton-algorithm/
+# - https://openseesdigital.com/2025/08/10/a-model-of-inconsistency/
+# - https://web.archive.org/web/20240818123710/https://portwooddigital.com/2024/08/18/secant-accelerated-newton-algorithm/
+# - https://openseesdigital.com/2024/08/18/secant-accelerated-newton-algorithm/
+
 import xara
 import pytest
+
+VERBOSITY = 9
 
 def create_model():
 
@@ -46,7 +50,7 @@ def create_model():
 def test_krylov():
     ops = create_model()
 
-    ops.test('RelativeNormUnbalance',1e-4,150,1)
+    ops.test('RelativeNormUnbalance',1e-4,8,VERBOSITY)
     ops.algorithm('KrylovNewton')
     ops.analysis('Static')
     
@@ -55,3 +59,21 @@ def test_krylov():
     assert ops.nodeDisp(1) == pytest.approx(2.0, rel=1e-8)
     assert ops.nodeDisp(2) == pytest.approx(5.0, rel=1e-8)
 
+
+def test_secant():
+    ops = create_model()
+
+    ops.test('RelativeNormUnbalance',1e-6,20,VERBOSITY)
+    ops.algorithm('SecantNewton')
+    ops.analysis('Static')
+    
+    ops.analyze(1)
+
+    assert ops.nodeDisp(1) == pytest.approx(2.0, rel=1e-4)
+    assert ops.nodeDisp(2) == pytest.approx(5.0, rel=1e-4)
+
+
+if __name__ == "__main__":
+    VERBOSITY = 1
+    test_krylov()
+    test_secant()
