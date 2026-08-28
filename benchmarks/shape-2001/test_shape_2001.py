@@ -84,7 +84,7 @@ def create_section():
     model = xara.Model(ndm=3, ndf=6)
 
     # Define materials for nonlinear columns
-    # ------------------------------------------
+    #
     # CONCRETE                        tag  f'c    ec0    f'cu   ecu
     # Core concrete (confined)
     model.uniaxialMaterial("Concrete01", 1, -6.0, -0.004, -5.0, -0.014)
