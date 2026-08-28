@@ -1,0 +1,9 @@
+4  2  50000000. 1.  0. 0.  ;NV, ITYE(engng.), E, ARA, POISS, ANIT
+0. 2500.   x co-ords.
+0. 25.  z co-ords.
+0. 0. 0. -1.0  ; load of -1.0 at variable 4 (vertical at node 2)
+1 1 1 0 ; only variable 4 is free
+0   ; no earthed springs
+1.9 6 0 0 0 0 0 ; FACI,NINC,IWRIT,IAUTO,IARC,IACC,IRES
+0.001 2 21 4 ; BETOK,ITERTY(mN-R),NITMAX,NLSMX
+0.8 5.0 25. 0.01 PERMLS,AMPMX,ETMXA,ETMNA

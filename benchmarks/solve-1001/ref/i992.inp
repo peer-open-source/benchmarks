@@ -1,0 +1,33 @@
+ANALYSIS THREE DIMENSIONAL
+ 1 
+ GENERAL DATA (NV,NE,NBCON,NLOAD,NMATE,NANIT,NDIM)
+ 6 1 2 1 0 0 3
+ ITEYL,POSS,E,ANIT
+ 2 0.0D0 0.5D8 0.0D0 
+ NODAL COOR. 
+   1,0.0D0,0.0D0,0.0D0
+   2,2500.0D0,25.0D0,0.0D0
+ ELEM. CONN.  
+   1,1,2 
+ LOADINGS 
+   2,0.0D0,-1.0D0,0.0D0
+ BOUNDARY COND.
+   1,1,1,1
+   2,1,0,1
+ OUTPUT VARIABLES 
+   1,1
+ EARTHED SPRING
+ 0
+ FACI,  NINC,IWRIT,IAUTO,IARC,ILOAD
+ 1.9D0  6     1     0     0     1
+ IACC,IRES,IBRAC,ICRIT,IBRSW,IROW
+ 0    0       0   0    0     0
+ ICVCK,BETOK, ITERTY,NITMAX,NLSMX,EPSI,  SHIF
+ 1     1.0D-3 2      21     4     1.0D-5 5.0D0  
+ PERMLS,AMPMX,ETMXA,ETMNA
+ 0.8D0 5.0D0 25.D0 0.01D0
+ CSTIFFS
+ 0.7D0
+------------------------------------------------------------
+input datafile for 3D-Truss-Arch
+------------------------------------------------------------
