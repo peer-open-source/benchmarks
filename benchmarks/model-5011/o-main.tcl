@@ -17,7 +17,7 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
 	# #################################
 	model BasicBuilder -ndm 3 -ndf 3
 
-	# create the materials
+	# create the nodes
 	node 1  0.00000000 0.00000000 0.00000000
 	node 2  0.00000000 1.00000000 0.00000000 
 	node 3  1.00000000 1.00000000 0.00000000 
@@ -55,15 +55,16 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
 	fix     8      0   1   0
 
 	# recorders
-	recorder Node     -file "out/displacement.out"  -nodeRange 1 8 -dof 1 2 3 disp
-	recorder Node     -file "out/velocity.out"      -nodeRange 1 8 -dof 1 2 3 vel
-	recorder Node     -file "out/reactions.out"     -nodeRange 1 8 -dof 1 2 3 reaction
-	recorder Element  -file "out/stress.out"     -ele 1  stress
-	recorder Element  -file "out/strain.out"     -ele 1  strain
+	recorder Node     -file "out/o-displacement.out"  -nodeRange 1 8 -dof 1 2 3 disp
+	recorder Node     -file "out/o-velocity.out"      -nodeRange 1 8 -dof 1 2 3 vel
+	recorder Node     -file "out/o-reactions.out"     -nodeRange 1 8 -dof 1 2 3 reaction
+	recorder Element  -file "out/o-stress.out"     -ele 1  stress
+	recorder Element  -file "out/o-strain.out"     -ele 1  strain
 	 
 	# load pattern
 	timeSeries  Path 1 -time {0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0} \
 	                   -values {0.0 1.0 0.0 -1.0 0.0 1.0 0.0 -1.0 0.0} -factor -1.0
+
 	pattern Plain 1 1 {
 		sp 5 3 [lindex $strains $ii]
 		sp 6 3 [lindex $strains $ii]

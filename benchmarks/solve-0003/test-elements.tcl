@@ -16,7 +16,7 @@ foreach Frame {PrismFrame ForceFrame} {
   node 10 4009.568694135459 179.6181055187626 0 
   node 11 5000.0 0.0 0 
   fix  1 1 1 0 1 1 0 
-  fix 11 1 1 0 1 1 0 
+  fix 11 1 1 0 1 1 0
 
   section ElasticFrame 1 -A 10000.0 -E 200 -Iy 100000000.0 -Iz 100000000.0 -J 200000000.0 -G 200 -Ay 1000000.0 -Az 1000000.0
 
@@ -50,10 +50,10 @@ foreach Frame {PrismFrame ForceFrame} {
   }
 
   system BandGeneral -det
-  test NormDispIncr 1e-08 8 0
+  test NormDispIncr 1e-08 20 0
   algorithm Newton 
   analysis Static
-  integrator ArcLength 45 0 -det -exp 0.5 -reference point
+  integrator ArcLength 45 0 -det -exp 0.5 -reference point -j 6
 
 
   verify value [analyze 110] 0

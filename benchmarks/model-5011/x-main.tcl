@@ -54,11 +54,11 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
 	fix     8      0   1   0
 
 	# recorders
-	recorder Node     -file "displacement.out"  -nodeRange 1 8 -dof 1 2 3 disp
-	recorder Node     -file "velocity.out"      -nodeRange 1 8 -dof 1 2 3 vel
-	recorder Node     -file "reactions.out"     -nodeRange 1 8 -dof 1 2 3 reaction
-	recorder Element  -file "stress.out"     -ele 1  stress
-	recorder Element  -file "strain.out"     -ele 1  strain
+	recorder Node     -file "out/x-displacement.out"  -nodeRange 1 8 -dof 1 2 3 disp
+	recorder Node     -file "out/x-velocity.out"      -nodeRange 1 8 -dof 1 2 3 vel
+	recorder Node     -file "out/x-reactions.out"     -nodeRange 1 8 -dof 1 2 3 reaction
+	recorder Element  -file "out/x-stress.out"     -ele 1  stress
+	recorder Element  -file "out/x-strain.out"     -ele 1  strain
 	 
 	# load pattern
 	pattern Plain 1 {Series -time {0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0} -values {0.0 1.0 0.0 -1.0 0.0 1.0 0.0 -1.0 0.0} -factor -1.0} {
@@ -70,7 +70,7 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
 
 	# analysis
 	constraints Transformation
-	test        NormDispIncr 1e-9 50 1
+	test        NormDispIncr 1e-9 50 0
 	algorithm   Newton
 	numberer    Plain
 	system      SparseSPD

@@ -1,3 +1,7 @@
+
+# https://openseesdigital.com/2025/08/10/a-model-of-inconsistency/
+# PWD:2024/08/18/secant-accelerated-newton-algorithm/
+
 import opensees.openseespy as ops
  
 ops.wipe()

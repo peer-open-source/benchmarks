@@ -34,7 +34,7 @@ pattern Plain 1 1 {
 	load 3 -$P 0.
 }
 
-system mumps
+system Umfpack; #mumps
 analysis Static
 
 set ok [analyze 1]
