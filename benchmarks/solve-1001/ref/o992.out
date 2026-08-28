@@ -1,0 +1,1816 @@
+
+********************************************************************************************
+
+ NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+ EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+********************************************************************************************
+
+
+
+                              INPUT DATAFILE 
+                              ==============
+
+
+ Line    1:  ANALYSIS THREE DIMENSIONAL                                                      
+ Line    2:   1                                                                              
+ Line    3:   GENERAL DATA (NV,NE,NBCON,NLOAD,NMATE,NANIT,NDIM)                              
+ Line    4:   6 1 2 1 0 0 3                                                                  
+ Line    5:   ITEYL,POSS,E,ANIT                                                              
+ Line    6:   2 0.0D0 0.5D8 0.0D0                                                            
+ Line    7:   NODAL COOR.                                                                    
+ Line    8:     1,0.0D0,0.0D0,0.0D0                                                          
+ Line    9:     2,2500.0D0,25.0D0,0.0D0                                                      
+ Line   10:   ELEM. CONN.                                                                    
+ Line   11:     1,1,2                                                                        
+ Line   12:   LOADINGS                                                                       
+ Line   13:     2,0.0D0,-1.0D0,0.0D0                                                         
+ Line   14:   BOUNDARY COND.                                                                 
+ Line   15:     1,1,1,1                                                                      
+ Line   16:     2,1,0,1                                                                      
+ Line   17:   OUTPUT VARIABLES                                                               
+ Line   18:     1,1                                                                          
+ Line   19:   EARTHED SPRING                                                                 
+ Line   20:   0                                                                              
+ Line   21:   FACI,  NINC,IWRIT,IAUTO,IARC,ILOAD                                             
+ Line   22:   1.9D0  6     1     0     0     1                                               
+ Line   23:   IACC,IRES,IBRAC,ICRIT,IBRSW,IROW                                               
+ Line   24:   0    0       0   0    0     0                                                  
+ Line   25:   ICVCK,BETOK, ITERTY,NITMAX,NLSMX,EPSI,  SHIF                                   
+ Line   26:   1     1.0D-3 2      21     4     1.0D-5 5.0D0                                  
+ Line   27:   PERMLS,AMPMX,ETMXA,ETMNA                                                       
+ Line   28:   0.8D0 5.0D0 25.D0 0.01D0                                                       
+ Line   29:   CSTIFFS                                                                        
+ Line   30:   0.7D0                                                                          
+ Line   31:  ------------------------------------------------------------                    
+ Line   32:  input datafile for 3D-Truss-Arch                                                
+ Line   33:  ------------------------------------------------------------                    
+
+
+
+                              INPUT DATA SUMMARY
+                              ==================
+
+ No. OF VARIABLES    =     6
+ No. OF ELEMENTS     =     1
+ POISSON RATIO       =   0.00000E+00
+
+
+ ELEMENT TYPE =     2
+    1 = GREENS STRAIN;
+    2 = ENGNG. STRAIN;
+    3 = LOG STRAIN;
+    4 = LOG STRAIN WITH VOLUME CHANGES.
+
+
+
+ ELEMENT PROPERTIES
+ ==================
+
+
+     ELEM No.    NODAL No.        LENGTH          E         INITIAL FORCE    INITIAL AREA
+
+         1         1   2      0.2500E+04      0.5000E+08    0.0000E+00      0.1000E+01
+
+
+ NODAL PROPERTIES
+ ================
+
+
+     NODAL No.        X          Y          Z            Fx        Fy        Fz          BCx      BCy      BCz
+
+         1        0.000E+00  0.000E+00  0.000E+00    0.000E+00  0.000E+00  0.000E+00       1       1       1
+         2        0.250E+04  0.250E+02  0.000E+00    0.000E+00 -0.100E+01  0.000E+00       1       0       1
+
+
+
+
+                    REPORT ON ERRORS IN INPUT DATA: PART 1
+                    ======================================
+
+
+
+
+ !!!! NO ERROR FOUND IN INPUT DATA: PART 1 !!!!
+
+
+
+
+
+ SOLUTION CONTROL PARAMETERS
+ ===========================
+
+
+ INCREMENTAL LOAD FACTOR =    1.9000    
+ NO. OF INCS. (NINC)     =     6
+ IWRIT =  1;   0 = LIMITED ;       1 = FULL
+ IAUTO =  0;   0 = FIXED INCS.,    1 = AUTOMATIC
+ IARC  =  0;   0 = LOAD CONTROL    1 = Crisfield CYLINDRICAL ARC-LENGTH CONTROL
+                                   2 = Riks ORTHORGONAL PLANE ARC-LENGTH CONTROL
+                                   3 = Ramm UPDATED ORTHORGONAL PLANE ARC-LENGTH CONTROL
+                                   4 = Fried ORTHORGONAL TRAJECTORY ARC-LENGTH CONTROL
+                                   5 = Rheinboldt SPECIFIC DISPLACEMENT CONTROL
+                                   6 = Powell and Simon INCREMENTAL WORK CONTROL
+ ILOAD =  1;   1 = SLN. GUIDED BY CSTIFF.;
+               2 = SLN. GUIDED BY No. NEG. PIV.;
+ IACC  =  0;   0 = NO ACCEL,       1 = ACCEL WITH MOD. N-R
+ IRES  =  0;   0 = NOT A RE-START, 1 = IS A RE-START
+ IBRAC =  0;   0 = NO BRACKETING,  1 =  ORIGINAL BISECTION
+                                   2 =  0.618 GOLDEN SECTION
+                                   3 =  INTERPOLATION BASED ON THE DETERMINENT
+                                   4 =   ......................... PIVS*PIVB
+                                   5 =   ......................... PMIN
+                                   6 =  AS 5; BUT ONCE ONLY THEN USE DIRECT COMP.
+                                  -6 =  DIRECT COMPUTATION OF SINGULAR PT
+                                   7 =  Riks"s SEMI-DIRECT with BI-SECTION
+                                  -7 =   .................with INTERPOLATION ON PMIN
+ IBRSW =  0;   0 = NO BRANCHING,   1 = 1st EIGN-VECTOR INJECT.
+                                   2 =  USING 2nd ORDER TERMS
+                                   3 =  MULTIBIFUR WITH imulti LOWEST EIGEN-VEC.s
+                                   4 =  Seydel"s APPROX. TO THE 1ST EIGN-VEC.
+                                   5 =  Riks"s ORTHOGANAL TO PRIMARY TANGENT
+ ICRIT =  0;   THE CRITICAL PT. No. TO BE BRACKETED
+ IROW  =  0;   ROW No. OF Kt REPLACED BY A UNIT VECTOR TO GET Seydel"s 
+                  PREDICTOR FOR BRANCHING IF ABS(IBRSW) = 4 
+               D.O.F. TO BE FIXED IN
+                  DIRECT COMP. OF SINGULAR PT. IF ABS(IBRAC) = 6
+
+      CONV. CONTR. TYPE,ICVCK =     1
+                              1 = RESID-F SCALED BY EXTERNAL FORCE;
+                              2 = RESID-F SCALED BY REACTION;
+                              3 = ITER. DISP. SCALED BY TOTOAL DISP
+      CONV. TOL FACTOR, BETOK =   0.10000E-02
+ ITERATIVE SOLN. TYPE, ITERTY =     2   ( 1 = FULL N-R; 2 = MOD. N-R )
+         MAX NO OF ITERATIONS =    21
+        MAX NO. OF L-SEARCHES =     4
+ BRACKETING TOLERENCE EPSILON =   0.10000E-04
+ SHIFT IN EIGEN ANALYSIS SHIF =    5.0000    
+
+ LINE SEARCH PARAMS ARE
+   TOLERANCE ON RATIO, PERMLS    =    0.8000    
+   MAX. AMP. AT ANY STEP, AMPMX  =     5.000    
+   MAX. TOTAL STEP-LENGTH, ETMXA =     25.00    
+   MIN. TOTAL STEP-LENGTH, ETMNA =    0.1000E-01
+
+
+
+
+                    REPORT ON ERRORS IN INPUT DATA: PART 2
+                    ======================================
+
+
+
+
+ !!!! NO ERROR FOUND IN INPUT DATA: PART 2 !!!!
+
+
+
+*********************************************************************************************
+
+
+
+ INCREMENT NO. =     1
+
+*********************************************************************************************
+
+
+ TAN. STIFF. MATRIX FOR TRUSS EL.    1 IS
+
+  0.200E+05 0.200E+03 0.000E+00-0.200E+05-0.200E+03-0.000E+00
+  0.000E+00 0.200E+01 0.000E+00-0.200E+03-0.200E+01-0.000E+00
+  0.000E+00 0.000E+00 0.000E+00-0.000E+00-0.000E+00-0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.200E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.200E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+
+ FULL STRUCT. TAN. STIFF. IS 
+
+  0.200E+05 0.200E+03 0.000E+00-0.200E+05-0.200E+03 0.000E+00
+  0.000E+00 0.200E+01 0.000E+00-0.200E+03-0.200E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.200E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.200E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+
+ STIFF. MAT. AFTER B. CONDS. IS
+
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.200E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ FACTORISED MATRIX IS
+ ====================
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.200E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ DIAG. PIVOTS ARE
+ ================
+ 0.100E+01 0.100E+01 0.100E+01 0.100E+01 0.200E+01 0.100E+01
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.100E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.500E+00    6   0.000E+00
+ CURR. STIFF. FACTOR = 0.1000E+01   NO. OF NEG. PIVOT =  0           PIVOT RATIO = 0.1000E+01
+ THE SMALLEST PIVOT  = 0.2000E+01   THE LARGEST PIVOT = 0.2000E+01   DETERMINENT = 0.1000E+01
+ AT THE D.O.F.       =    5         AT THE D.O.F.     =    5         MINM PIV AT =    5
+ TOTAL LOAD FACTOR   = 0.1900E+01   INC LOAD FACTOR   = 0.1900E+01   INC LENGTH  = 0.5001E+00
+
+
+
+                            TOTAL DISPS. AFTER TANG. SOLN.
+ NODE No.        U        V        W            NODE No.            U        V        W
+ ========        =        =        =            ========            =        =        =
+     1     0.000E+00 0.000E+00 0.000E+00           2           0.000E+00-0.950E+00 0.000E+00
+
+ ITERATIVE LOOP WITH ITE =     1
+
+ AXIAL FORCE AN  =   -186.40    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.372798E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1864E+03    0.1793E+01    0.0000E+00   -0.1864E+03   -0.1793E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1864E+03  0.1793E+01  0.0000E+00 -0.1864E+03 -0.1793E+01  0.0000E+00
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      0           0.5628E-01              -.9366E+00             0.8687E+00
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.107       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.107E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.535E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -196.68    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.393350E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1967E+03    0.1888E+01    0.0000E+00   -0.1967E+03   -0.1888E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1967E+03  0.1888E+01  0.0000E+00 -0.1967E+03 -0.1888E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.9398E+00      0.9671E+00      0.1149E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -1.00       0.00    
+
+ ITERATIVE LOOP WITH ITE =     2
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      1           0.6468E-02              -.9366E+00             0.8687E+00
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.123E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.123E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.615E-02    6   0.000E+00
+
+ AXIAL FORCE AN  =   -197.85    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.395709E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1978E+03    0.1899E+01    0.0000E+00   -0.1978E+03   -0.1899E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1978E+03  0.1899E+01  0.0000E+00 -0.1978E+03 -0.1899E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.9398E+00      0.9787E+00      0.1184E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -1.01       0.00    
+
+ ITERATIVE LOOP WITH ITE =     3
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      2           0.7656E-03              -.9366E+00             0.8687E+00
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.145E-02   0.00    
+
+
+
+ ELEM. No.    AXIAL FORCE    ELEM. No.    AXIAL FORCE
+ =========    ===========    =========    ===========
+
+      1        -0.198E+03
+
+
+                  FINAL TOTAL DISPL.              FINAL REACTION
+ NODE No.        U        V        W            Fx        Fy        Fz
+ ========        =        =        =            ==        ==        ==
+     1     0.000E+00 0.000E+00 0.000E+00   0.198E+03 0.190E+01 0.000E+00
+     2     0.000E+00-0.101E+01 0.000E+00  -0.198E+03-0.190E+01 0.000E+00
+
+*********************************************************************************************
+
+
+
+ INCREMENT NO. =     2
+
+*********************************************************************************************
+
+
+ TAN. STIFF. MATRIX FOR TRUSS EL.    1 IS
+
+  0.200E+05 0.192E+03 0.000E+00-0.200E+05-0.192E+03-0.000E+00
+  0.000E+00 0.176E+01 0.000E+00-0.192E+03-0.176E+01-0.000E+00
+  0.000E+00 0.000E+00-0.791E-01-0.000E+00-0.000E+00 0.791E-01
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.192E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.176E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.791E-01
+
+ FULL STRUCT. TAN. STIFF. IS 
+
+  0.200E+05 0.192E+03 0.000E+00-0.200E+05-0.192E+03 0.000E+00
+  0.000E+00 0.176E+01 0.000E+00-0.192E+03-0.176E+01 0.000E+00
+  0.000E+00 0.000E+00-0.791E-01 0.000E+00 0.000E+00 0.791E-01
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.192E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.176E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.791E-01
+
+ STIFF. MAT. AFTER B. CONDS. IS
+
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.176E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ FACTORISED MATRIX IS
+ ====================
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.176E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ DIAG. PIVOTS ARE
+ ================
+ 0.100E+01 0.100E+01 0.100E+01 0.100E+01 0.176E+01 0.100E+01
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.100E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.567E+00    6   0.000E+00
+ CURR. STIFF. FACTOR = 0.8813E+00   NO. OF NEG. PIVOT =  0           PIVOT RATIO = 0.8813E+00
+ THE SMALLEST PIVOT  = 0.1762E+01   THE LARGEST PIVOT = 0.1762E+01   DETERMINENT = 0.8813E+00
+ AT THE D.O.F.       =    5         AT THE D.O.F.     =    5         MINM PIV AT =    5
+ TOTAL LOAD FACTOR   = 0.3800E+01   INC LOAD FACTOR   = 0.1900E+01   INC LENGTH  = 0.5674E+00
+
+
+
+                            TOTAL DISPS. AFTER TANG. SOLN.
+ NODE No.        U        V        W            NODE No.            U        V        W
+ ========        =        =        =            ========            =        =        =
+     1     0.000E+00 0.000E+00 0.000E+00           2           0.000E+00-0.209E+01 0.000E+00
+
+ ITERATIVE LOOP WITH ITE =     1
+
+ AXIAL FORCE AN  =   -400.10    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.800207E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.4001E+03    0.3667E+01    0.0000E+00   -0.4001E+03   -0.3667E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.4001E+03  0.3667E+01  0.0000E+00 -0.4001E+03 -0.3667E+01  0.0000E+00
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      0           0.3507E-01              -.3932E+01             0.4002E+01
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.133       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.133E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.756E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -413.94    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.827881E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.4139E+03    0.3781E+01    0.0000E+00   -0.4139E+03   -0.3781E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.4139E+03  0.3781E+01  0.0000E+00 -0.4139E+03 -0.3781E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3937E+01      0.4284E+01      0.1424E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -2.16       0.00    
+
+ ITERATIVE LOOP WITH ITE =     2
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      1           0.4995E-02              -.3932E+01             0.4002E+01
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.190E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.190E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.108E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -415.91    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.831815E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.4159E+03    0.3797E+01    0.0000E+00   -0.4159E+03   -0.3797E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.4159E+03  0.3797E+01  0.0000E+00 -0.4159E+03 -0.3797E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3938E+01      0.4325E+01      0.1478E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -2.17       0.00    
+
+ ITERATIVE LOOP WITH ITE =     3
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      2           0.7381E-03              -.3932E+01             0.4002E+01
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.280E-02   0.00    
+
+
+
+ ELEM. No.    AXIAL FORCE    ELEM. No.    AXIAL FORCE
+ =========    ===========    =========    ===========
+
+      1        -0.416E+03
+
+
+                  FINAL TOTAL DISPL.              FINAL REACTION
+ NODE No.        U        V        W            Fx        Fy        Fz
+ ========        =        =        =            ==        ==        ==
+     1     0.000E+00 0.000E+00 0.000E+00   0.416E+03 0.380E+01 0.000E+00
+     2     0.000E+00-0.217E+01 0.000E+00  -0.416E+03-0.380E+01 0.000E+00
+
+*********************************************************************************************
+
+
+
+ INCREMENT NO. =     3
+
+*********************************************************************************************
+
+
+ TAN. STIFF. MATRIX FOR TRUSS EL.    1 IS
+
+  0.200E+05 0.183E+03 0.000E+00-0.200E+05-0.183E+03-0.000E+00
+  0.000E+00 0.150E+01 0.000E+00-0.183E+03-0.150E+01-0.000E+00
+  0.000E+00 0.000E+00-0.166E+00-0.000E+00-0.000E+00 0.166E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.183E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.150E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.166E+00
+
+ FULL STRUCT. TAN. STIFF. IS 
+
+  0.200E+05 0.183E+03 0.000E+00-0.200E+05-0.183E+03 0.000E+00
+  0.000E+00 0.150E+01 0.000E+00-0.183E+03-0.150E+01 0.000E+00
+  0.000E+00 0.000E+00-0.166E+00 0.000E+00 0.000E+00 0.166E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.183E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.150E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.166E+00
+
+ STIFF. MAT. AFTER B. CONDS. IS
+
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.150E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ FACTORISED MATRIX IS
+ ====================
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.150E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ DIAG. PIVOTS ARE
+ ================
+ 0.100E+01 0.100E+01 0.100E+01 0.100E+01 0.150E+01 0.100E+01
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.100E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.666E+00    6   0.000E+00
+ CURR. STIFF. FACTOR = 0.7505E+00   NO. OF NEG. PIVOT =  0           PIVOT RATIO = 0.7505E+00
+ THE SMALLEST PIVOT  = 0.1501E+01   THE LARGEST PIVOT = 0.1501E+01   DETERMINENT = 0.7505E+00
+ AT THE D.O.F.       =    5         AT THE D.O.F.     =    5         MINM PIV AT =    5
+ TOTAL LOAD FACTOR   = 0.5700E+01   INC LOAD FACTOR   = 0.1900E+01   INC LENGTH  = 0.6664E+00
+
+
+
+                            TOTAL DISPS. AFTER TANG. SOLN.
+ NODE No.        U        V        W            NODE No.            U        V        W
+ ========        =        =        =            ========            =        =        =
+     1     0.000E+00 0.000E+00 0.000E+00           2           0.000E+00-0.344E+01 0.000E+00
+
+ ITERATIVE LOOP WITH ITE =     1
+
+ AXIAL FORCE AN  =   -640.67    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.128134E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.6406E+03    0.5525E+01    0.0000E+00   -0.6406E+03   -0.5525E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.6406E+03  0.5525E+01  0.0000E+00 -0.6406E+03 -0.5525E+01  0.0000E+00
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      0           0.3073E-01              -.9348E+01             0.1026E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.175       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.175E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.117E+00    6   0.000E+00
+
+ AXIAL FORCE AN  =   -660.75    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.132149E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.6607E+03    0.5667E+01    0.0000E+00   -0.6607E+03   -0.5667E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.6607E+03  0.5667E+01  0.0000E+00 -0.6607E+03 -0.5667E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.9360E+01      0.1092E+02      0.1877E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -3.56       0.00    
+
+ ITERATIVE LOOP WITH ITE =     2
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      1           0.5769E-02              -.9348E+01             0.1026E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.329E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.329E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.219E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -664.50    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.132901E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.6645E+03    0.5694E+01    0.0000E+00   -0.6645E+03   -0.5694E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.6645E+03  0.5694E+01  0.0000E+00 -0.6645E+03 -0.5694E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.9361E+01      0.1104E+02      0.1973E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -3.58       0.00    
+
+ ITERATIVE LOOP WITH ITE =     3
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      2           0.1138E-02              -.9348E+01             0.1026E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.649E-02   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.649E-02    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.432E-02    6   0.000E+00
+
+ AXIAL FORCE AN  =   -665.24    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.133049E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.6652E+03    0.5699E+01    0.0000E+00   -0.6652E+03   -0.5699E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.6652E+03  0.5699E+01  0.0000E+00 -0.6652E+03 -0.5699E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.9361E+01      0.1106E+02      0.1991E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -3.58       0.00    
+
+ ITERATIVE LOOP WITH ITE =     4
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      3           0.2265E-03              -.9348E+01             0.1026E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.129E-02   0.00    
+
+
+
+ ELEM. No.    AXIAL FORCE    ELEM. No.    AXIAL FORCE
+ =========    ===========    =========    ===========
+
+      1        -0.665E+03
+
+
+                  FINAL TOTAL DISPL.              FINAL REACTION
+ NODE No.        U        V        W            Fx        Fy        Fz
+ ========        =        =        =            ==        ==        ==
+     1     0.000E+00 0.000E+00 0.000E+00   0.665E+03 0.570E+01 0.000E+00
+     2     0.000E+00-0.358E+01 0.000E+00  -0.665E+03-0.570E+01 0.000E+00
+
+*********************************************************************************************
+
+
+
+ INCREMENT NO. =     4
+
+*********************************************************************************************
+
+
+ TAN. STIFF. MATRIX FOR TRUSS EL.    1 IS
+
+  0.200E+05 0.171E+03 0.000E+00-0.200E+05-0.171E+03-0.000E+00
+  0.000E+00 0.120E+01 0.000E+00-0.171E+03-0.120E+01-0.000E+00
+  0.000E+00 0.000E+00-0.266E+00-0.000E+00-0.000E+00 0.266E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.171E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.120E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.266E+00
+
+ FULL STRUCT. TAN. STIFF. IS 
+
+  0.200E+05 0.171E+03 0.000E+00-0.200E+05-0.171E+03 0.000E+00
+  0.000E+00 0.120E+01 0.000E+00-0.171E+03-0.120E+01 0.000E+00
+  0.000E+00 0.000E+00-0.266E+00 0.000E+00 0.000E+00 0.266E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.171E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.120E+01 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.266E+00
+
+ STIFF. MAT. AFTER B. CONDS. IS
+
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.120E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ FACTORISED MATRIX IS
+ ====================
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.120E+01 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ DIAG. PIVOTS ARE
+ ================
+ 0.100E+01 0.100E+01 0.100E+01 0.100E+01 0.120E+01 0.100E+01
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.100E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.832E+00    6   0.000E+00
+ CURR. STIFF. FACTOR = 0.6008E+00   NO. OF NEG. PIVOT =  0           PIVOT RATIO = 0.6008E+00
+ THE SMALLEST PIVOT  = 0.1202E+01   THE LARGEST PIVOT = 0.1202E+01   DETERMINENT = 0.6008E+00
+ AT THE D.O.F.       =    5         AT THE D.O.F.     =    5         MINM PIV AT =    5
+ TOTAL LOAD FACTOR   = 0.7600E+01   INC LOAD FACTOR   = 0.1900E+01   INC LENGTH  = 0.8323E+00
+
+
+
+                            TOTAL DISPS. AFTER TANG. SOLN.
+ NODE No.        U        V        W            NODE No.            U        V        W
+ ========        =        =        =            ========            =        =        =
+     1     0.000E+00 0.000E+00 0.000E+00           2           0.000E+00-0.516E+01 0.000E+00
+
+ ITERATIVE LOOP WITH ITE =     1
+
+ AXIAL FORCE AN  =   -926.16    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.185231E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.9261E+03    0.7348E+01    0.0000E+00   -0.9261E+03   -0.7348E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.9261E+03  0.7348E+01  0.0000E+00 -0.9261E+03 -0.7348E+01  0.0000E+00
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      0           0.3316E-01              -.1781E+02             0.2145E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.252       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.252E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.210E+00    6   0.000E+00
+
+ AXIAL FORCE AN  =   -959.26    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.191852E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.9592E+03    0.7530E+01    0.0000E+00   -0.9592E+03   -0.7530E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.9592E+03  0.7530E+01  0.0000E+00 -0.9592E+03 -0.7530E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.1784E+02      0.2301E+02      0.2771E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -5.37       0.00    
+
+ ITERATIVE LOOP WITH ITE =     2
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      1           0.9188E-02              -.1781E+02             0.2145E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.698E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.698E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.581E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -968.37    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.193674E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.9683E+03    0.7579E+01    0.0000E+00   -0.9683E+03   -0.7579E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.9683E+03  0.7579E+01  0.0000E+00 -0.9683E+03 -0.7579E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.1784E+02      0.2344E+02      0.2982E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -5.43       0.00    
+
+ ITERATIVE LOOP WITH ITE =     3
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      2           0.2740E-02              -.1781E+02             0.2145E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.208E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.208E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.173E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -971.08    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.194216E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.9711E+03    0.7594E+01    0.0000E+00   -0.9711E+03   -0.7594E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.9711E+03  0.7594E+01  0.0000E+00 -0.9711E+03 -0.7594E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.1784E+02      0.2358E+02      0.3041E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -5.45       0.00    
+
+ ITERATIVE LOOP WITH ITE =     4
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      3           0.8331E-03              -.1781E+02             0.2145E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.633E-02   0.00    
+
+
+
+ ELEM. No.    AXIAL FORCE    ELEM. No.    AXIAL FORCE
+ =========    ===========    =========    ===========
+
+      1        -0.971E+03
+
+
+                  FINAL TOTAL DISPL.              FINAL REACTION
+ NODE No.        U        V        W            Fx        Fy        Fz
+ ========        =        =        =            ==        ==        ==
+     1     0.000E+00 0.000E+00 0.000E+00   0.971E+03 0.759E+01 0.000E+00
+     2     0.000E+00-0.545E+01 0.000E+00  -0.971E+03-0.759E+01 0.000E+00
+
+*********************************************************************************************
+
+
+
+ INCREMENT NO. =     5
+
+*********************************************************************************************
+
+
+ TAN. STIFF. MATRIX FOR TRUSS EL.    1 IS
+
+  0.200E+05 0.156E+03 0.000E+00-0.200E+05-0.156E+03-0.000E+00
+  0.000E+00 0.835E+00 0.000E+00-0.156E+03-0.835E+00-0.000E+00
+  0.000E+00 0.000E+00-0.388E+00-0.000E+00-0.000E+00 0.388E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.156E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.835E+00 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.388E+00
+
+ FULL STRUCT. TAN. STIFF. IS 
+
+  0.200E+05 0.156E+03 0.000E+00-0.200E+05-0.156E+03 0.000E+00
+  0.000E+00 0.835E+00 0.000E+00-0.156E+03-0.835E+00 0.000E+00
+  0.000E+00 0.000E+00-0.388E+00 0.000E+00 0.000E+00 0.388E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.156E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.835E+00 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.388E+00
+
+ STIFF. MAT. AFTER B. CONDS. IS
+
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.835E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ FACTORISED MATRIX IS
+ ====================
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.835E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ DIAG. PIVOTS ARE
+ ================
+ 0.100E+01 0.100E+01 0.100E+01 0.100E+01 0.835E+00 0.100E+01
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.100E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.120E+01    6   0.000E+00
+ CURR. STIFF. FACTOR = 0.4173E+00   NO. OF NEG. PIVOT =  0           PIVOT RATIO = 0.4173E+00
+ THE SMALLEST PIVOT  = 0.8345E+00   THE LARGEST PIVOT = 0.8345E+00   DETERMINENT = 0.4173E+00
+ AT THE D.O.F.       =    5         AT THE D.O.F.     =    5         MINM PIV AT =    5
+ TOTAL LOAD FACTOR   = 0.9500E+01   INC LOAD FACTOR   = 0.1900E+01   INC LENGTH  = 0.1198E+01
+
+
+
+                            TOTAL DISPS. AFTER TANG. SOLN.
+ NODE No.        U        V        W            NODE No.            U        V        W
+ ========        =        =        =            ========            =        =        =
+     1     0.000E+00 0.000E+00 0.000E+00           2           0.000E+00-0.773E+01 0.000E+00
+
+ ITERATIVE LOOP WITH ITE =     1
+
+ AXIAL FORCE AN  =   -1306.4    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.261280E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1306E+04    0.9026E+01    0.0000E+00   -0.1306E+04   -0.9026E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1306E+04  0.9026E+01  0.0000E+00 -0.1306E+04 -0.9026E+01  0.0000E+00
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      0           0.4987E-01              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.474       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.474E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.568E+00    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1383.6    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.276712E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1384E+04    0.9245E+01    0.0000E+00   -0.1384E+04   -0.9245E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1384E+04  0.9245E+01  0.0000E+00 -0.1384E+04 -0.9245E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3094E+02      0.4786E+02      0.5379E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -8.29       0.00    
+
+ ITERATIVE LOOP WITH ITE =     2
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      1           0.2683E-01              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.255       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.255E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.305E+00    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1424.0    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.284800E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1424E+04    0.9341E+01    0.0000E+00   -0.1424E+04   -0.9341E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1424E+04  0.9341E+01  0.0000E+00 -0.1424E+04 -0.9341E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3100E+02      0.5070E+02      0.6223E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -8.60       0.00    
+
+ ITERATIVE LOOP WITH ITE =     3
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      2           0.1669E-01              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.159       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.159E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.190E+00    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1448.8    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.289758E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1449E+04    0.9394E+01    0.0000E+00   -0.1449E+04   -0.9394E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1449E+04  0.9394E+01  0.0000E+00 -0.1449E+04 -0.9394E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3103E+02      0.5248E+02      0.6691E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -8.79       0.00    
+
+ ITERATIVE LOOP WITH ITE =     4
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      3           0.1117E-01              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.106       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.106E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.127E+00    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1465.2    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.293042E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1465E+04    0.9426E+01    0.0000E+00   -0.1465E+04   -0.9426E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1465E+04  0.9426E+01  0.0000E+00 -0.1465E+04 -0.9426E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3104E+02      0.5367E+02      0.6987E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -8.92       0.00    
+
+ ITERATIVE LOOP WITH ITE =     5
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      4           0.7804E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.741E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.741E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.888E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1476.6    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.295322E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1477E+04    0.9447E+01    0.0000E+00   -0.1477E+04   -0.9447E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1477E+04  0.9447E+01  0.0000E+00 -0.1477E+04 -0.9447E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3104E+02      0.5451E+02      0.7187E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.01       0.00    
+
+ ITERATIVE LOOP WITH ITE =     6
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      5           0.5609E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.533E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.533E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.638E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1484.8    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.296953E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1485E+04    0.9461E+01    0.0000E+00   -0.1485E+04   -0.9461E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1485E+04  0.9461E+01  0.0000E+00 -0.1485E+04 -0.9461E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5512E+02      0.7327E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.07       0.00    
+
+ ITERATIVE LOOP WITH ITE =     7
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      6           0.4110E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.390E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.390E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.468E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1490.7    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.298143E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1491E+04    0.9471E+01    0.0000E+00   -0.1491E+04   -0.9471E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1491E+04  0.9471E+01  0.0000E+00 -0.1491E+04 -0.9471E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5556E+02      0.7429E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.12       0.00    
+
+ ITERATIVE LOOP WITH ITE =     8
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      7           0.3053E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.290E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.290E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.348E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1495.1    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.299026E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1495E+04    0.9478E+01    0.0000E+00   -0.1495E+04   -0.9478E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1495E+04  0.9478E+01  0.0000E+00 -0.1495E+04 -0.9478E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5589E+02      0.7503E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.15       0.00    
+
+ ITERATIVE LOOP WITH ITE =     9
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      8           0.2291E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.218E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.218E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.261E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1498.4    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.299686E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1498E+04    0.9484E+01    0.0000E+00   -0.1498E+04   -0.9484E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1498E+04  0.9484E+01  0.0000E+00 -0.1498E+04 -0.9484E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5614E+02      0.7559E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.18       0.00    
+
+ ITERATIVE LOOP WITH ITE =    10
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      9           0.1732E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.165E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.165E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.197E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1500.9    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.300185E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1501E+04    0.9487E+01    0.0000E+00   -0.1501E+04   -0.9487E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1501E+04  0.9487E+01  0.0000E+00 -0.1501E+04 -0.9487E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5632E+02      0.7600E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.20       0.00    
+
+ ITERATIVE LOOP WITH ITE =    11
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+     10           0.1316E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.125E-01   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.125E-01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.150E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1502.8    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.300564E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1503E+04    0.9490E+01    0.0000E+00   -0.1503E+04   -0.9490E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1503E+04  0.9490E+01  0.0000E+00 -0.1503E+04 -0.9490E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5646E+02      0.7632E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.21       0.00    
+
+ ITERATIVE LOOP WITH ITE =    12
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+     11           0.1004E-02              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.954E-02   0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.954E-02    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.114E-01    6   0.000E+00
+
+ AXIAL FORCE AN  =   -1504.3    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.300852E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.1504E+04    0.9493E+01    0.0000E+00   -0.1504E+04   -0.9493E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.1504E+04  0.9493E+01  0.0000E+00 -0.1504E+04 -0.9493E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.3105E+02      0.5657E+02      0.7656E+00    0.1000E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -9.22       0.00    
+
+ ITERATIVE LOOP WITH ITE =    13
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+     12           0.7690E-03              -.3073E+02             0.4267E+02
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.731E-02   0.00    
+
+
+
+ ELEM. No.    AXIAL FORCE    ELEM. No.    AXIAL FORCE
+ =========    ===========    =========    ===========
+
+      1        -0.150E+04
+
+
+                  FINAL TOTAL DISPL.              FINAL REACTION
+ NODE No.        U        V        W            Fx        Fy        Fz
+ ========        =        =        =            ==        ==        ==
+     1     0.000E+00 0.000E+00 0.000E+00   0.150E+04 0.949E+01 0.000E+00
+     2     0.000E+00-0.922E+01 0.000E+00  -0.150E+04-0.949E+01 0.000E+00
+
+*********************************************************************************************
+
+
+
+ INCREMENT NO. =     6
+
+*********************************************************************************************
+
+
+ TAN. STIFF. MATRIX FOR TRUSS EL.    1 IS
+
+  0.200E+05 0.126E+03 0.000E+00-0.200E+05-0.126E+03-0.000E+00
+  0.000E+00 0.195E+00 0.000E+00-0.126E+03-0.195E+00-0.000E+00
+  0.000E+00 0.000E+00-0.602E+00-0.000E+00-0.000E+00 0.602E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.126E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.195E+00 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.602E+00
+
+ FULL STRUCT. TAN. STIFF. IS 
+
+  0.200E+05 0.126E+03 0.000E+00-0.200E+05-0.126E+03 0.000E+00
+  0.000E+00 0.195E+00 0.000E+00-0.126E+03-0.195E+00 0.000E+00
+  0.000E+00 0.000E+00-0.602E+00 0.000E+00 0.000E+00 0.602E+00
+  0.000E+00 0.000E+00 0.000E+00 0.200E+05 0.126E+03 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.195E+00 0.000E+00
+  0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00-0.602E+00
+
+ STIFF. MAT. AFTER B. CONDS. IS
+
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.195E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ FACTORISED MATRIX IS
+ ====================
+ 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.100E+01 0.000E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.195E+00 0.000E+00
+ 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.100E+01
+
+ DIAG. PIVOTS ARE
+ ================
+ 0.100E+01 0.100E+01 0.100E+01 0.100E+01 0.195E+00 0.100E+01
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.100E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.513E+01    6   0.000E+00
+ CURR. STIFF. FACTOR = 0.9739E-01   NO. OF NEG. PIVOT =  0           PIVOT RATIO = 0.9739E-01
+ THE SMALLEST PIVOT  = 0.1947E+00   THE LARGEST PIVOT = 0.1947E+00   DETERMINENT = 0.9739E-01
+ AT THE D.O.F.       =    5         AT THE D.O.F.     =    5         MINM PIV AT =    5
+ TOTAL LOAD FACTOR   = 0.1140E+02   INC LOAD FACTOR   = 0.1900E+01   INC LENGTH  = 0.5135E+01
+
+
+
+                            TOTAL DISPS. AFTER TANG. SOLN.
+ NODE No.        U        V        W            NODE No.            U        V        W
+ ========        =        =        =            ========            =        =        =
+     1     0.000E+00 0.000E+00 0.000E+00           2           0.000E+00-0.190E+02 0.000E+00
+
+ ITERATIVE LOOP WITH ITE =     1
+
+ AXIAL FORCE AN  =   -2354.8    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.470967E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.2355E+04    0.5671E+01    0.0000E+00   -0.2355E+04   -0.5671E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.2355E+04  0.5671E+01  0.0000E+00 -0.2355E+04 -0.5671E+01  0.0000E+00
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      0           0.5026E+00              -.7773E+02             0.1386E+03
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00      -5.73       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.573E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.294E+02    6   0.000E+00
+
+ AXIAL FORCE AN  =   -310.13    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   = -0.620269E-05
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+     0.3101E+03   -0.2902E+01    0.0000E+00   -0.3101E+03    0.2902E+01   -0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+   0.3101E+03 -0.2902E+01  0.0000E+00 -0.3101E+03  0.2902E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.5493E+03      0.2405E+01      0.2496E+01    0.1000E+01
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00       5.00    
+
+ RATIOS   1.00       2.50    
+
+ AXIAL FORCE AN  =    77037.    
+ NEW LENGTH, ALN =     2504.    
+ NEW STRAIN   =  0.154074E-02
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.7691E+05    0.4340E+04   -0.0000E+00    0.7691E+05   -0.4340E+04    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.7691E+05  0.4340E+04  0.0000E+00  0.7691E+05 -0.4340E+04  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      1       0.1465E+06      0.1484E+06     -0.7556E+03    0.5000E+01
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00       5.00       1.80    
+
+ RATIOS   1.00       2.50      -756.    
+
+ AXIAL FORCE AN  =    6309.6    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.126192E-03
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.6308E+04    0.1184E+03   -0.0000E+00    0.6308E+04   -0.1184E+03    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.6308E+04  0.1184E+03  0.0000E+00  0.6308E+04 -0.1184E+03  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      2       0.1753E+03      0.9953E+03     -0.1868E+02    0.1800E+01
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00       5.00       1.80       1.16    
+
+ RATIOS   1.00       2.50      -756.      -18.7    
+
+ AXIAL FORCE AN  =    659.44    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.131888E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.6594E+03    0.7413E+01   -0.0000E+00    0.6594E+03   -0.7413E+01    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.6594E+03  0.7413E+01  0.0000E+00  0.6594E+03 -0.7413E+01  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      3      -0.5945E+03      0.1087E+02      0.6959E+00    0.1160E+01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -53.1       0.00    
+
+ ITERATIVE LOOP WITH ITE =     2
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      1           0.3497E+00              -.7773E+02             0.1386E+03
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00      -3.99       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.399E+01    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.205E+02    6   0.000E+00
+
+ AXIAL FORCE AN  =    6938.1    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.138761E-03
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.6937E+04    0.1348E+03   -0.0000E+00    0.6937E+04   -0.1348E+03    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.6937E+04  0.1348E+03  0.0000E+00  0.6937E+04 -0.1348E+03  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0       0.3647E+03      0.1203E+04     -0.3095E+02    0.1000E+01
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00      0.200    
+
+ RATIOS   1.00      -30.9    
+
+ AXIAL FORCE AN  =    1647.0    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.329402E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.1647E+04    0.2121E+02   -0.0000E+00    0.1647E+04   -0.2121E+02    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.1647E+04  0.2121E+02  0.0000E+00  0.1647E+04 -0.2121E+02  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      1      -0.5843E+03      0.6782E+02     -0.2461E+01    0.2000E+00
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00      0.200      0.578E-01
+
+ RATIOS   1.00      -30.9      -2.46    
+
+ AXIAL FORCE AN  =    931.03    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.186205E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.9310E+03    0.1091E+02   -0.0000E+00    0.9310E+03   -0.1091E+02    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.9310E+03  0.1091E+02  0.0000E+00  0.9310E+03 -0.1091E+02  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      2      -0.5972E+03      0.2167E+02      0.1238E+00    0.5779E-01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -54.3       0.00    
+
+ ITERATIVE LOOP WITH ITE =     3
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      2           0.4330E-01              -.7773E+02             0.1386E+03
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.494       0.00    
+
+
+ THE RIGHT HAND SIDE ARE :
+ =========================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.494E+00    6   0.000E+00
+
+ DISP. INCS. AFTER BACKWARD SUBS. ARE :
+ ====================================
+    1   0.000E+00    2   0.000E+00    3   0.000E+00    4   0.000E+00    5  -0.253E+01    6   0.000E+00
+
+ AXIAL FORCE AN  =    1550.5    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.310104E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.1550E+04    0.1973E+02   -0.0000E+00    0.1550E+04   -0.1973E+02    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.1550E+04  0.1973E+02  0.0000E+00  0.1550E+04 -0.1973E+02  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      0      -0.5877E+03      0.6011E+02     -0.1689E+02    0.1000E+01
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00      0.200    
+
+ RATIOS   1.00      -16.9    
+
+ AXIAL FORCE AN  =    1050.8    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.210163E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.1051E+04    0.1252E+02   -0.0000E+00    0.1051E+04   -0.1252E+02    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.1051E+04  0.1252E+02  0.0000E+00  0.1051E+04 -0.1252E+02  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      1      -0.5971E+03      0.2761E+02     -0.2274E+01    0.2000E+00
+
+ L-S PARAMETERS
+ ETAS     0.00       1.00      0.200      0.611E-01
+
+ RATIOS   1.00      -16.9      -2.27    
+
+ AXIAL FORCE AN  =    967.39    
+ NEW LENGTH, ALN =     2500.    
+ NEW STRAIN   =  0.193478E-04
+
+ INT. FORCE VECT. FOR TRUSS EL    1 IS 
+    -0.9673E+03    0.1139E+02   -0.0000E+00    0.9673E+03   -0.1139E+02    0.0000E+00
+
+ STRUCT. INT. FORCE VECT IS
+  -0.9673E+03  0.1139E+02  0.0000E+00  0.9673E+03 -0.1139E+02  0.0000E+00
+
+                  L-S No.  POTENTIAL ENERGY  STRAIN ENERGY  E-CHANGE RATIO  STEP LENGTH
+                  -------  ----------------  -------------  --------------  -----------
+                      2      -0.5972E+03      0.2340E+02      0.1564E-01    0.6108E-01
+
+ TOTAL DISPS ARE
+    0.00       0.00       0.00       0.00      -54.4       0.00    
+
+ ITERATIVE LOOP WITH ITE =     4
+
+
+ ITER.  No.       CONV. FAC.       TOTAL POTENTIAL ENERGY       STRAIN ENERGY  
+ ============     ============     ========================     =============
+      3           0.6771E-03              -.7773E+02             0.1386E+03
+
+ OUT-OF-BAL. FORCE VECTOR = 
+    0.00       0.00       0.00       0.00     -0.772E-02   0.00    
+
+
+
+ ELEM. No.    AXIAL FORCE    ELEM. No.    AXIAL FORCE
+ =========    ===========    =========    ===========
+
+      1         0.967E+03
+
+
+                  FINAL TOTAL DISPL.              FINAL REACTION
+ NODE No.        U        V        W            Fx        Fy        Fz
+ ========        =        =        =            ==        ==        ==
+     1     0.000E+00 0.000E+00 0.000E+00  -0.967E+03 0.114E+02 0.000E+00
+     2     0.000E+00-0.544E+02 0.000E+00   0.967E+03-0.114E+02 0.000E+00
+
+!!!! NFEA EXECUTION COMPLETED !!!!
+

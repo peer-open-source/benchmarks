@@ -1,0 +1,227 @@
+
+ NV = NO. OF VARBLS. =     4
+ E =    .50000E+08
+ ARA = EL. INIT. AREA =    1.0000    
+ POISS =    .00000    
+ ANIT = INIT. FORCE =    .00000    
+
+ ELEMENT TYPE =     2
+   = 1, GREENS STRAIN
+   = 2, ENGNG. STRAIN
+   = 3, LOG STRAIN
+   = 4 LOG STRAIN WITH VOLUME CHANGES
+
+ X CO-ORD OF NODE 1 =    .00000     X CO-ORD OF NODE 2 =    2500.0    
+
+ Z CO-ORD OF NODE 1 =    .00000     Z CO-ORD OF NODE 2 =    25.000    
+
+ FIXED LOAD OR DISP. VECTOR,QFI = 
+    .00000       .00000       .00000      -1.0000    
+
+ IF IBC(I) - SEE BELOW - = 0, VARIABLE = A LOAD
+ IF IBC(I) - SEE BELOW - =-1, VARIABLE = A DISP.
+
+ BOUND. COND. COUNTER, IBC
+ = 0, FREE:  = 1, REST. TO ZERO: =-1 REST. TO NON-ZERO
+     1    1    1    0
+
+ INCREMENTAL LOAD FACTOR =    1.9000    
+ NO. OF INCS. (NINC) =     6
+ WRITE CONTROL (IWRIT) =     0
+   0 = LIMITED ; 1 = FULL
+ IAUTO =     0
+   0 = FIXED INCS., 1 = AUTOMATIC
+ IARC =     0
+   0 = LOAD INCS., 1 = ARC-LENGTH
+ IACC =     0
+   0 = NO ACCEL, 1 = ACCEL WITH MOD. N-R
+ IRES =     0
+   0 = NOT A RE-START, 1 = IS A RE-START
+
+ CONV. TOL FACTOR, BETOK =    .10000E-02
+ ITERATIVE SOLN. TYPE, ITERTY =     2
+     = 1, FULL N-R;   = 2, MOD. N-R
+ MAX NO OF ITERATIONS =    21
+ MAX NO. OF L-SEARCHES =     4
+
+ LINE SEARCH PARAMS ARE
+   TOLERANCE ON RATIO, PERMLS =     .8000    
+   MAX. AMP. AT ANY STEP, AMPMX =     5.000    
+   MAX. TOTAL STEP-LENGTH, ETMXA =     25.00    
+   MIN. TOTAL STEP-LENGTH, ETMNA =     .1000E-01
+
+
+ INCREMENT NO. =     1
+
+ CURRENT STIFF. FACTOR =     1.000     NO. OF NEG. PIVS. =     0
+
+ TOTAL LD FACTOR =     1.900     INC FACTOR =     1.900     INC LENGTH =     .5001    
+
+ TOTAL DISPS. AFTER TANG. SOLN ARE 
+     .0000        .0000        .0000       -.9501    
+
+ ITERN. NO. =     0 CONV. FAC. =    .56281E-01
+
+ ITERN. NO. =     1 CONV. FAC. =    .64681E-02
+
+ ITERN. NO. =     2 CONV. FAC. =    .76556E-03
+
+ FINAL TOTAL DISPLACEMENTS ARE
+   .00000      .00000      .00000     -1.0098    
+
+ FINAL REACTIONS ARE
+   197.85     -197.85      1.8985     -1.8985    
+
+ AXIAL FORCE IN BAR IS  -197.85    
+
+
+ INCREMENT NO. =     2
+
+ CURRENT STIFF. FACTOR =     .8813     NO. OF NEG. PIVS. =     0
+
+ TOTAL LD FACTOR =     3.800     INC FACTOR =     1.900     INC LENGTH =     .5674    
+
+ TOTAL DISPS. AFTER TANG. SOLN ARE 
+     .0000        .0000        .0000       -2.088    
+
+ ITERN. NO. =     0 CONV. FAC. =    .35071E-01
+
+ ITERN. NO. =     1 CONV. FAC. =    .49945E-02
+
+ ITERN. NO. =     2 CONV. FAC. =    .73814E-03
+
+ FINAL TOTAL DISPLACEMENTS ARE
+   .00000      .00000      .00000     -2.1743    
+
+ FINAL REACTIONS ARE
+   415.89     -415.89      3.7972     -3.7972    
+
+ AXIAL FORCE IN BAR IS  -415.91    
+
+
+ INCREMENT NO. =     3
+
+ CURRENT STIFF. FACTOR =     .7505     NO. OF NEG. PIVS. =     0
+
+ TOTAL LD FACTOR =     5.700     INC FACTOR =     1.900     INC LENGTH =     .6664    
+
+ TOTAL DISPS. AFTER TANG. SOLN ARE 
+     .0000        .0000        .0000       -3.440    
+
+ ITERN. NO. =     0 CONV. FAC. =    .30729E-01
+
+ ITERN. NO. =     1 CONV. FAC. =    .57691E-02
+
+ ITERN. NO. =     2 CONV. FAC. =    .11380E-02
+
+ ITERN. NO. =     3 CONV. FAC. =    .22654E-03
+
+ FINAL TOTAL DISPLACEMENTS ARE
+   .00000      .00000      .00000     -3.5833    
+
+ FINAL REACTIONS ARE
+   665.22     -665.22      5.6987     -5.6987    
+
+ AXIAL FORCE IN BAR IS  -665.24    
+
+
+ INCREMENT NO. =     4
+
+ CURRENT STIFF. FACTOR =     .6008     NO. OF NEG. PIVS. =     0
+
+ TOTAL LD FACTOR =     7.600     INC FACTOR =     1.900     INC LENGTH =     .8323    
+
+ TOTAL DISPS. AFTER TANG. SOLN ARE 
+     .0000        .0000        .0000       -5.165    
+
+ ITERN. NO. =     0 CONV. FAC. =    .33156E-01
+
+ ITERN. NO. =     1 CONV. FAC. =    .91883E-02
+
+ ITERN. NO. =     2 CONV. FAC. =    .27397E-02
+
+ ITERN. NO. =     3 CONV. FAC. =    .83307E-03
+
+ FINAL TOTAL DISPLACEMENTS ARE
+   .00000      .00000      .00000     -5.4499    
+
+ FINAL REACTIONS ARE
+   971.05     -971.05      7.5937     -7.5937    
+
+ AXIAL FORCE IN BAR IS  -971.08    
+
+
+ INCREMENT NO. =     5
+
+ CURRENT STIFF. FACTOR =     .4173     NO. OF NEG. PIVS. =     0
+
+ TOTAL LD FACTOR =     9.500     INC FACTOR =     1.900     INC LENGTH =     1.198    
+
+ TOTAL DISPS. AFTER TANG. SOLN ARE 
+     .0000        .0000        .0000       -7.727    
+
+ ITERN. NO. =     0 CONV. FAC. =    .49874E-01
+
+ ITERN. NO. =     1 CONV. FAC. =    .26828E-01
+
+ ITERN. NO. =     2 CONV. FAC. =    .16694E-01
+
+ ITERN. NO. =     3 CONV. FAC. =    .11170E-01
+
+ ITERN. NO. =     4 CONV. FAC. =    .78043E-02
+
+ ITERN. NO. =     5 CONV. FAC. =    .56089E-02
+
+ ITERN. NO. =     6 CONV. FAC. =    .41099E-02
+
+ ITERN. NO. =     7 CONV. FAC. =    .30532E-02
+
+ ITERN. NO. =     8 CONV. FAC. =    .22909E-02
+
+ ITERN. NO. =     9 CONV. FAC. =    .17316E-02
+
+ ITERN. NO. =    10 CONV. FAC. =    .13161E-02
+
+ ITERN. NO. =    11 CONV. FAC. =    .10045E-02
+
+ ITERN. NO. =    12 CONV. FAC. =    .76903E-03
+
+ FINAL TOTAL DISPLACEMENTS ARE
+   .00000      .00000      .00000     -9.2234    
+
+ FINAL REACTIONS ARE
+   1504.2     -1504.2      9.4927     -9.4927    
+
+ AXIAL FORCE IN BAR IS  -1504.3    
+
+
+ INCREMENT NO. =     6
+
+ CURRENT STIFF. FACTOR =     .9739E-01 NO. OF NEG. PIVS. =     0
+
+ TOTAL LD FACTOR =     11.40     INC FACTOR =     1.900     INC LENGTH =     5.135    
+
+ TOTAL DISPS. AFTER TANG. SOLN ARE 
+     .0000        .0000        .0000       -18.98    
+
+ ITERN. NO. =     0 CONV. FAC. =    .50256    
+
+ L-S, EXTRA RES. CALCS =     3 S-L =     1.160    
+
+ ITERN. NO. =     1 CONV. FAC. =    .34975    
+
+ L-S, EXTRA RES. CALCS =     2 S-L =     .5779E-01
+
+ ITERN. NO. =     2 CONV. FAC. =    .43299E-01
+
+ L-S, EXTRA RES. CALCS =     2 S-L =     .6108E-01
+
+ ITERN. NO. =     3 CONV. FAC. =    .67706E-03
+
+ FINAL TOTAL DISPLACEMENTS ARE
+   .00000      .00000      .00000     -54.443    
+
+ FINAL REACTIONS ARE
+  -967.33      967.33      11.392     -11.392    
+
+ AXIAL FORCE IN BAR IS   967.39    
