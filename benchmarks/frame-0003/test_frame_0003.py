@@ -4,7 +4,7 @@ import xara
 from math import isclose
 
 
-def test_2D():
+def test_ops_2D():
     ft = 1
     kip = 1
 
@@ -20,10 +20,13 @@ def test_2D():
 
     ops = xara.Model(ndm=2, ndf=3)
 
-    ops.node(1,0,0); ops.fix(1,1,1,1)
-    ops.node(2,L,0); ops.fix(2,0,1,0)
+    ops.node(1,0,0)
+    ops.node(2,L,0)
 
-    ops.geomTransf('Linear',1)
+    ops.fix(1,1,1,1)
+    ops.fix(2,0,1,0)
+
+    ops.geomTransf("Linear", 1)
 
     Np = 3
     ops.section('Elastic',1,E,A,I)
