@@ -35,9 +35,9 @@ def test():
   nIP = 5
 
   elements = [
-          "PrismFrame",
-          "ForceFrame",
-          "forceBeamColumn"
+      "PrismFrame",
+      "ForceFrame",
+      "forceBeamColumn"
   ]
 
   for element in elements:

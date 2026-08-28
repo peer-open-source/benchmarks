@@ -1,3 +1,4 @@
+
 foreach algorithm {KrylovNewton SecantNewton ModifiedNewton} {
   wipe
   model basic -ndm 1 -ndf 1 
