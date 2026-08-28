@@ -1,10 +1,10 @@
 #pragma openseespy
-model  -ndm 3 -ndf 7
+model Basic -ndm 3 -ndf 7
 set E 29000.0
 set G 11153.846153846154
 set L 200.0
 
-material ElasticIsotropic 1 29000.0 0.3 
+material ElasticIsotropic 1 $E 0.3 
 section ShearFiber 1 -GJ 0 {
   fiber  -area 0.0019076179037871496 -y -3.9271090617088884 -z -10.695798549204072 -warp {{11.326192153628297 -10.75539704593181 3.9986596355943873} {0 0.0 0}} -material 1 -section 1
   fiber  -area 0.0016976815682879678 -y -1.6622277259153038 -z -13.615953255211297 -warp {{47.78213666087289 -13.134315402470222 2.0219477952946496} {0 0.0 0}} -material 1 -section 1
