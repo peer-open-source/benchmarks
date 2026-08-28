@@ -90,6 +90,7 @@ if {[expr abs(100*($resU-$delta)/$delta)] > 0.5 || [expr abs(100*($resM-$moment)
 }
 
 
+
 if {$ok == 0} {
     puts "PASSED Verification Test AISC25.tcl \n\n"
 } else {
