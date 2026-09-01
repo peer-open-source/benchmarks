@@ -334,12 +334,13 @@ pattern Plain 1 Linear {
 }
 
 
-foreach solver {Umfpack SparseGen ProfileSPD BandGen} {
+foreach solver {Umfpack ProfileSPD BandGen SparseGen } {
   reset
+  verify about $solver
   system $solver
   integrator LoadControl 1.0 
   analysis Static 
-  analyze 1 
+  analyze 1
 
   verify value "[nodeDisp 13 2]" -0.17094139283802176
   printB -ret
