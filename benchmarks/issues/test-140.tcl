@@ -94,4 +94,4 @@ if {$uxmax > 1.0e-12} {
 }
 
 puts [format "PASS test_quadup_shear_column (uy=%.6e max|ux|=%.3e)" $uy $uxmax]
-exit 0
+
