@@ -16,7 +16,7 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
   #
   model BasicBuilder -ndm 3 -ndf 3
 
-  # create the materials
+  # create the nodes
   node 1  0.00000000 0.00000000 0.00000000
   node 2  0.00000000 1.00000000 0.00000000 
   node 3  1.00000000 1.00000000 0.00000000 
@@ -33,12 +33,13 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
   set nu 0.499
   set G [expr $E / 2.0 / (1 + $nu)]
   set K [expr $E / 3.0 / (1 - 2.0 * $nu)]
+  set rho 1.7
 
   set R [expr 100.0]
   set su [expr sqrt(3.0 / 8.0) * $R]
   # nDMaterial ElasticIsotropic 1 100000 0.3 
   # nDMaterial J2CyclicBoundingSurface  tag? G? K? su? rho? h? m? h0? chi? beta? in kpa
-  nDMaterial J2CyclicBoundingSurface 1 $G $K $su 1.7 $G 1.0 0.2 0.0 0.5
+  nDMaterial J2CyclicBoundingSurface 1 $G $K $su $rho $G 1.0 0.2 0.0 0.5
 
   # create the elements
   element SSPbrick    1    1 4 3 2 5 8 7 6   1
@@ -73,11 +74,16 @@ for {set ii 0} {$ii < [llength $strains]} {incr ii} {
   test        NormDispIncr 1e-9 50 0
   algorithm   Newton
   numberer    Plain
-  system      SparseSPD
+  system      BandSPD; #SparseSPD
   integrator  LoadControl 0.004
   analysis    Static
    
   analyze    2000
 
+  reactions
+  verify value [nodeDisp 5 3]  0.00000000000002189360 1e-12
+  verify value [nodeDisp 2 2] -0.00000448309979891026 1e-12
+
+  verify error [nodeReaction 1 3] 22.41549891367408164911 1e-12
   wipe
 }
