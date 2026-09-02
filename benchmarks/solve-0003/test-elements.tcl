@@ -1,3 +1,9 @@
+#
+# - Clarke, M.J. and Hancock, G.J. (1990)
+#   "A study of incremental‐iterative strategies for non‐linear analyses", 
+#   International Journal for Numerical Methods in Engineering, 29(7), pp. 1365–1391. 
+#   Available at: https://doi.org/10.1002/nme.1620290702.
+#
 foreach Frame {PrismFrame ForceFrame} {
 
   wipe
@@ -53,7 +59,7 @@ foreach Frame {PrismFrame ForceFrame} {
   test NormDispIncr 1e-08 20 0
   algorithm Newton 
   analysis Static
-  integrator ArcLength 45 0 -det -exp 0.5 -reference point -j 6
+  integrator ArcLength 45 0 -det -exp 0.0 -reference point -j 6
 
 
   verify value [analyze 110] 0

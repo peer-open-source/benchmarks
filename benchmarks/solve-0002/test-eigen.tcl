@@ -5,7 +5,7 @@
 #
 # results as computed by matlab: 0.139300647653736 1.05865310768512 4.9582024008173
 
-# using following 3 commands:
+# using following commands:
 # format longG
 # K = [[50 -20 0];[-20 30 -10];[0 -10 10]]
 # M = [[11.1 0 0];[0 22.2 0];[0 0 33.3]]
@@ -38,10 +38,10 @@ set numEigen 2
 set eigenValues [eigen $numEigen]
 
 for {set i 0} {$i<$numEigen} {incr i 1} {
-    set OpenSeesR [lindex $eigenValues  $i]
-    set exactR    [lindex $exactResults $i]
+  set OpenSeesR [lindex $eigenValues  $i]
+  set exactR    [lindex $exactResults $i]
 
-    verify value $OpenSeesR $exactR $tol
+  verify value $OpenSeesR $exactR $tol
 }
 
 puts "\nChecking Computation of Largest Eigenvalues:"

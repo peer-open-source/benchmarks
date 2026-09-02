@@ -1,9 +1,15 @@
-set A 10000.0 
-set E 200 
-set Iy 100000000.0 
+#
+# - Clarke, M.J. and Hancock, G.J. (1990)
+#   "A study of incremental‐iterative strategies for non‐linear analyses", 
+#   International Journal for Numerical Methods in Engineering, 29(7), pp. 1365–1391. 
+#   Available at: https://doi.org/10.1002/nme.1620290702.
+#
+set A  10000.0 
+set E  200 
+set Iy 100000000.0
 set Iz 100000000.0 
-set J 200000000.0 
-set G 200 
+set J  200000000.0 
+set G  200 
 set Ay 1000000.0 
 set Az 1000000.0
 
@@ -68,13 +74,13 @@ foreach Frame {forceBeamColumn} {
   integrator MinUnbalDispNorm 100 5 0.01 5 -det
   analysis Static
 
-  set out [open a.out w+]
-  for {set i 0} { $i < 1000 } {incr i} {
-    if {0 != [analyze 1]} {
-        puts $i
-        break
-    }
-    puts $out "[expr -1*[nodeDisp 6 2]] [getTime] "
-  }
+  # set out [open a.out w+]
+  # for {set i 0} { $i < 1000 } {incr i} {
+  #   if {0 != [analyze 1]} {
+  #       puts $i
+  #       break
+  #   }
+  #   puts $out "[expr -1*[nodeDisp 6 2]] [getTime] "
+  # }
 }
-close $out
+# close $out

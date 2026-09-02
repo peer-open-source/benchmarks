@@ -54,7 +54,8 @@ def create_model_offset(transform, element, offset=True, nen=2, ne=6, ndm=3):
 
     model.geomTransf(transform, 1, (0, 0, 1))
     model.geomTransf(transform, 2, (0, 0, 1), 
-                    jntOffset=(0, 0, 0,    e if offset else 0, 0,0))
+                    jntOffset=(0, 0, 0,    
+                               e if offset else 0, 0,0))
 
 
     for i in range(ne):
@@ -157,4 +158,19 @@ def test_pdelta():
     assert model.nodeDisp(tip, 1) == pytest.approx(-2.795031055900625, abs=1e-10)
     assert model.nodeDisp(tip, 2) == pytest.approx(-0.134641250803170, abs=1e-10)
     assert model.nodeDisp(tip, 6) == pytest.approx( 0.042121796244735, abs=1e-10)
+
+
+# def test_C3():
+#     model = analyze("PDelta02", "PrismFrame", 
+#             offset=True, 
+#             tol=1e-14, 
+#             n=1, # 1 step
+#             ne=1, 
+#             verbose=False, 
+#             dlam=1)
+
+#     tip = find_node(model, y=L)
+#     assert model.nodeDisp(tip, 1) == pytest.approx(-2.795031055900625, abs=1e-10)
+#     assert model.nodeDisp(tip, 2) == pytest.approx(-0.134641250803170, abs=1e-10)
+#     assert model.nodeDisp(tip, 6) == pytest.approx( 0.042121796244735, abs=1e-10)
 

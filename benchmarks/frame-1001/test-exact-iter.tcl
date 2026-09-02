@@ -1,3 +1,15 @@
+# Example 7.1 in Simo and Vu-Quoc (1986).
+#
+#
+# Reference
+# ---------
+#
+# Simo, J. C., and L. Vu-Quoc. 
+#   “A Three-Dimensional Finite-Strain Rod Model. Part II: Computational Aspects.” 
+#   Computer Methods in Applied Mechanics and Engineering 58, no. 1 (1986): 79–116. 
+#   https://doi.org/10.1016/0045-7825(86)90079-4.
+#
+
 model Basic -ndm 3 -ndf 6
 
 node 1 0.0 0.0 0.0 
@@ -21,7 +33,8 @@ element ExactFrame 4  4 5  -section 1 -transform 1
 element ExactFrame 5  5 6  -section 1 -transform 1
 
 
-test EnergyIncr 1e-12 10 0
+test EnergyIncr 1e-12 10 1
+
 pattern Plain 1 Linear {
   load 6 0 0 0 0 0 [expr -4.0*acos(-1)];
 }

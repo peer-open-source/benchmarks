@@ -53,7 +53,7 @@ foreach Frame {PrismFrame ForceFrame} {
   test NormDispIncr 1e-08 8 0
   algorithm Newton 
   analysis Static
-  integrator ArcLength 45 0 -det -exp 0.5 -reference point
+  integrator ArcLength 45 0 -det -exp 0.0 -reference point
 
 
   verify value [analyze 110] 0
