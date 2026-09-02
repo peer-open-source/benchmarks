@@ -8,9 +8,9 @@ def test_LMS():
     # ========================================================================================
     
     model = xara.Model(ndm=3, ndf=6)
-    # ----------------------------------------------------------------------------------------
+    #
     # Create uniaxial steel materials
-    # ----------------------------------------------------------------------------------------
+    #
     # steel x
     fyX = 469.93             # fy
     bx = 0.02                # strain hardening
@@ -63,9 +63,9 @@ def test_LMS():
     nu = 0.35                           # friction coefficient
     alfadow = 0.005                     # dowel action stiffness parameter
     
-    # ----------------------------------------------------------------------------------------
+    #
     # Create FSAM nDMaterial
-    # ----------------------------------------------------------------------------------------
+    #
     
     model.nDMaterial('FSAM', 6, 0.0, 1, 2, 4, rouXw, rouYw, nu, alfadow)           # Web (unconfined concrete)
     model.nDMaterial('FSAM', 7, 0.0, 1, 3, 5, rouXb, rouYb, nu, alfadow)           # Boundary (confined concrete)

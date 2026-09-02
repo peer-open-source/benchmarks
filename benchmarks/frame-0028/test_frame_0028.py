@@ -73,7 +73,7 @@ def _run_axial(element, load_type="center"):
 
     model.pattern(xara.StaticPattern(load))
 
-    assert model.getEleLoadClassTags() == 141414
+    assert model.getEleLoadClassTags()  == 141414
     assert model.getEleLoadClassTags(1) == 141414
     assert model.getEleLoadClassTags(pattern=1) == 141414
 
@@ -258,6 +258,7 @@ def test_twist_column_local_couple():
 
 #         assert isclose(-T, root_torque), (root_torque, -T)
 #         assert isclose(T*L/(G*J), twist), (twist, T*L/(G*J))
+
 
 if __name__ == "__main__":
     test_axial()

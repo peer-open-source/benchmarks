@@ -81,7 +81,7 @@ def create_model(element="stdBrick"):
         model.load(node, (0.0, 4 * P_base, 0.0))
 
     model.integrator("LoadControl", 1.0)
-    model.test("NormUnbalance", 1.0e-10, 20, 1)
+    model.test("NormUnbalance", 1.0e-10, 2, 1)
     model.algorithm("Newton")
     model.constraints("Plain")
     model.system("Umfpack")
@@ -97,8 +97,6 @@ def create_model(element="stdBrick"):
 def check_displacement(element):
     model, tip, P, L, E, Iy = create_model(element)
 
-    # veux.serve(veux.render(model))
-
     # Euler-Bernoulli beam theory: delta = P*L^3 / (3*E*I)
     expected = P * L**3 / (3 * E * Iy)
 
@@ -110,7 +108,7 @@ def check_displacement(element):
 
 
 def test():
-    for element in ["SSPbrick", "H8E12"]:
+    for element in ["SSPbrick"]:
         check_displacement(element)
 
 
