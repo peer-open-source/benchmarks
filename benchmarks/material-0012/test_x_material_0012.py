@@ -13,7 +13,7 @@ E = 200000.0
 v = 0.3
 G = E/(2.0*(1.0+v))
 K = E/(3.0*(1.0-2.0*v))
-sig0 = 400.0
+Fy = 400.0
 
 
 import xara
@@ -71,7 +71,7 @@ def analyze_dir(dX, dY, material):
     model = create_patch(material)
 
     # a simple ramp
-    model.timeSeries("Linear", 1, factor=2.0*sig0 )
+    model.timeSeries("Linear", 1, factor=2.0*Fy)
 
     # imposed stresses
     model.pattern("Plain", 1, 1 )
