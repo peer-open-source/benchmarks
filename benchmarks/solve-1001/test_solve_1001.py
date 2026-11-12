@@ -73,6 +73,7 @@ def setup(test_name, tol,
             pFlag=0,
             type=search_type
         )
+
     else:
         model.algorithm(algorithm)
 
