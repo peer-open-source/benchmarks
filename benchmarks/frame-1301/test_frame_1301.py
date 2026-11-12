@@ -145,7 +145,8 @@ def run_bwd(element):
 
     print(solution(E, I, M, L, L))
 
-    dE, dIz = df(E,I)
+    dE, dIz = map(float, df(E,I))
+
     print("∂f/∂E =", dE)
     print("∂f/∂Iz =", dIz)
 
@@ -162,7 +163,7 @@ def run_bwd(element):
 
         print(name, "\t", val, "\t", ref, "\t", ((val-ref)/ref)*100, "%")
     
-    _print(("u", "E"), dE, -1.0)
+    _print(("u", "E"), dE,  -1.0)
     _print(("u", "I"), dIz, -0.5)
 
 
